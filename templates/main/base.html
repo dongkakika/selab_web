@@ -1,53 +1,108 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
-
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     {% block header %}
     <!-- header 삽입 부분 -->
     <style>
-        .navbar-default{
-            background-color: ;
-
+        .ml-auto{
+            padding-right: 20px;
         }
-        .navbar-nav{
+        .mr-auto{
+            padding-left: 20px;
+        }
+        .navbar-brand{
+            font-size: 15px;
+        }
+        .logoName{
+            padding-left: 10px;
+            text-decoration: none;
+            color: #D8D8D8;
+        }
+        a:hover{
+            text-decoration: none;
             color: white;
         }
+
+
     </style>
     {% endblock %}
 </head>
 
-<body style="background-color: #F6F6F6;">
+<body>
     {% block contents %}
     <!-- body -->
-    <nav class="navbar navbar-yellowgreen">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img src="cbnu.png" width="50" /></a>
-                <a class="navbar-brand" href="#">CBNU SELAB</a>
-            </div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
 
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Introduction</a></li>
-                    <li><a href="#">People</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Notice</a></li>
-                </ul>
-            </div>
+        <a class="mr-auto"><img src="{% static 'images/SELab_logo2-removed.png' %}" alt="Logo" width="55" /></a>
+        <a class="logoName" href="#">소프트웨어 공학 연구실</a>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="nav navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Introduction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">People</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notice</a>
+                </li>
+
+            </ul>
         </div>
+
     </nav>
-    <h3>hi</h3>
+
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+    <div>hi</div>
+
 
     {% endblock %}
 
