@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CBNU - SELab</title>
+    <!-- header -->
+    {% block header %}
+    <link rel = "stylesheet" href="{% static 'css/home.css' %}?ver=1.1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <style>
+        .bg-1{
+            color: white;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <!-- body contents -->
+    {% block contents %}
+
+    <br>
+    <div class="bg-1 container-fluid text-center">
+            <br><br><br><br><br><br>
+        <h1 style="font-size:50px;"><FONT face="Blacksword" style="letter-spacing:2px;">We are Software Engineers</FONT></h1><br><br><br>
+
+        <br><br><br><br><br>
+    </div>
+    <div id="bg_img" class=""></div>
+
+
+
+    {% endblock %}
+</body>
+</html>

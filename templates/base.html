@@ -8,8 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    {% block header %}
-    <!-- header 삽입 부분 -->
     <style>
         .ml-auto{
             padding-right: 20px;
@@ -23,22 +21,21 @@
         .logoName{
             padding-left: 10px;
             text-decoration: none;
-            color: #D8D8D8;
+            color: white;
         }
         a:hover{
             text-decoration: none;
             color: white;
         }
-
-
     </style>
+
+    {% block header %}
+    <!-- header 삽입 부분 -->
     {% endblock %}
 </head>
 
-<body>
-    {% block contents %}
-    <!-- body -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+<body style="background-color: #343A40;">
+    <nav class="bg-dark navbar-dark navbar navbar-expand-sm navbar-white sticky-top">
 
         <a class="mr-auto"><img src="{% static 'images/SELab_logo2-removed.png' %}" alt="Logo" width="55" /></a>
         <a class="logoName" href="#">소프트웨어 공학 연구실</a>
@@ -65,45 +62,12 @@
 
             </ul>
         </div>
-
     </nav>
 
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
-    <div>hi</div>
 
 
+    {% block contents %}
+    <!-- body -->
     {% endblock %}
 
     {% if messages %}

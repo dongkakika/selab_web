@@ -1,0 +1,13 @@
+#bg_img {
+    padding-top: 30%;
+    background-image: url(../images/Everest_1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+@font-face{
+    font-family: Blacksword;
+    src: url('../fonts/Blacksword.otf');
+}
