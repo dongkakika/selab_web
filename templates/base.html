@@ -4,41 +4,45 @@
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel = "stylesheet" href="{% static 'css/base.css' %}?ver=1.3">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
     <style>
-        .ml-auto{
-            padding-right: 20px;
-        }
-        .mr-auto{
-            padding-left: 20px;
-        }
-        .navbar-brand{
-            font-size: 15px;
-        }
-        .logoName{
-            padding-left: 10px;
-            text-decoration: none;
-            color: white;
-        }
-        a:hover{
-            text-decoration: none;
-            color: white;
-        }
+
     </style>
+    <script type="text/javascript">
+        $(function(){
+            $("#cbnu_logo").click(function(){
+                var tempElem = document.createElement('textarea');
+                tempElem.value = 'jehong@chungbuk.ac.kr';
+                document.body.appendChild(tempElem);
+                tempElem.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempElem);
+                alert("copied: jehong@chungbuk.ac.kr");
+            });
+        });
+    </script>
 
     {% block header %}
     <!-- header 삽입 부분 -->
     {% endblock %}
 </head>
 
-<body style="background-color: #343A40;">
-    <nav class="bg-dark navbar-dark navbar navbar-expand-sm navbar-white sticky-top">
+<body id="bg_img">
+    <!-- rgba는 배경색만 opacity 효과를 주기 위한 것으로 아래는 0.7의 강도 -->
+    <div class="navbar" style="background-color:rgba( 255, 255, 255, 0.65 ); color:grey;">
+        <a class="mr-auto font-weight-bold cbnu_logo" style="color:grey;" href="https://chungbuk.ac.kr"><img src="../static/images/CBNU_logo2.png" width="60px" /></a>
+        <a id="cbnu_logo" class="ml-auto cbnu_logo" href=""><span class="fas fa-envelope"></span> jehong@chungbuk.ac.kr</a>
+    </div>
 
-        <a class="mr-auto"><img src="{% static 'images/SELab_logo2-removed.png' %}" alt="Logo" width="55" /></a>
-        <a class="logoName" href="#">소프트웨어 공학 연구실</a>
+    <nav class="bg-light navbar-light navbar navbar-expand-lg navbar-white sticky-top" style="background-color:rgba( 255, 255, 255, 0.75 ) !important;">
+        <a class="mr-auto" href=""><img src="{% static 'images/SELab_logo2-removed.png' %}" alt="Logo" width="60" /></a>
+        <a class="logoName font-weight-bold" href="#">Software Engineering Lab</a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,7 +50,6 @@
 
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="nav navbar-nav ml-auto">
-
                 <li class="nav-item">
                     <a class="nav-link" href="#">Introduction</a>
                 </li>
@@ -59,7 +62,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Notice</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Research</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Publication</a>
+                </li>
             </ul>
         </div>
     </nav>

@@ -8,15 +8,20 @@
     <title>CBNU - SELab</title>
     <!-- header -->
     {% block header %}
-    <link rel = "stylesheet" href="{% static 'css/home.css' %}?ver=1.1">
+    <link rel = "stylesheet" href="{% static 'css/base.css' %}?ver=1.2">
+    <link rel = "stylesheet" href="{% static 'css/home.css' %}?ver=1.2">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <style>
         .bg-1{
-            color: white;
+            color: black;
         }
+        .container-fluid {
+            padding: 0;
+        }
+
     </style>
     {% endblock %}
 </head>
@@ -24,15 +29,37 @@
     <!-- body contents -->
     {% block contents %}
 
-    <br>
-    <div class="bg-1 container-fluid text-center">
-            <br><br><br><br><br><br>
-        <h1 style="font-size:50px;"><FONT face="Blacksword" style="letter-spacing:2px;">We are Software Engineers</FONT></h1><br><br><br>
+    <!-- <h1 style="font-size:50px;"><FONT face="Blacksword" style="letter-spacing:2px;">We are Software Engineers</FONT></h1><br><br><br> -->
+    <div class="container-fluid row main-content">
 
-        <br><br><br><br><br>
+        <div class="col-sm-6" >
+            <h1 class="text-right" style="font-size:80px; color:white;"><FONT face="PlayfairDisplaySC-Bold">Who we are:</FONT></h1>
+
+        </div>
+        <div class="col-sm-2">
+            <br>
+            <h1 class="text-left" style="color: white; font-size:15px;"><FONT face="PlayfairDisplay-Regular">We are a group of top SW engineers<br>to develop quality software
+                    and services as the discipline of developing and applying systematic and quantitative engineering
+                    to software development, operation,<br>and management activities.</FONT></h1>
+        </div>
+
+        <br>
+
     </div>
-    <div id="bg_img" class=""></div>
 
+    <div class="container-fluid row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4" style="border-radius:25px;">
+
+
+
+        </div>
+        <div class="col-sm-6 text-center align-self-center">
+
+
+        </div>
+        <!-- img src="{% static '../static/images/bigbg.jpg' %}" /-->
+    </div>
 
 
     {% endblock %}

@@ -1,0 +1,28 @@
+.navbar{
+
+}
+.ml-auto{
+    padding-right: 80px;
+}
+.mr-auto{
+    padding-left: 80px;
+}
+.logoName{
+    padding-left: 10px;
+    text-decoration: none !important;
+    color: grey;
+    font-size: 20px;
+}
+.nav-item{
+    font-size: 20px;
+}
+a:hover{
+    text-decoration: none !important;
+    color: #01BFBA !important;
+}
+#cbnu_logo{
+    color: grey;
+}
+.cbnu_logo:hover{
+    color: #912B52 !important;
+}

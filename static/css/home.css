@@ -1,6 +1,6 @@
 #bg_img {
-    padding-top: 30%;
-    background-image: url(../images/Everest_1.png);
+    background: fixed;
+    background-image: url(../images/cbnu_bg2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -10,4 +10,28 @@
 @font-face{
     font-family: Blacksword;
     src: url('../fonts/Blacksword.otf');
+}
+
+@font-face{
+    font-family: PlayfairDisplay-Regular;
+    src: url('../fonts/PlayfairDisplay-Regular.otf');
+}
+
+@font-face{
+    font-family: PlayfairDisplaySC-Bold;
+    src: url('../fonts/PlayfairDisplaySC-Bold.otf');
+}
+
+.main-left-side{
+    background-image: url(../images/beige_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo{
+    font-size: 200px;
+}
+
+.main-content{
+    opacity: 0.7;
 }
