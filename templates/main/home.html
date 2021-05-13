@@ -47,20 +47,100 @@
 
     </div>
 
-    <div class="container-fluid row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-4" style="border-radius:25px;">
+    <div class="container-fluid"> </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+    <div class="container">
+            <div class="row blog">
+                <div class="col-md-12">
+                    <div id="blogCarousel" class="carousel slide" data-ride="carousel">
 
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
 
-        </div>
-        <div class="col-sm-6 text-center align-self-center">
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--.row-->
+                            </div>
+                            <!--.item-->
 
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--.row-->
+                            </div>
+                            <!--.item-->
 
-        </div>
-        <!-- img src="{% static '../static/images/bigbg.jpg' %}" /-->
+                        </div>
+                        <!--.carousel-inner-->
+
+                        <div>
+                            <a class="left carousel-control" href="#blogCarousel" role="button" data-slide="prev">
+                                <span class="fas fa-envelope"></span> <!-- * 여기 이 지점 -->
+                            </a>
+                        </div>
+
+                        <br><br><br>
+                        <ol class="carousel-indicators">
+                            <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#blogCarousel" data-slide-to="1"></li>
+                        </ol>
+
+                    </div>
+                    <!--.Carousel-->
+
+                </div>
+            </div>
     </div>
 
+
+    <div class="container-fluid row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4" style="border-radius:25px;"></div>
+        <div class="col-sm-6 text-center align-self-center"></div>
+        <!-- img src="{% static '../static/images/bigbg.jpg' %}" /-->
+    </div>
 
     {% endblock %}
 </body>
