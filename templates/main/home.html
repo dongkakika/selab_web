@@ -22,6 +22,21 @@
             padding: 0;
         }
 
+        .carousel-control-prev{
+            padding-right: 180px;
+            font-size: 50px;
+        }
+        .carousel-control-next{
+            padding-left: 180px;
+            font-size: 50px;
+        }
+        .container{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .carousel-item-box{
+            border: 1px solid white;
+        }
     </style>
     {% endblock %}
 </head>
@@ -47,32 +62,38 @@
 
     </div>
 
-    <div class="container-fluid"> </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-    <div class="container">
+    <div class="container-fluid" style="background-color:rgba( 0, 0, 0, 0.5 ); padding-top: 30px;">
             <div class="row blog">
-                <div class="col-md-12">
-                    <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+
+                <div class="container">
+
+                    <!-- Carousel -->
+                    <div id="blogCarousel" class="carousel slide col-md-12" data-ride="carousel">
 
                         <!-- Carousel items -->
                         <div class="carousel-inner">
 
                             <div class="carousel-item active">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
+                                    <div class="col-md-3 carousel-item-box">
+                                        <a class="" href="#">
+                                            hi<br>
+                                            we are selab<br>
+                                            welcome to our lab<br>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 carousel-item-box">
+                                        <a class="" href="#">
+                                            hi<br>
+                                            we are selab<br>
+                                            welcome to our lab<br>
                                         </a>
                                     </div>
                                     <div class="col-md-3">
                                         <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
-                                        </a>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
+                                            <img src="http://placehold.it/250x250" alt="Image" style="width:270px;">
                                         </a>
                                     </div>
                                     <div class="col-md-3">
@@ -114,23 +135,29 @@
 
                         </div>
                         <!--.carousel-inner-->
-
-                        <div>
-                            <a class="left carousel-control" href="#blogCarousel" role="button" data-slide="prev">
-                                <span class="fas fa-envelope"></span> <!-- * 여기 이 지점 -->
-                            </a>
-                        </div>
-
                         <br><br><br>
+
+                        <!-- 밑 페이지 indicators -->
                         <ol class="carousel-indicators">
                             <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#blogCarousel" data-slide-to="1"></li>
                         </ol>
 
+
+                        <!-- 좌, 우 control buttons
+                        <a class="left carousel-control-prev" href="#blogCarousel" role="button" data-slide="prev">
+                            <span class="fa fa-angle-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control-next" href="#blogCarousel" role="button" data-slide="next">
+                            <span class="fa fa-angle-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        -->
                     </div>
                     <!--.Carousel-->
-
                 </div>
+
             </div>
     </div>
 
