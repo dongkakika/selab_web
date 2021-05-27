@@ -10,17 +10,30 @@
 .logoName{
     padding-left: 10px;
     text-decoration: none !important;
-    color: grey;
+    color: #4C4C4C;
     font-size: 20px;
 }
 .nav-item{
     font-size: 20px;
 }
+
+.nav-link{
+    color: #707070 !important;
+}
+
 a:hover{
+    text-decoration: none !important;
+}
+
+.logoName:hover{
+    color: #01BFBA !important;
+}
+
+#collapsibleNavbar a:hover{
     text-decoration: none !important;
     color: #01BFBA !important;
 }
-#cbnu_logo{
+#mail_logo{
     color: grey;
 }
 .cbnu_logo:hover{

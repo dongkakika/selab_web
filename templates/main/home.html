@@ -4,16 +4,12 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CBNU - SELab</title>
-    <!-- header -->
     {% block header %}
-    <link rel = "stylesheet" href="{% static 'css/base.css' %}?ver=1.2">
-    <link rel = "stylesheet" href="{% static 'css/home.css' %}?ver=1.2">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <!-- header 삽입 부분 -->
+    <meta charset="UTF-8">
+    <title>CBNU SELab - Home</title>
+
+    <link rel = "stylesheet" href="{% static 'css/home.css' %}?ver=1.5">
     <style>
         .bg-1{
             color: black;
@@ -38,37 +34,39 @@
             border: 1px solid white;
         }
     </style>
+
     {% endblock %}
 </head>
+
+
 <body>
-    <!-- body contents -->
     {% block contents %}
+    <div>
+        <!-- <h1 style="font-size:50px;"><FONT face="Blacksword" style="letter-spacing:2px;">We are Software Engineers</FONT></h1><br><br><br> -->
+        <div class="container-fluid row main-content">
+            <div class="col-sm-6" >
+                <h1 class="text-right" style="font-size:80px; color:white;"><FONT face="PlayfairDisplaySC-Bold">Who we are:</FONT></h1>
 
-    <!-- <h1 style="font-size:50px;"><FONT face="Blacksword" style="letter-spacing:2px;">We are Software Engineers</FONT></h1><br><br><br> -->
-    <div class="container-fluid row main-content">
+            </div>
+            <div class="col-sm-3">
+                <br>
+                <h1 class="text-left" style="color: white; font-size:15px;"><FONT face="PlayfairDisplay-Regular">We are a group of top SW engineers<br>to develop quality software
+                        and services as the discipline of developing and applying systematic and quantitative engineering
+                        to software development, operation,<br>and management activities.</FONT></h1>
+            </div>
 
-        <div class="col-sm-6" >
-            <h1 class="text-right" style="font-size:80px; color:white;"><FONT face="PlayfairDisplaySC-Bold">Who we are:</FONT></h1>
-
-        </div>
-        <div class="col-sm-2">
             <br>
-            <h1 class="text-left" style="color: white; font-size:15px;"><FONT face="PlayfairDisplay-Regular">We are a group of top SW engineers<br>to develop quality software
-                    and services as the discipline of developing and applying systematic and quantitative engineering
-                    to software development, operation,<br>and management activities.</FONT></h1>
         </div>
 
-        <br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br>
 
-    </div>
-
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-    <div class="container-fluid" style="background-color:rgba( 0, 0, 0, 0.5 ); padding-top: 30px;">
+        <div class="container-fluid" style="background-color:rgba( 0, 0, 0, 0.5 ); padding-top: 30px;">
             <div class="row blog">
-
                 <div class="container">
-
                     <!-- Carousel -->
                     <div id="blogCarousel" class="carousel slide col-md-12" data-ride="carousel">
 
@@ -77,28 +75,47 @@
 
                             <div class="carousel-item active">
                                 <div class="row">
-                                    <div class="col-md-3 carousel-item-box">
-                                        <a class="" href="#">
-                                            hi<br>
-                                            we are selab<br>
-                                            welcome to our lab<br>
-                                        </a>
+                                    <div class="col-sm-4">
+
                                     </div>
-                                    <div class="col-md-3 carousel-item-box">
-                                        <a class="" href="#">
-                                            hi<br>
-                                            we are selab<br>
-                                            welcome to our lab<br>
+                                    <div class="col-sm-8" style="padding-left:50px; color:white;">
+                                        TITLE: May 17th, Our recent publication<br>
+                                           DATE: 2021-05-17, 17:04<br>
+                                            CONTENT: the notice menu is uploaded
+                                      </div>
+                                </div>
+                                <!--.row-->
+                            </div>
+                            <!--.item-->
+
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: 2021, the new web of selab is launched</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="width:270px;">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: May 17th, Our recent publication</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="width:250px;">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: 2021, the new web of selab is launched</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: 2021, the new web of selab is launched</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
                                         </a>
                                     </div>
                                 </div>
@@ -109,23 +126,31 @@
                             <div class="carousel-item">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: 2021, the new web of selab is launched</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: May 17th, Our recent publication</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: 2021, the new web of selab is launched</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
                                         </a>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="#">
-                                            <img src="http://placehold.it/250x250" alt="Image" style="max-width:100%;">
+                                        <a href="#" style="width:250px; color:white;">
+                                            <b style="font-size: 20px;">TITLE: 2021, the new web of selab is launched</b><br><br>
+                                            DATE: 2021-05-17, 17:04<br><br>
+                                            CONTENT: the notice menu is uploaded
                                         </a>
                                     </div>
                                 </div>
@@ -141,6 +166,7 @@
                         <ol class="carousel-indicators">
                             <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#blogCarousel" data-slide-to="1"></li>
+                            <li data-target="#blogCarousel" data-slide-to="2"></li>
                         </ol>
 
 
@@ -157,18 +183,12 @@
                     </div>
                     <!--.Carousel-->
                 </div>
-
             </div>
+        </div>
     </div>
 
 
-    <div class="container-fluid row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-4" style="border-radius:25px;"></div>
-        <div class="col-sm-6 text-center align-self-center"></div>
-        <!-- img src="{% static '../static/images/bigbg.jpg' %}" /-->
-    </div>
-
-    {% endblock %}
+{% endblock %}
 </body>
+
 </html>
