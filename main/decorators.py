@@ -36,7 +36,7 @@ def admin_required(function):
 def logout_message_required(function):
     def wrap(request, *args, **kwargs):
         if request.user.is_authenticated:  # 이미 로그인한 사용자의 로그인과 회원가입을 막기 위해 is_authenticated로 확인
-            messages.info(request, "접속중인 사용자입니다.")
+            messages.info(request, "You are already logged in")
             return redirect('/') # redirecting
         return function(request, *args, **kwargs)
     return wrap

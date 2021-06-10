@@ -152,3 +152,5 @@ AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
 
+# 브라우저 종료시 자동 로그아웃
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    {% block header %}
+    <meta charset="UTF-8">
+    <title>CBNU SELab - Login</title>
+    <!-- header -->
+    <link rel = "stylesheet" href="{% static 'css/publication.css' %}?ver=1.1">
+    <link type="text/css" rel = "stylesheet" href="{% static 'css/login.css' %}?ver=1.2">
+    <style>
+
+    </style>
+
+    {% endblock %}
+</head>
+<!-- body contents -->
+
+<body>
+{% block contents %}
+    <div class="login">
+        <div class="loginbox">
+            <h1>Login</h1>
+            <br>
+
+            <form method="POST" action="." novalidate>
+                {% csrf_token %}
+                <label name="label_userid" for="{{ form.userid.id_for_label }}" class="labelid">{{ form.userid.label }}</label>
+                {{ form.userid }}
+
+                <script type="text/javascript">
+                       if (document.getElementsByName('userid')[0].value != '') {
+                           document.getElementsByName('label_userid')[0].setAttribute('class', 'active');
+                       }
+                </script>
+                 {% if form.userid.errors %}
+                <script type="text/javascript">
+                       document.getElementsByName('userid')[0].setAttribute('class',
+                       'form-control is-invalid')
+                </script>
+                {% for error in form.userid.errors %}
+                <div class="invalid-feedback">
+                    {{ error }}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <br>
+
+                <label for="{{ form.password.id_for_label }}" class="labelpw">{{ form.password.label }}</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                <script type="text/javascript">
+                       document.getElementsByName('password')[0].setAttribute('class', 'form-control is-invalid')
+                       /*
+                       var a = document.getElementsByName('password')[0];
+                       alert(a);
+                       */
+                </script>
+                {% for error in form.password.errors %}
+                <div class="invalid-feedback">
+                    {{ error }}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <br><br>
+
+                <div class="save">
+                    <input type="checkbox" name="remember_session" id="login_holding"/>
+                    <label for="login_holding">Keep me Logged in</label>
+                    <input type="checkbox" id="idsave">
+                    <label for="idsave">save ID</label>
+                    <input type="checkbox" id="pwsave">
+                    <label for="pwsave">save PW</label>
+                </div>
+
+                <div class="restore">
+                    <span class="text">Forgot your ID or PW?</span>
+                    <a href="#">Restore ID/PW</a>
+                </div>
+
+                <div class="btnwrap">
+                    <a href="../agreement">회원가입</a>
+                    <input type="submit" id="loginbtn" value="로그인">
+                </div>
+
+
+            </form>
+
+
+        </div>
+    </div>
+    <br><br><br><br><br>
+{% endblock %}
+</body>
+
+</html>
