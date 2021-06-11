@@ -10,7 +10,7 @@
 .logoName{
     padding-left: 10px;
     text-decoration: none !important;
-    color: #4C4C4C;
+    color: #353535;
     font-size: 20px;
 }
 .nav-item{
@@ -18,7 +18,7 @@
 }
 
 .nav-link{
-    color: #707070 !important;
+    color: #353535 !important;
 }
 
 a:hover{
@@ -34,7 +34,7 @@ a:hover{
     color: #01BFBA !important;
 }
 #mail_logo{
-    color: grey;
+    color: #353535;
 }
 .cbnu_logo:hover{
     color: #912B52 !important;

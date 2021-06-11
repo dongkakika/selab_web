@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block contents %}
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Crown - {{ notice.title }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+</head>
+<body>
+
+    <br><br><br><br><br>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="card">
+                    <!--제목,분류,작성일-->
+                    <div class="card-header" style="border-bottom: 2.5px solid #ddd;">
+                        <font size="5.5rem"><strong>{{ notice.title }}</strong></font>
+                    </div>
+                    <div class="card-body">
+                        <!--작성자, 조회수-->
+                        <div class="pull-right">
+                            <span><strong>Writer:</strong> {{ notice.writer }}</span>&nbsp;&nbsp;&nbsp;
+                            <span><strong>Views:</strong> {{ notice.hits }}</span>&nbsp;&nbsp;&nbsp;
+                            <span><strong>Date:</strong> {{ notice.registered_date|date:'Y.m.d. H:i' }}</span>
+                        </div>
+                        <br><br>
+                        <!--내용-->
+                        <div>
+                            <!-- | 이하의 safe는 html 태그가 그대로 적용되어 출력되는 것을 방지 -->
+                            {{ notice.content | safe }}
+                        </div>
+
+                        <br>
+
+                        <script>
+                            var temp_id = "{{ notice.id }}";
+                            var click_count = 0;
+
+                            // 아랫단의 check_localStorage를 동작시키기 위해 함수 미리 선언
+                            function check_localStorage(){
+                                var rst = localStorage.getItem(temp_id);
+                                return rst;
+                            }
+
+                            // html 내부에 js 변수를 사용하기 위함
+                            var temp_count = {{ notice.like_count }};
+
+                            // 1. 일단 버튼을 보이기 - check_localStorage() 함수를 통해
+                            //                      현재 게시글 id를 이름으로 가진 localStorage의
+                            //                      value를 확인하여 알맞은 버튼으로 매핑
+                            if(check_localStorage() == "1"){
+                                document.write('<button onclick="like_notice()" style="border:none; outline:none; background-color:white;"><img id="heart" src="{% static 'images/icon/heart_second.jpg' %}" width="21" height="21"></button><span> Like (</span><span id="temp_count"></span><span>)</span>');
+                            }
+                            else{
+                                // 2. 만약 해당 id의 localStorage가 Null 혹은 "0"을 가지고 있다면,
+                                // 빈 하트 버튼으로 매핑
+                                document.write('<button onclick="like_notice()" style="border:none; outline:none; background-color:white;"><img id="heart" src="{% static 'images/icon/heart_first.jpg' %}" width="21" height="21"></button><span> Like (</span><span id="temp_count"></span><span>)</span>');
+                            }
+                            document.getElementById("temp_count").innerHTML = temp_count;
+                        </script>
+
+                        <!-- 동작의 구분을 두려고 나눔 -->
+
+                        <script>
+                            function like_notice(){
+                                // +++++내일 구현할 것+++++
+
+
+                                // localStorage의 value를 저장할 변수 선언
+                                var notice_like_log = localStorage.getItem(temp_id);
+
+                                // 여기가 Null 값 체킹 - 최초로 들어온 사용자가 거치게 될 로직
+                                if(!notice_like_log){
+                                    // Null이면, 새로 localStorage를 생성하고 0으로 값 초기화
+                                    localStorage.setItem(temp_id, "0");
+                                    // 그리고 화면에 보여줄 이미지를 골라야하므로 값을 불러서 저장
+                                    notice_like_log = localStorage.getItem(temp_id);
+                                }
+
+                                if(click_count >= 10){
+                                    alert("Too many tries !")
+                                }
+                                else{
+                                    click_count += 1;
+
+                                    if(notice_like_log == "0"){
+                                        localStorage.setItem(temp_id, "1");
+                                        document.getElementById("heart").src = "{% static 'images/icon/heart_second.jpg' %}";
+                                        // 0이면 1(좋아요)로 바뀌면서 temp_count_plus 값을 temp_count라고 지정된 span 태그 값 안에 집어넣어버림
+                                        temp_count += 1;
+                                        document.getElementById("temp_count").innerHTML = temp_count;
+                                        $.ajax({
+                                            url: 'like_notice', // 해당 url을 동작시키는 것만으로도 view의 함수를 실행
+                                        });
+                                    }
+                                    else{
+                                        localStorage.setItem(temp_id, "0");
+                                        document.getElementById("heart").src = "{% static 'images/icon/heart_first.jpg' %}";
+                                        // 1(좋아요)면 0으로 바뀌면서 temp_count_minus 값을 temp_count라고 지정된 span 태그 값 안에 집어넣어버림
+                                        temp_count -= 1;
+                                        document.getElementById("temp_count").innerHTML = temp_count;
+                                        $.ajax({
+                                            url: 'cancel_like_notice', // 해당 url을 동작시키는 것만으로도 view의 함수를 실행
+                                        });
+                                    }
+                                }
+
+                            }
+
+
+                        </script>
+
+                        {% if looog != "127.0.0.1" %}
+                            <button>{{ looog }}</button>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <br><br>
+                <div class="pull-right"> <!-- 작성자가 아니라면, notice_auth가 False가 되어 수정, 삭제 버튼이 나오지 않는다. -->
+                    {% if notice_auth or request.user.level == '0' %}
+                    <button class="btn btn-primary" onclick="location.href='/notice/{{ notice.id }}/edit/'">modify</button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
+                    {% endif %}
+                    <button class="btn" onclick="location.href='/notice/'">To the list</button>
+                </div>
+
+
+
+                <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+                <div id="delete_modal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Deletion Warning</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure to delete it?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button onclick="delete_modal()" type="button" class="btn btn-dark">Delete</button>
+                                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    function delete_modal() {
+                        location.replace('/notice/{{ notice.id }}/delete/');
+                    }
+                </script>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <br><br><br><br><br>
+
+</body>
+</html>
+{% endblock %}

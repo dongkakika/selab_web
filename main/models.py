@@ -30,14 +30,14 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
-    userid = models.CharField(max_length=20, verbose_name="아이디", unique=True)
-    password = models.CharField(max_length=256, verbose_name="비밀번호")
-    email = models.EmailField(max_length=128, verbose_name="이메일", null=True, unique=True)
-    hp = models.IntegerField(verbose_name="핸드폰번호", null=True, unique=True)
-    username = models.CharField(max_length=8, verbose_name="이름", null=True)
-    level = models.CharField(choices=LEVEL_CHOICES, max_length=18, verbose_name="등급", default=3)
-    auth = models.CharField(max_length=10, verbose_name="인증번호", null=True)
-    date_joined = models.DateTimeField(auto_now_add=True, verbose_name='가입일', null=True, blank=True)
+    userid = models.CharField(max_length=20, verbose_name="ID", unique=True)
+    password = models.CharField(max_length=256, verbose_name="PW")
+    email = models.EmailField(max_length=128, verbose_name="email", null=True, unique=True)
+    hp = models.IntegerField(verbose_name="phone", null=True, unique=True)
+    username = models.CharField(max_length=8, verbose_name="username", null=True)
+    level = models.CharField(choices=LEVEL_CHOICES, max_length=18, verbose_name="level", default=3)
+    auth = models.CharField(max_length=10, verbose_name="auth", null=True)
+    date_joined = models.DateTimeField(auto_now_add=True, verbose_name='date_joined', null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -51,6 +51,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.userid
 
     class Meta:
-        db_table = "회원목록"
-        verbose_name = "사용자"
-        verbose_name_plural = "사용자"
+        db_table = "notice"
+        verbose_name = "notice"
+        verbose_name_plural = "notice"

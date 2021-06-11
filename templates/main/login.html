@@ -8,11 +8,7 @@
     <meta charset="UTF-8">
     <title>CBNU SELab - Login</title>
     <!-- header -->
-    <link rel = "stylesheet" href="{% static 'css/publication.css' %}?ver=1.1">
     <link type="text/css" rel = "stylesheet" href="{% static 'css/login.css' %}?ver=1.2">
-    <style>
-
-    </style>
 
     {% endblock %}
 </head>
@@ -22,7 +18,7 @@
 {% block contents %}
     <div class="login">
         <div class="loginbox">
-            <h1>Login</h1>
+            <h1>SELab Login</h1>
             <br>
 
             <form method="POST" action="." novalidate>
@@ -83,9 +79,11 @@
                 </div>
 
                 <div class="btnwrap">
-                    <a href="../agreement">회원가입</a>
-                    <input type="submit" id="loginbtn" value="로그인">
+                    <a href="../agreement">Sign-up</a>
+                    <input type="submit" id="login_btn" value="Login">
                 </div>
+
+
 
 
             </form>
