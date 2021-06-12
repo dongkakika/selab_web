@@ -1,7 +1,7 @@
-#bg_img {
+#bg_img2 {
     width: 100%;
     height: 1000px;
-    background: fixed;
+    /*background: fixed;*/
     background-image: url(../images/grey_gradation.png);
     background-repeat: no-repeat;
     background-size: cover;

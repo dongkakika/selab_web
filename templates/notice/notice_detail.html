@@ -9,6 +9,14 @@
     <title>Crown - {{ notice.title }}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <style>
+        button {
+            cursor:pointer;
+        }
+        .btn-own:hover {
+            background-color: #C3C3C3;
+        }
+    </style>
 </head>
 <body>
 
@@ -129,7 +137,7 @@
                     <button class="btn btn-primary" onclick="location.href='/notice/{{ notice.id }}/edit/'">modify</button>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
                     {% endif %}
-                    <button class="btn" onclick="location.href='/notice/'">To the list</button>
+                    <button class="btn btn-own" onclick="location.href='/notice/'">To the list</button>
                 </div>
 
 
