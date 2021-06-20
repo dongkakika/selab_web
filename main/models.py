@@ -51,6 +51,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.userid
 
     class Meta:
-        db_table = "notice"
-        verbose_name = "notice"
-        verbose_name_plural = "notice"
+        db_table = "user"
+        verbose_name = "user"
+        verbose_name_plural = "user"

@@ -13,8 +13,6 @@ from django.contrib.auth import login, logout, authenticate
 def home(request):
     return render(request, 'main/home.html')
 
-def people(request):
-    return render(request, 'main/people.html')
 
 def research(request):
     return render(request, 'main/research.html')

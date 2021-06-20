@@ -52,7 +52,7 @@ def notice_edit_view(request, pk):
             # 같은 notice_write 페이지를 쓰되, 버튼 변경을 위해 아래를 구현
             context = {
                 'form': form,
-                'edit': 'Save',
+                'edit': 'Save', # 버튼의 텍스트 값
             }
             return render(request, "notice/notice_write.html", context)
         else:
