@@ -1,27 +1,50 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% load static %}
-
 <html lang="en">
 <head>
-    <!-- header -->
+  <!-- header -->
     {% block header %}
     <meta charset="UTF-8">
     <title>CBNU SELab - Research</title>
-    <link rel = "stylesheet" href="{% static 'css/research.css' %}?ver=1.1">
-    <link rel = "stylesheet" href="{% static 'css/people.css' %}?ver=1.7">
     <style>
+        @font-face{
+            font-family: RixYeoljeongdo;
+            src: url({% static 'fonts/RixYeoljeongdo Regular.ttf' %});
+        }
     </style>
     {% endblock %}
 </head>
-<!-- body contents -->
-
 <body>
-{% block contents %}
+    {% block contents %}
+    <!-- 수정 버튼 -->
+    <div class="" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' %}
+            <a href="modifyContent/" class="btn btn-primary" onclick="addInput();">Add</a>
+            <a href="modifyContent/" class="btn btn-success" onclick="addInput();">Modify</a>
+        {% endif %}
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <br>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3" style="text-align:center;">
+                <br><br><br><br>
+                <a style="font-size:15px; margin-right:30px;">
+                    <FONT face="RixYeoljeongdo">“<br>
+                        Our research interests<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;”</FONT>
+                </a>
 
-    <div class="panel container-fluid text-center"><a style="font-size: 50px;"><b>Research</b></a></div>
 
-{% endblock %}
+
+            </div>
+            <div class="col-sm-5">
+                <img src="../../static/images/research_main.png" width="500px;">
+            </div>
+            <br>
+        </div>
+    </div>
+    {% endblock %}
 </body>
-
 </html>
