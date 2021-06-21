@@ -14,6 +14,9 @@ def people(request):
 
     return render(request, 'ppr/people.html', context)
 
+def gallery(request):
+    return render(request, 'ppr/gallery.html')
+
 def modifyContent(request):
     people_first = People.objects.get(id=1)
 
