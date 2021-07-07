@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Member Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <style>
+        #id_name, #id_email{
+            height: 38px;
+        }
+        #id_content{
+            height: 62px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 100px;">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div style="padding-top:25px; padding-bottom:25px; background: #F3F3F3; border-radius: 15px;" class="col-sm-4 text-center">
+            <h1 style="color:grey"><b>Add A New Member !</b></h1><br><br>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card">
+                    <div>
+                        {{ form.name }}
+                    </div><br>
+                    <div>
+                        {{ form.email }}
+                    </div><br>
+                    <div>
+                        {{ form.content }}
+                    </div><br>
+                    <div>
+                        {{ form.img_upload }}
+                    </div><br><br>
+                </div>
+
+                {% if edit %}
+                <input class="btn btn-success float-right" type="submit" value="{{ edit }}">
+                {% else %}
+                <input class="btn btn-success float-right" type="submit" value="Save">
+                {% endif %}
+
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+</body>
+</html>

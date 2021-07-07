@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <!-- header -->
+    {% block header %}
+    <meta charset="UTF-8">
+    <title>CBNU SELab - People</title>
+    <link rel = "stylesheet" href="{% static 'css/people.css' %}?ver=1.7">
+    {% endblock %}
+</head>
+<!-- body contents -->
+
+<body>
+{% block contents %}
+
+
+
+
+    <div class="panel container-fluid text-center">
+        <a class="panel-name"><b>Members</b></a><br>
+    </div>
+
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid">
+        <div class="row">
+
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <img src="../../static/images/docter_ali3.png" width="170px;" style="border-radius: 7px;" />
+            </div>
+            <div class="col-lg-8">
+                <a style=" font-size: 25px;"><b>Nazakat Ali</b></a><br>
+
+                <a style="font-size: 15px;">
+                    E-mail: nazakatali@selab.cbnu.ac.kr<br><br>
+                    2018 - 2021, Ph.D. Computer Science, CBNU<br>
+                    2016 - 2018, M.S. Computer Science, CBNU
+                    <br>
+                </a>
+                <!-- 추가, 수정, 삭제 버튼 -->
+                <div class="modifyButton" style="text-align: right;">
+                    {% if request.user.level == '0' or request.user.level == '1' %}
+                        <a href="modify/{{ people.id }}" class="btn btn-success">Modify</a>
+                        <a href="delete/{{ people.id }}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2">
+            <img src="../../static/images/master_kyj.jpg" width="170px;" style="border-radius: 7px;" />
+        </div>
+        <div class="col-lg-8">
+            <a style=" font-size: 25px;"><b>Young Jae Kim (김 영 재)</b></a><br>
+            <a style="font-size: 15px;">
+                E-mail: kyj@selab.cbnu.ac.kr<br><br>
+                2020 - Present, M.S. Computer Science, CBNU<br>
+
+                <br>
+            </a>
+        </div>
+        <br>
+    </div>
+
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2">
+            <img src="../../static/images/master_manzoor.png" width="170px;" style="border-radius: 7px;" />
+        </div>
+        <div class="col-lg-8">
+            <a style=" font-size: 25px;"><b>Manzoor Hussain</b></a><br>
+            <a style="font-size: 15px;">
+                E-mail: hussain@selab.cbnu.ac.kr<br><br>
+                2020 - Present, M.S. Computer Science, CBNU<br><br>
+            </a>
+        </div>
+        <br>
+    </div>
+
+    {% if people_all %}
+    {% for people in people_all %}
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                {% if people.img_upload %}
+                <img src="{{ people.img_upload.url }}" width="170px;" style="border-radius: 7px;">
+                {% endif %}
+            </div>
+            <div class="col-lg-8">
+                <a style=" font-size: 25px;"><b>{{ people.name }}</b></a><br>
+                <a style="font-size: 15px;">
+                    E-mail: {{ people.email }}<br><br>
+                    {{ people.content }}<br><br>
+                </a>
+
+                <!-- 수정, 삭제 버튼 -->
+                <div class="modifyButton" style="text-align: right;">
+                    {% if request.user.level == '0' or request.user.level == '1' %}
+                        <a href="modify/{{ people.id }}/" class="btn btn-success">Modify</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+    <div id="delete_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deletion Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure to delete it?</p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="delete_modal()" type="button" class="btn btn-dark">Delete</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function delete_modal() {
+            location.replace('delete/{{ people.id }}/');
+        }
+    </script>
+    {% endfor %}
+    {% endif %}
+
+
+
+    <!-- Add button -->
+    <div class="modifyButton" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' %}
+            <a href="/ppr/add_member" class="btn btn-primary" onclick="">Add</a>
+        {% endif %}
+    </div>
+
+
+
+
+
+    <div class="panel container-fluid text-center">
+        <a style="font-size: 50px;"><b>Other Staff</b></a><br>
+    </div>
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-2">
+            <img src="../../static/images/profile_img.png" width="170px;" style="border-radius: 7px;" />
+        </div>
+        <div class="col-lg-8">
+            <a style=" font-size: 25px;"><b>Ha Eun Lee</b></a><br>
+            <a style="font-size: 15px;">
+                E-mail: @selab.cbnu.ac.kr<br><br>
+                2019 - Present, B.S. Software department, CBNU<br>
+
+                <br>
+
+
+            </a>
+        </div>
+    </div>
+
+    {% if staff_all %}
+    {% for staff in staff_all %}
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                {% if staff.img_upload %}
+                <img src="{{ staff.img_upload.url }}" width="170px;" style="border-radius: 7px;">
+                {% endif %}
+            </div>
+            <div class="col-lg-8">
+                <a style=" font-size: 25px;"><b>{{ staff.name }}</b></a><br>
+                <a style="font-size: 15px;">
+                    E-mail: {{ staff.email }}<br><br>
+                    {{ staff.content }}<br><br>
+                </a>
+
+                <!-- 수정, 삭제 버튼 -->
+                <div class="modifyButton" style="text-align: right;">
+                    {% if request.user.level == '0' or request.user.level == '1' %}
+                        <a href="modify/staff/{{ staff.id }}/" class="btn btn-success">Modify</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+    <div id="delete_modal2" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deletion Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure to delete it?</p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="delete_modal2()" type="button" class="btn btn-dark">Delete</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function delete_modal2() {
+            location.replace('delete/staff/{{ staff.id }}/');
+        }
+    </script>
+    {% endfor %}
+    {% endif %}
+
+    <!-- 글쓰기 버튼 -->
+    <div class="modifyButton" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' %}
+            <a href="/ppr/add_other_staff" class="btn btn-primary">Add</a>
+        {% endif %}
+    </div>
+
+
+
+{% endblock %}
+</body>
+
+</html>

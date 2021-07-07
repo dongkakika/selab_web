@@ -7,3 +7,23 @@
     background-size: cover;
     background-position: center;
 }
+
+table a: hover{
+    color: black !important;
+}
+
+tr{
+    font-size: 14px;
+}
+
+.table_title{
+    color: black;
+}
+
+.table_title:hover {
+    color: grey;
+}
+
+.table-secondary:hover {
+    color: #980000;
+}

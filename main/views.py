@@ -13,13 +13,6 @@ from django.contrib.auth import login, logout, authenticate
 def home(request):
     return render(request, 'main/home.html')
 
-
-def research(request):
-    return render(request, 'main/research.html')
-
-def publication(request):
-    return render(request, 'main/publication.html')
-
 # 로그인 후,
 @method_decorator(logout_message_required, name='dispatch')
 class LoginView(FormView):

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+<html lang="en">
+<head>
+  <!-- header -->
+    {% block header %}
+    <meta charset="UTF-8">
+    <link rel = "stylesheet" href="{% static 'css/people.css' %}?ver=1.1">
+    <title>CBNU SELab - Research</title>
+    <style>
+        @font-face{
+            font-family: RixYeoljeongdo;
+            src: url({% static 'fonts/RixYeoljeongdo Regular.ttf' %});
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    {% block contents %}
+    <div class="panel container-fluid text-center"><a class="panel-name"><b>Research</b></a></div>
+    <div class="container-fluid">
+        {% if research_list %}
+        {% for research in research_list %}
+        <div class="row" style="margin-top: 80px;">
+
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <div><img src="{{ research.img.url }}" width="100%" align="left" style="border-radius: 10px;"></div>
+            </div>
+            <div class="col-sm-4">
+
+                <div>
+                    {% if research.title %}
+                    <p style="font-size: 15px"><FONT style="font-weight: bold; color: #000081">{{ research.title }}</FONT></p>
+                    {% endif %}
+                    <!-- 여기에 content | safe로 불러오기 -->
+                    <FONT>{{ research.content | safe }}</FONT>
+                </div>
+                <!-- 수정, 삭제 버튼 -->
+                <div class="modifyButton" style="text-align: right;">
+                    {% if request.user.level == '0' or request.user.level == '1' %}
+                        <a href="modify/{{ research.id }}/" class="btn btn-success">Modify</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
+                    {% endif %}
+                </div>
+                <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+                <div id="delete_modal2" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Deletion Warning</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure to delete it?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button onclick="delete_modal2()" type="button" class="btn btn-dark">Delete</button>
+                                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    function delete_modal2() {
+                        location.replace('delete/{{ research.id }}/');
+                    }
+                </script>
+            </div>
+
+            <div class="col-sm-2"></div>
+
+
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- 글쓰기 버튼 -->
+    {% if request.user.level == '0' or request.user.level == '1' %}
+    <div style="text-align:right">
+        <a href="write/" class="btn btn-secondary">Write</a>
+    </div>
+
+    {% endif %}
+
+    {% endblock %}
+</body>
+</html>

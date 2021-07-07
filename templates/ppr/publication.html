@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <!-- header -->
+    {% block header %}
+    <meta charset="UTF-8">
+    <title>CBNU SELab - Publication</title>
+    <link rel = "stylesheet" href="{% static 'css/publication.css' %}?ver=1.1">
+    <link rel = "stylesheet" href="{% static 'css/people.css' %}?ver=1.5">
+    <style>
+        td a:hover{
+            color: grey !important;
+            background: grey !important;
+        }
+        .tap_font{
+            color: black;
+            font-size: 15px;
+        }
+        .nav-tabs .nav-link.active{
+            background-color: #EAEAEA !important;
+            color: black;
+        }
+        .nav-tabs .nav-link:hover{
+            background-color: #F6F6F6;
+            color: black !important;
+        }
+        .pagination .active .page-link{
+            background-color: #EAEAEA !important;
+            border-color: #D5D5D5;
+            color: black;
+        }
+        .page-link{
+            color: black;
+        }
+        .table-head{
+            background-color: #F6F6F6;
+        }
+    </style>
+    {% endblock %}
+</head>
+<!-- body contents -->
+
+<body>
+{% block contents %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>   <!-- 1 -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>               <!-- 2 -->
+    <div class="panel container-fluid text-center"><a class="panel-name"><b>Publication</b></a></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active tap_font" data-toggle="tab" href="#qwe">Journal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tap_font" data-toggle="tab" href="#asd">Publications</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- tap content 1번 -->
+                    <div class="tab-pane fade show active" id="qwe">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="table-head" style="font-size:14px;">
+                                    <th style="width:15%">Issued Date</th>
+                                    <th style="width:65%; text-align:center">Title</th>
+                                    <th style="width:20%; text-align:center">Journals</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                {% if journal_list %}
+                                {% for journal in journal_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/journal/{{ journal.id }}/'" {% endif %}>
+                                    <td>{{ journal.issued_date }}</td>
+                                    <td>{{ journal.title|truncatechars:80 }}</td>
+                                    <td style="text-align:center">{{ journal.journals }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 논문 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/journal_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <div class="row text-center">
+                            {% if journal_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if journal_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ journal_list.previous_page_number }}" tabindex="-1">Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range1 %}
+                                <li class="page-item {% if page == journal_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if journal_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ journal_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <!-- 페이지가 생성되면, -->
+
+
+                    </div>
+
+                    <!-- tap content 2번: publications -->
+                    <div class="tab-pane fade" id="asd">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size:14px;">
+                                    <th style="width:5%">No.</th>
+                                    <th style="width:55%; text-align: center">Title</th>
+                                    <th style="width:25%">Publisher</th>
+                                    <th style="width:15%">Published Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if publication_list %}
+                                {% for publication in publication_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/publications/{{ publication.id }}/'" {% endif %}>
+                                    <td>{{ publication.id }}</td>
+                                    <td>{{ publication.title|truncatechars:30 }}</td>
+                                    <td>{{ publication.publisher }}</td>
+                                    <td>{{ publication.published_date }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/publication_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <!-- 페이지가 생성되면, -->
+                        <div class="row text-center">
+                            {% if publication_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if publication_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ publication_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range2 %}
+                                <li class="page-item {% if page == publication_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if publication_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ publication_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- col-sm-8 -->
+
+        </div>
+
+    </div>
+
+    <br>
+
+
+
+    <!--
+    검색결과 수가 많아 페이지네이션이 적용되었을 때,
+    페이지를 넘기면 검색결과가 풀려버리는 버그가 발생한다.
+    이 프로젝트에서는 따로 검색 View를 구현하지 않고 ListView로 묶어 구현했기 때문에
+    페이지네이션 부분의 href 소스도 파라미터를 전달 할 수 있도록 아래와 같이 수정
+    -->
+    <div class="container-fluid " style="float:none;">
+        <div class="row text-center">
+            <!-- 페이지가 생성되면, -->
+            {% if is_paginated %}
+            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                <!-- 이전 버튼 -->
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ page_obj.previous_page_number }}" tabindex="-1"> Previous</a>
+                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                {% endif %}
+
+                <!-- 페이지 번호-->
+                {% for page in page_range %}
+                <li class="page-item {% if page == page_obj.number %} activate {% endif %}"> <!-- view에서 넘겨받은 context 사용 -->
+                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page_obj.next_page_number }}">
+                        Next
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        Next
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
+
+        </div>
+    </div>
+    <br><br>
+
+{% endblock %}
+</body>
+
+</html>

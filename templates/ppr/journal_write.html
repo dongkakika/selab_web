@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Write Journal</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        #id_issued_date{
+            height: 34px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <br><br>
+    <form class="container" method="post">
+        {% csrf_token %}
+        <h1>Journal Upload</h1><br>
+
+        <div class="card">
+            <label>Title: </label>
+            <div class="card-header">
+                {{ form.title }}
+            </div><br>
+
+            <label>Journals: </label><br>
+            <div class="card-body">
+                {{ form.journals }}
+            </div><br>
+            <label>Issued date: </label><br>
+            <div class="">
+                {{ form.issued_date }}
+            </div>
+        </div>
+        <br>
+        <!-- modify button for modifying mode, delete / to the list && save for writing mode -->
+        {% if edit %} <!-- edit를 찾았을 때 존재하면, -->
+        <button type="submit" class="btn btn-md btn-success">{{ edit }}</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
+        {% else %}
+        <button type="submit" id="write" class="btn btn-md btn-success">save</button>
+        {% endif %}
+        <button type="button" class="btn btn-own" onclick="location.href='/ppr/publication'">To the list</button>
+    </form>
+
+    <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+    <div id="delete_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deletion Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure to delete it?</p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="delete_modal()" type="button" class="btn btn-dark">Delete</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function delete_modal() {
+            location.replace('/ppr/journal/{{ journal.id }}/delete/');
+        }
+    </script>
+
+
+
+
+</body>
+</html>

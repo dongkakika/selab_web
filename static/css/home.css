@@ -8,21 +8,6 @@
     background-position: center;
 }
 
-@font-face{
-    font-family: Blacksword;
-    src: url('../fonts/Blacksword.otf');
-}
-
-@font-face{
-    font-family: PlayfairDisplay-Regular;
-    src: url('../fonts/PlayfairDisplay-Regular.otf');
-}
-
-@font-face{
-    font-family: PlayfairDisplaySC-Bold;
-    src: url('../fonts/PlayfairDisplaySC-Bold.otf');
-}
-
 .main-left-side{
     background-image: url(../images/beige_bg.jpg);
     background-repeat: no-repeat;

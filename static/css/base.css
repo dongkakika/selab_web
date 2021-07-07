@@ -1,6 +1,3 @@
-.navbar{
-
-}
 .ml-auto{
     padding-right: 80px;
 }
@@ -10,15 +7,20 @@
 .logoName{
     padding-left: 10px;
     text-decoration: none !important;
-    color: #353535;
-    font-size: 20px;
-}
-.nav-item{
-    font-size: 20px;
+    color: black;
+    font-size: 19px;
 }
 
-.nav-link{
-    color: #353535 !important;
+.nav-item{
+    font-size: 19px;
+}
+
+.navbar-nav .nav-item a{
+    color: black !important;
+}
+
+.main-footer{
+    background-color: grey;
 }
 
 a:hover{
@@ -26,12 +28,12 @@ a:hover{
 }
 
 .logoName:hover{
-    color: #01BFBA !important;
+    color: #364F6B !important;
 }
 
 #collapsibleNavbar a:hover{
     text-decoration: none !important;
-    color: #01BFBA !important;
+    color: #364F6B !important;
 }
 #mail_logo{
     color: #353535;
@@ -39,3 +41,46 @@ a:hover{
 .cbnu_logo:hover{
     color: #912B52 !important;
 }
+
+/* 세부 메뉴들의 상단 패널 배경색 */
+.panel{
+    background-color: #EAEAEA;
+    margin-bottom: 30px;
+    box-shadow: 6px 6px 6px #BDBDBD;
+}
+
+.panel-name{
+    font-size: 47px;
+    /*text-shadow: 3px 2px 2px #ABABAB;*/
+}
+
+@font-face{
+    font-family: PlayfairDisplay-Bold;
+    src: url('../fonts/PlayfairDisplay-Bold.ttf');
+}
+
+@font-face{
+    font-family: PlayfairDisplay-ExtraBold;
+    src: url('../fonts/PlayfairDisplay-ExtraBold.ttf');
+}
+
+@font-face{
+    font-family: Blacksword;
+    src: url('../fonts/Blacksword.otf');
+}
+
+@font-face{
+    font-family: PlayfairDisplay-Regular;
+    src: url('../fonts/PlayfairDisplay-Regular.otf');
+}
+
+@font-face{
+    font-family: PlayfairDisplaySC-Bold;
+    src: url('../fonts/PlayfairDisplaySC-Bold.otf');
+}
+
+@font-face{
+    font-family: bmjua;
+    src: url('../fonts/BMJUA_ttf.ttf');
+}
+

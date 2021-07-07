@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <title>Crown - {{ notice.title }}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
     <style>
         button {
             cursor:pointer;
@@ -162,6 +161,7 @@
 
                 <script type="text/javascript">
                     function delete_modal() {
+                        alert('hi');
                         location.replace('/notice/{{ notice.id }}/delete/');
                     }
                 </script>
