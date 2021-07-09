@@ -47,7 +47,29 @@
             </div>
         </div>
 
+        <script>
+            $(document).ready(function () {
+                $('#id_content').summernote({
+                    placeholder: 'Please write content.',
+                    height: 500,
+                    minHeight: 500,
+                    maxHeight: 500,
+                    lang: 'ko-KR',
 
+                    toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'help']]
+                    ]
+                });
+                $('p').css('margin-bottom','0')
+                $('.note-resizebar').css('display','none');
+            });
+        </script>
 
         <!-- 글을 수정할 때와 작성할 때의 차이를 둠 -->
         <div class="text-right">
