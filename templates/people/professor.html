@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <!-- header -->
+    {% block header %}
+    <meta charset="UTF-8">
+    <title>CBNU SELab - People</title>
+    <link rel = "stylesheet" href="{% static 'css/people.css' %}?ver=1.1">
+
+    <style media="screen">
+        p { margin:20px 0px; }
+
+        .tap_font{
+            color: black;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .nav-tabs .nav-link.active{
+            background-color: #EAEAEA !important;
+            color: black;
+        }
+        .nav-tabs .nav-item:hover{
+            background-color: #F6F6F6;
+            color: black !important;
+        }
+        .pagination .active .page-link{
+            background-color: #EAEAEA !important;
+            border-color: #D5D5D5;
+            color: black;
+        }
+        .nav-link{
+            color: black;
+        }
+        .table-head{
+            background-color: #F6F6F6;
+        }
+    </style>
+
+    {% endblock %}
+</head>
+<!-- body contents -->
+
+<body>
+{% block contents %}
+
+    <div class="panel container-fluid text-center">
+        <a class="panel-name"><b>Professor</b></a><br>
+    </div>
+    <div id="first_content" class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <img src="../../static/images/professor_hong.bmp" width="170px;">
+            </div>
+            <div class="col-lg-6">
+                <a style="font-size: 25px;"><b>Jang Eui Hong (홍 장 의)</b></a><br><br>
+                {% if professor %}
+                {% for p in professor %}
+                {{ p.content | safe }}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <!-- 수정 버튼 -->
+        <div class="modifyButton container_fluid">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8" style="text-align: right;">
+                    {% if request.user.level == '0' or request.user.level == '1' %}
+                    <a href="modifyContent/" class="btn btn-success" onclick="addInput();">Modify</a>
+                    {% endif %}
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="second_content" class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a style="font-size:15px;" class="nav-link active" data-toggle="tab" href="#tap-1">Journal</a></li>
+                    <li class="nav-item"><a style="font-size:15px;" class="nav-link" data-toggle="tab" href="#tap-2">Publications</a></li>
+                    <li class="nav-item"><a style="font-size:15px;" class="nav-link" data-toggle="tab" href="#tap-3">Research & Project</a></li>
+                    <li class="nav-item"><a style="font-size:15px;" class="nav-link" data-toggle="tab" href="#tap-4">Intellectual Property</a></li>
+                    <li class="nav-item"><a style="font-size:15px;" class="nav-link" data-toggle="tab" href="#tap-5">Activities</a></li>
+                    <li class="nav-item"><a style="font-size:15px;" class="nav-link" data-toggle="tab" href="#tap-6">Award</a></li>
+                    <li class="nav-item"><a style="font-size:15px;" class="nav-link" data-toggle="tab" href="#tap-7">Conference</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!-- journal list -->
+                    <div class="tab-pane fade show active" id="tap-1">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="table-head" style="font-size:14px;">
+                                    <th style="width:15%">Issued Date</th>
+                                    <th style="width:65%; text-align:center">Title</th>
+                                    <th style="width:20%; text-align:center">Journals</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                {% if journal_list %}
+                                {% for journal in journal_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/journal/{{ journal.id }}/'" {% endif %}>
+                                    <td>{{ journal.issued_date }}</td>
+                                    <td>{{ journal.title|truncatechars:80 }}</td>
+                                    <td style="text-align:center">{{ journal.journals }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 논문 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/journal_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <div class="row text-center">
+                            {% if journal_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if journal_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ journal_list.previous_page_number }}" tabindex="-1">Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range1 %}
+                                <li class="page-item {% if page == journal_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if journal_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ journal_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- journal list -->
+
+                    <!-- publications list -->
+                    <div class="tab-pane fade" id="tap-2">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size:14px;">
+                                    <th style="width:5%">No.</th>
+                                    <th style="width:55%; text-align: center">Title</th>
+                                    <th style="width:25%">Publisher</th>
+                                    <th style="width:15%">Published Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if publication_list %}
+                                {% for publication in publication_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/publications/{{ publication.id }}/'" {% endif %}>
+                                    <td>{{ publication.id }}</td>
+                                    <td>{{ publication.title|truncatechars:30 }}</td>
+                                    <td>{{ publication.publisher }}</td>
+                                    <td>{{ publication.published_date }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/publication_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <!-- 페이지가 생성되면, -->
+                        <div class="row text-center">
+                            {% if publication_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if publication_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ publication_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range2 %}
+                                <li class="page-item {% if page == publication_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if publication_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ publication_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tap-3">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size:14px;">
+                                    <th style="width:5%">No.</th>
+                                    <th style="width:55%; text-align: center">Title</th>
+                                    <th style="width:25%">Related Org.</th>
+                                    <th style="width:15%">period</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if rp_list %}
+                                {% for rp in rp_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/rp/{{ rp.id }}/'" {% endif %}>
+                                    <td>{{ rp.id }}</td>
+                                    <td>{{ rp.title|truncatechars:30 }}</td>
+                                    <td>{{ rp.org }}</td>
+                                    <td>{{ rp.period }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/rp_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <!-- 페이지가 생성되면, -->
+                        <div class="row text-center">
+                            {% if rp_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if rp_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ rp_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range3 %}
+                                <li class="page-item {% if page == rp_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if rp_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ rp_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- rp list -->
+
+                    <!-- ip list -->
+                    <div class="tab-pane fade" id="tap-4">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size:14px;">
+                                    <th style="width:5%">No.</th>
+                                    <th style="width:55%; text-align: center">Title</th>
+                                    <th style="width:10%">Type</th>
+                                    <th style="width:15%">Applicant</th>
+                                    <th style="width:15%">Applied Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if ip_list %}
+                                {% for ip in ip_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
+                                    <td>{{ ip.id }}</td>
+                                    <td>{{ ip.title|truncatechars:30 }}</td>
+                                    <td>{{ ip.type }}</td>
+                                    <td>{{ ip.applicant }}</td>
+                                    <td>{{ ip.date }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/ip_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <!-- 페이지가 생성되면, -->
+                        <div class="row text-center">
+                            {% if ip_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if ip_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ ip_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range4 %}
+                                <li class="page-item {% if page == ip_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if ip_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ ip_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- activities list -->
+                    <div class="tab-pane fade" id="tap-5">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size:14px;">
+                                    <th style="width:10%">No.</th>
+                                    <th style="width:75%; text-align: center">Title</th>
+                                    <th style="width:15%">Announced Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if activities_list %}
+                                {% for activity in activities_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
+                                    <td>{{ activity.id }}</td>
+                                    <td>{{ activity.title|truncatechars:30 }}</td>
+                                    <td>{{ activity.announced_date }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/tabs/activities_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <!-- 페이지가 생성되면, -->
+                        <div class="row text-center">
+                            {% if activities_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if activities_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ activities_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range4 %}
+                                <li class="page-item {% if page == activities_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if activities_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ activities_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- award -->
+                    <div class="tab-pane fade" id="tap-6">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size:14px;">
+                                    <th style="width:5%">No.</th>
+                                    <th style="width:35%; text-align: center">Title</th>
+                                    <th style="width:45%">Content</th>
+                                    <th style="width:15%">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if ip_list %}
+                                {% for ip in ip_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
+                                    <td>{{ ip.id }}</td>
+                                    <td>{{ ip.title|truncatechars:30 }}</td>
+                                    <td>{{ ip.type }}</td>
+                                    <td>{{ ip.applicant }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/ip_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <!-- 페이지가 생성되면, -->
+                        <div class="row text-center">
+                            {% if ip_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if ip_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ ip_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range4 %}
+                                <li class="page-item {% if page == ip_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if ip_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ ip_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- conference -->
+                    <div class="tab-pane fade" id="tap-7">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size:14px;">
+                                    <th style="width:5%">No.</th>
+                                    <th style="width:45%; text-align: center">Title</th>
+                                    <th style="width:20%">Academic Conference</th>
+                                    <th style="width:15%">Period</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if ip_list %}
+                                {% for ip in ip_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
+                                    <td>{{ ip.id }}</td>
+                                    <td>{{ ip.title|truncatechars:30 }}</td>
+                                    <td>{{ ip.type }}</td>
+                                    <td>{{ ip.applicant }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
+                                    {% if q %} <!-- 1. 검색어가 있어 q가 context로 넘어오면 검색결과가 없음 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            Not any matching results.
+                                        </td>
+                                    </tr>
+                                    {% else %} <!-- 2. q가 없으면 검색어가 아니며, 게시글이 존재하지 않으므로 게시글 미작성 -->
+                                    <tr class="text-center">
+                                        <td colspan="5">
+                                            No posts created.
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        {% if request.user.level == '0' or request.user.level == '1' %}
+                            <a style="float:right" href="/ppr/ip_write/" class="btn btn-secondary">Write</a>
+                        {% endif %}
+
+                        <!-- 페이지가 생성되면, -->
+                        <div class="row text-center">
+                            {% if ip_list %}
+                            <ul class="pagination" style="float:none; margin: 0 auto;">
+
+                                <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
+                                {% if ip_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ ip_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
+                                </li>
+                                {% else %}
+                                <!-- 이전 버튼: 이전 항목이 없을 때 회색 글씨 -->
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                {% endif %}
+
+                                <!-- 페이지 번호-->
+                                {% for page in page_range4 %}
+                                <li class="page-item {% if page == ip_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% endfor %}
+
+                                {% if ip_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ ip_list.next_page_number }}">
+                                        Next
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        Next
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+
+        </div>
+
+    </div>
+
+    <br><br>
+
+
+
+
+
+
+{% endblock %}
+</body>
+
+</html>

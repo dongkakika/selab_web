@@ -13,7 +13,7 @@ class NoticeAdmin(admin.ModelAdmin):
 
     # admin 커스텀 중, ForeignKey가 search_fields에 포함되어 있으면, incontains 에러가 발생
     # --> 작성자인 writer가 User 모델과, ForeignKey로 엮여있기 때문에 search_fields에 'writer__user_id'와 같이 추가
-    search_fields = ('title', 'content', 'writer__user_id')
+    search_fields = ('title', 'content', 'writer__user_id', 'registered_date')
 
 
 admin.site.register(Notice, NoticeAdmin)

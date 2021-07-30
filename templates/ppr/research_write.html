@@ -31,10 +31,19 @@
     <form class="container" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="card">
-            <label>Image: </label>
-            <div>
+            <label>Image: </label><br>
+            <div style="display: inline-block">
                 {{ form.img }}
-            </div><br>
+            </div>
+            <label style="margin-left: 30px;">
+                {{ form.left_right_check }}
+                <span>Image to the right <b style="font-weight:none; color:grey;">(Default is left)</b></span>
+            </label>
+            <script>
+                var radio1_stat = document.getElementById('radio1').checked;
+                alert(radio1_stat);
+            </script>
+            <br><br>
 
             <label>Title: </label>
             <div class="card-header">

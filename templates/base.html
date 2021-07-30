@@ -65,8 +65,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link menu_focus" data-toggle="dropdown">People</a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-item"><a class="nav-link" style="width: 130px !important; padding-right: 0px !important;" href="/ppr/professor">Professor</a></li>
-                            <li class="dropdown-item"><a class="nav-link" style="width: 130px !important; padding-right: 0px !important;" href="/ppr/members">Members</a></li>
+                            <li class="dropdown-item"><a class="nav-link" style="width: 130px !important; padding-right: 0px !important;" href="/people/professor">Professor</a></li>
+                            <li class="dropdown-item"><a class="nav-link" style="width: 130px !important; padding-right: 0px !important;" href="/people/members">Members</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -101,9 +101,9 @@
                 <a>Copyright © CBNU SELab. All Rights Reserved.</a>
 
                 {% if user.is_authenticated %}
-                <a href="/logout" style="color:white;"> Logout</a>
+                    <a href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
                 {% else %}
-                <a href="/login" style="color:white;"> Login</a>
+                    <a href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
                 {% endif %}
                 <br>
                 <a>Address: (S4-1)-303(3F), Chungdae-ro 1, Seowon-gu, Cheongju, Chungbuk, 28644, Republic of Korea</a><br>

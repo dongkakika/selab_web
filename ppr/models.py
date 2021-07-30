@@ -29,57 +29,13 @@ class rp(models.Model):
         verbose_name = 'Research & Project'
         verbose_name_plural = 'Research & Project'
 
-class People(models.Model):
-    name = models.TextField(verbose_name='name')
-    content = models.TextField(verbose_name='content')
-    email = models.TextField(verbose_name='email')
-    img_upload = models.ImageField(
-        blank=True,  # 비어도 ok
-        null = True, # null ok
-        upload_to="image/" # 경로 설정
-    )
 
-    def __str__(self):
-        return self.content
-
-    class Meta:
-        db_table = 'people'
-        verbose_name = 'People'
-        verbose_name_plural = 'People'
-
-class Staff(models.Model):
-    name = models.TextField(verbose_name='name')
-    content = models.TextField(verbose_name='content')
-    email = models.TextField(verbose_name='email')
-    img_upload = models.ImageField(
-        blank=True,  # 비어도 ok
-        null = True, # null ok
-        upload_to="image/" # 경로 설정
-    )
-
-    def __str__(self):
-        return self.content
-
-    class Meta:
-        db_table = 'staff'
-        verbose_name = 'Staff'
-        verbose_name_plural = 'Staff'
-
-class Professor(models.Model):
-    content = models.TextField(verbose_name='content')
-
-    def __str__(self):
-        return self.content
-
-    class Meta:
-        db_table = 'professor'
-        verbose_name = 'professor'
-        verbose_name_plural = 'professor'
 
 class Journal(models.Model):
     title = models.CharField(max_length=128, verbose_name='title')
     journals = models.TextField(verbose_name='journals')
     issued_date = models.TextField(verbose_name='issued_date')
+
 
     def __str__(self):
         return self.title
@@ -111,6 +67,7 @@ class Research(models.Model):
         upload_to="image/"  # 경로 설정
     )
     content = models.TextField(verbose_name='content')
+    left_right_check = models.BooleanField(verbose_name='left_right_check')
 
     def __str__(self):
         return self.title

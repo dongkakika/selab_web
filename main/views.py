@@ -8,7 +8,9 @@ from django.views.generic import FormView
 from .forms import LoginForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
-
+from django.urls import reverse_lazy, reverse, resolve
+from django.shortcuts import resolve_url
+from django.contrib import messages
 
 def home(request):
     return render(request, 'main/home.html')
@@ -18,7 +20,8 @@ def home(request):
 class LoginView(FormView):
     template_name = 'main/login.html'
     form_class = LoginForm
-    success_url = '/' # 로그인 성공했을 때 들어가는 주소
+
+    #success_url = '/' # reverse_lazy("main:home") # 로그인 성공했을 때 들어가는 주소
 
     def form_valid(self, form):
         userid = form.cleaned_data.get("userid")
@@ -35,7 +38,19 @@ class LoginView(FormView):
 
         return super().form_valid(form)
 
+    def get_success_url(self, **kwargs):
+        return str(hello)
+
+    def get_context_data(self, **kwargs):
+        global hello
+        hello = self.request.GET.get('next')
+        messages.success(self.request, hello)
+        return super().get_context_data(**kwargs)
+
+
+
 # 로그아웃 후,
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    next = request.GET['next']
+    return redirect(next)

@@ -46,86 +46,91 @@
 
                         <br>
 
-                        <script>
-                            var temp_id = "{{ notice.id }}";
-                            var click_count = 0;
 
-                            // 아랫단의 check_localStorage를 동작시키기 위해 함수 미리 선언
-                            function check_localStorage(){
-                                var rst = localStorage.getItem(temp_id);
-                                return rst;
-                            }
-
-                            // html 내부에 js 변수를 사용하기 위함
-                            var temp_count = {{ notice.like_count }};
-
-                            // 1. 일단 버튼을 보이기 - check_localStorage() 함수를 통해
-                            //                      현재 게시글 id를 이름으로 가진 localStorage의
-                            //                      value를 확인하여 알맞은 버튼으로 매핑
-                            if(check_localStorage() == "1"){
-                                document.write('<button onclick="like_notice()" style="border:none; outline:none; background-color:white;"><img id="heart" src="{% static 'images/icon/heart_second.jpg' %}" width="21" height="21"></button><span> Like (</span><span id="temp_count"></span><span>)</span>');
-                            }
-                            else{
-                                // 2. 만약 해당 id의 localStorage가 Null 혹은 "0"을 가지고 있다면,
-                                // 빈 하트 버튼으로 매핑
-                                document.write('<button onclick="like_notice()" style="border:none; outline:none; background-color:white;"><img id="heart" src="{% static 'images/icon/heart_first.jpg' %}" width="21" height="21"></button><span> Like (</span><span id="temp_count"></span><span>)</span>');
-                            }
-                            document.getElementById("temp_count").innerHTML = temp_count;
-                        </script>
-
-                        <!-- 동작의 구분을 두려고 나눔 -->
-
-                        <script>
-                            function like_notice(){
-                                // localStorage의 value를 저장할 변수 선언
-                                var notice_like_log = localStorage.getItem(temp_id);
-
-                                // 여기가 Null 값 체킹 - 최초로 들어온 사용자가 거치게 될 로직
-                                if(!notice_like_log){
-                                    // Null이면, 새로 localStorage를 생성하고 0으로 값 초기화
-                                    localStorage.setItem(temp_id, "0");
-                                    // 그리고 화면에 보여줄 이미지를 골라야하므로 값을 불러서 저장
-                                    notice_like_log = localStorage.getItem(temp_id);
-                                }
-
-                                if(click_count >= 10){
-                                    alert("Too many tries !")
-                                }
-                                else{
-                                    click_count += 1;
-
-                                    if(notice_like_log == "0"){
-                                        localStorage.setItem(temp_id, "1");
-                                        document.getElementById("heart").src = "{% static 'images/icon/heart_second.jpg' %}";
-                                        // 0이면 1(좋아요)로 바뀌면서 temp_count_plus 값을 temp_count라고 지정된 span 태그 값 안에 집어넣어버림
-                                        temp_count += 1;
-                                        document.getElementById("temp_count").innerHTML = temp_count;
-                                        $.ajax({
-                                            url: 'like_notice', // 해당 url을 동작시키는 것만으로도 view의 함수를 실행
-                                        });
-                                    }
-                                    else{
-                                        localStorage.setItem(temp_id, "0");
-                                        document.getElementById("heart").src = "{% static 'images/icon/heart_first.jpg' %}";
-                                        // 1(좋아요)면 0으로 바뀌면서 temp_count_minus 값을 temp_count라고 지정된 span 태그 값 안에 집어넣어버림
-                                        temp_count -= 1;
-                                        document.getElementById("temp_count").innerHTML = temp_count;
-                                        $.ajax({
-                                            url: 'cancel_like_notice', // 해당 url을 동작시키는 것만으로도 view의 함수를 실행
-                                        });
-                                    }
-                                }
-
-                            }
-
-
-                        </script>
-
-                        {% if looog != "127.0.0.1" %}
-                            <button>{{ looog }}</button>
-                        {% endif %}
                     </div>
                 </div>
+
+
+                <script>
+                    var temp_id = "{{ notice.id }}";
+                    var click_count = 0;
+
+                    // 아랫단의 check_localStorage를 동작시키기 위해 함수 미리 선언
+                    function check_localStorage(){
+                        var rst = localStorage.getItem(temp_id);
+                        return rst;
+                    }
+
+                    // html 내부에 js 변수를 사용하기 위함
+                    var temp_count = {{ notice.like_count }};
+
+                    // 1. 일단 버튼을 보이기 - check_localStorage() 함수를 통해
+                    //                      현재 게시글 id를 이름으로 가진 localStorage의
+                    //                      value를 확인하여 알맞은 버튼으로 매핑
+                    if(check_localStorage() == "1"){
+                        document.write('<button onclick="like_notice()" style="border:none; outline:none; background-color:white;"><img id="heart" src="{% static 'images/icon/heart_second.jpg' %}" width="21" height="21"></button><span> Like (</span><span id="temp_count"></span><span>)</span>');
+                    }
+                    else{
+                        // 2. 만약 해당 id의 localStorage가 Null 혹은 "0"을 가지고 있다면,
+                        // 빈 하트 버튼으로 매핑
+                        document.write('<button onclick="like_notice()" style="border:none; outline:none; background-color:white;"><img id="heart" src="{% static 'images/icon/heart_first.jpg' %}" width="21" height="21"></button><span> Like (</span><span id="temp_count"></span><span>)</span>');
+                    }
+                    document.getElementById("temp_count").innerHTML = temp_count;
+                </script>
+
+                <!-- 동작의 구분을 두려고 나눔 -->
+
+                <script>
+                    function like_notice(){
+                        // localStorage의 value를 저장할 변수 선언
+                        var notice_like_log = localStorage.getItem(temp_id);
+
+                        // 여기가 Null 값 체킹 - 최초로 들어온 사용자가 거치게 될 로직
+                        if(!notice_like_log){
+                            // Null이면, 새로 localStorage를 생성하고 0으로 값 초기화
+                            localStorage.setItem(temp_id, "0");
+                            // 그리고 화면에 보여줄 이미지를 골라야하므로 값을 불러서 저장
+                            notice_like_log = localStorage.getItem(temp_id);
+                        }
+
+                        if(click_count >= 10){
+                            alert("Too many tries !")
+                        }
+                        else{
+                            click_count += 1;
+
+                            if(notice_like_log == "0"){
+                                localStorage.setItem(temp_id, "1");
+                                document.getElementById("heart").src = "{% static 'images/icon/heart_second.jpg' %}";
+                                // 0이면 1(좋아요)로 바뀌면서 temp_count_plus 값을 temp_count라고 지정된 span 태그 값 안에 집어넣어버림
+                                temp_count += 1;
+                                document.getElementById("temp_count").innerHTML = temp_count;
+                                $.ajax({
+                                    url: 'like_notice', // 해당 url을 동작시키는 것만으로도 view의 함수를 실행
+                                });
+                            }
+                            else{
+                                localStorage.setItem(temp_id, "0");
+                                document.getElementById("heart").src = "{% static 'images/icon/heart_first.jpg' %}";
+                                // 1(좋아요)면 0으로 바뀌면서 temp_count_minus 값을 temp_count라고 지정된 span 태그 값 안에 집어넣어버림
+                                temp_count -= 1;
+                                document.getElementById("temp_count").innerHTML = temp_count;
+                                $.ajax({
+                                    url: 'cancel_like_notice', // 해당 url을 동작시키는 것만으로도 view의 함수를 실행
+                                });
+                            }
+                        }
+
+                    }
+
+
+                </script>
+                <!--
+                {% if looog != "127.0.0.1" %}
+                    <button>{{ looog }}</button>
+                {% endif %}
+                -->
+
 
                 <br><br>
                 <div class="pull-right"> <!-- 작성자가 아니라면, notice_auth가 False가 되어 수정, 삭제 버튼이 나오지 않는다. -->
