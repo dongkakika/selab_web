@@ -16,71 +16,8 @@
 <body>
 {% block contents %}
 
-
-
-
     <div class="panel container-fluid text-center">
-        <a class="panel-name"><b>Members</b></a><br>
-    </div>
-
-    <div style="background-color: white; padding-top:20px;" class="member container-fluid">
-        <div class="row">
-
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2">
-                <img src="../../static/images/docter_ali3.png" width="170px;" style="border-radius: 7px;" />
-            </div>
-            <div class="col-lg-8">
-                <a style=" font-size: 25px;"><b>Nazakat Ali</b></a><br>
-
-                <a style="font-size: 15px;">
-                    E-mail: nazakatali@selab.cbnu.ac.kr<br><br>
-                    2018 - 2021, Ph.D. Computer Science, CBNU<br>
-                    2016 - 2018, M.S. Computer Science, CBNU
-                    <br>
-                </a>
-                <!-- 추가, 수정, 삭제 버튼 -->
-                <div class="modifyButton" style="text-align: right;">
-                    {% if request.user.level == '0' or request.user.level == '1' %}
-                        <a href="modify/{{ people.id }}" class="btn btn-success">Modify</a>
-                        <a href="delete/{{ people.id }}" class="btn btn-danger">Delete</a>
-                    {% endif %}
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div style="background-color: white; padding-top:20px;" class="member container-fluid row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-2">
-            <img src="../../static/images/master_kyj.jpg" width="170px;" style="border-radius: 7px;" />
-        </div>
-        <div class="col-lg-8">
-            <a style=" font-size: 25px;"><b>Young Jae Kim (김 영 재)</b></a><br>
-            <a style="font-size: 15px;">
-                E-mail: kyj@selab.cbnu.ac.kr<br><br>
-                2020 - Present, M.S. Computer Science, CBNU<br>
-
-                <br>
-            </a>
-        </div>
-        <br>
-    </div>
-
-    <div style="background-color: white; padding-top:20px;" class="member container-fluid row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-2">
-            <img src="../../static/images/master_manzoor.png" width="170px;" style="border-radius: 7px;" />
-        </div>
-        <div class="col-lg-8">
-            <a style=" font-size: 25px;"><b>Manzoor Hussain</b></a><br>
-            <a style="font-size: 15px;">
-                E-mail: hussain@selab.cbnu.ac.kr<br><br>
-                2020 - Present, M.S. Computer Science, CBNU<br><br>
-            </a>
-        </div>
-        <br>
+        <a class="panel-name"><b>Graduate Course</b></a><br>
     </div>
 
     {% if people_all %}
@@ -139,8 +76,6 @@
     {% endfor %}
     {% endif %}
 
-
-
     <!-- Add button -->
     <div class="modifyButton" style="text-align: right;">
         {% if request.user.level == '0' or request.user.level == '1' %}
@@ -148,29 +83,8 @@
         {% endif %}
     </div>
 
-
-
-
-
     <div class="panel container-fluid text-center">
-        <a style="font-size: 50px;"><b>Other Staff</b></a><br>
-    </div>
-    <div style="background-color: white; padding-top:20px;" class="member container-fluid row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-2">
-            <img src="../../static/images/profile_img.png" width="170px;" style="border-radius: 7px;" />
-        </div>
-        <div class="col-lg-8">
-            <a style=" font-size: 25px;"><b>Ha Eun Lee</b></a><br>
-            <a style="font-size: 15px;">
-                E-mail: @selab.cbnu.ac.kr<br><br>
-                2019 - Present, B.S. Software department, CBNU<br>
-
-                <br>
-
-
-            </a>
-        </div>
+        <a style="font-size: 50px;"><b>Undergraduate Course</b></a><br>
     </div>
 
     {% if staff_all %}

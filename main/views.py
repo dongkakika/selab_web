@@ -4,10 +4,12 @@ from django.shortcuts import redirect
 
 # Create your views here.
 from main.decorators import logout_message_required
-from django.views.generic import FormView
-from .forms import LoginForm
+from django.views.generic import FormView, View, CreateView
+from .forms import LoginForm, RegisterForm
+from .models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy, reverse, resolve
 from django.shortcuts import resolve_url
 from django.contrib import messages
@@ -44,10 +46,54 @@ class LoginView(FormView):
     def get_context_data(self, **kwargs):
         global hello
         hello = self.request.GET.get('next')
-        messages.success(self.request, hello)
         return super().get_context_data(**kwargs)
 
+# 약관 동의 cbv 구현
+# decorators.py의 'logout...'를 decorator로 사용 --> 로그인 중인 사용자 접근 금지
+@method_decorator(logout_message_required, name='dispatch')
+class AgreementView(View):
+    # 1. agreement에 대해 False를 주고 시작 (agreement.html을 참조)
+    def get(self, request, *args, **kwargs):
+        request.session['agreement'] = False
+        return render(request, 'main/agreement.html')
 
+    # 2. 사용자에 의해 저장된 agreement가 True인지 False인지 검사
+    def post(self, request, *args, **kwarg):
+        # 3-1. 동의했는지 검사
+        if request.POST.get('agreement1', False) and request.POST.get('agreement2', False):
+            request.session['agreement'] = True
+            # 동의했다면 직원 가입 or 일반 가입 검사
+            if request.POST.get('sign_up') == 'sign_up':
+                return redirect('main:sign_up')
+            else:
+                return redirect('main:sign_up')
+        # 3-2. 동의하지 않았다면 다시 back
+        else:
+            messages.info(request, "약관에 모두 동의해주세요.")
+            return redirect('/agreement')
+
+# 직원 회원가입
+class sign_up(CreateView):
+    model = User
+    template_name = 'main/sign_up.html'
+    form_class = RegisterForm
+
+    def get(self, request, *args, **kwargs):
+        if not request.session.get('agreement', False):
+            raise PermissionDenied
+        request.session['agreement'] = False
+        return super().get(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return '/login/?next=/'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        messages.success(self.request, "회원가입 성공.")
+        return redirect(self.get_success_url())
+
+# def sign_up(request):
+#     return render(request, 'main/sign_up.html')
 
 # 로그아웃 후,
 def logout_view(request):

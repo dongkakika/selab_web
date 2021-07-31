@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from .models import People, Professor, Staff
 from .forms import PeopleForm, ProfessorForm, StaffForm
-from ppr.models import Publication, Journal, ip, rp
-from tabs.models import activities, award, Conference
+from ppr.models import Publication, Journal
+from tabs.models import ip, rp, activities, award, Conference
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
@@ -144,21 +144,25 @@ def professor(request):
     journal_list = Journal.objects.all().order_by('issued_date')
     rp_list = rp.objects.all().order_by('-period')
     ip_list = ip.objects.all().order_by('-date')
+    activities_list = activities.objects.all().order_by('-announced_date')
 
     paginator1 = Paginator(journal_list, 10)
     paginator2 = Paginator(publication_list, 10)
     paginator3 = Paginator(rp_list, 10)
     paginator4 = Paginator(ip_list, 10)
+    paginator5 = Paginator(activities_list, 10)
     page_number = request.GET.get('page')
     page_obj1 = paginator1.get_page(page_number)
     page_obj2 = paginator2.get_page(page_number)
     page_obj3 = paginator3.get_page(page_number)
     page_obj4 = paginator4.get_page(page_number)
+    page_obj5 = paginator5.get_page(page_number)
 
     page_range1 = page_obj1.paginator.page_range
     page_range2 = page_obj2.paginator.page_range
     page_range3 = page_obj3.paginator.page_range
     page_range4 = page_obj4.paginator.page_range
+    page_range5 = page_obj5.paginator.page_range
 
     context = {
         'professor': professor,
@@ -166,10 +170,13 @@ def professor(request):
         'publication_list': page_obj2,
         'rp_list': page_obj3,
         'ip_list': page_obj4,
+        'activities_list': page_obj5,
+
         'page_range1': page_range1,
         'page_range2': page_range2,
         'page_range3': page_range3,
         'page_range4': page_range4,
+        'page_range5': page_range5,
     }
 
     return render(request, 'people/professor.html', context)

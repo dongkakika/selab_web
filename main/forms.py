@@ -44,57 +44,54 @@ def hp_validator(value):
         raise forms.ValidationError('정확한 핸드폰 번호를 입력해주세요!')
 
 
-# 일반 회원가입 폼
+
 class RegisterForm(UserCreationForm):
-    # 안씀
-    auth = forms.ChoiceField(choices=LEVEL_CHOICES, label='auth', widget=forms.Select(
-        attrs={'class': 'form-control'}),
-    )
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
-        self.fields['userid'].label = '아이디'
+        self.fields['userid'].label = 'ID'
         self.fields['userid'].widget.attrs.update({
-            # 'class': 'form-control col-sm-10',
             'class': 'form-control',
-            'autofocus': False,
-            # 'placeholder': '아이디를 입력해주세요.',
+            # 'placeholder': '아이디를 입력해주세요.'
+            'autofocus': False
         })
-        self.fields['password1'].label = '비밀번호'
+
         self.fields['password1'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': '비밀번호를 입력해주세요.',
+            # 'placeholder': '비밀번호를 입력해주세요.'
         })
-        self.fields['password2'].label = '비밀번호 확인'
+
         self.fields['password2'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': '비밀번호를 다시 입력해주세요.',
+            # 'placeholder': '비밀번호를 다시 입력해주세요.'
         })
-        self.fields['email'].label = '이메일'
+
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': '회원가입 후 입력하신 메일로 본인인증 메일이 전송됩니다.',
+            # 'placeholder': '회원가입 후 입력하신 메일로 본인인증 메일이 전송됩니다.'
         })
-        self.fields['name'].label = '이름'
-        self.fields['name'].widget.attrs.update({
+
+        self.fields['username'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': "아이디, 비밀번호 찾기에 이용됩니다.",
+            # 'placeholder': '회원가입 후 입력하신 메일로 본인인증 메일이 전송됩니다.'
         })
-        self.fields['hp'].label = '휴대폰 번호'
+
         self.fields['hp'].validators = [hp_validator]
         self.fields['hp'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': "'-'를 제외한 숫자로 입력해주세요",
+            # 'placeholder': "'-'를 제외한 숫자로 입력해주세요.",
         })
 
     class Meta:
         model = User
         fields = ['userid', 'password1', 'password2', 'email', 'username', 'hp']
+
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
-        user.level = '3'
-        user.is_active = False
+        user.level = '2'
+        user.auth = 'member'
+        user.is_staff = True
         user.save()
 
         return user

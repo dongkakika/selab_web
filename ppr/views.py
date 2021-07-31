@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Publication, Journal, Research, rp, ip
-from .forms import PublicationWriteForm, JournalWriteForm, ResearchForm, RPForm, IPForm
+from .models import Publication, Journal, Research
+from .forms import PublicationWriteForm, JournalWriteForm, ResearchForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
@@ -10,33 +10,7 @@ from django.views.generic import ListView
 import os
 from django.http import HttpResponse
 
-@login_message_required
-def ip_write(request):
-    if request.method == "POST":
-        form = IPForm(request.POST)
-        if form.is_valid():
-            # commit = False는 바로 저장하는 것을 방지
-            ip = form.save(commit=False)
-            ip.save()  # 내용 저장
-            return redirect('ppr:professor')
 
-    else:
-        form = IPForm()
-        return render(request, 'ppr/ip_write.html', {'form':form})
-
-@login_message_required
-def rp_write(request):
-    if request.method == "POST":
-        form = RPForm(request.POST)
-        if form.is_valid():
-            # commit = False는 바로 저장하는 것을 방지
-            rp = form.save(commit=False)
-            rp.save()  # 내용 저장
-            return redirect('ppr:professor')
-
-    else:
-        form = RPForm()
-        return render(request, 'ppr/activities_write.html', {'form':form})
 
 @login_message_required
 def research_delete(request, pk):
@@ -89,6 +63,7 @@ def research(request):
     }
     return render(request, 'ppr/research.html', context)
 
+@login_message_required
 def research_write(request):
     if request.method == "POST":
         form = ResearchForm(request.POST)

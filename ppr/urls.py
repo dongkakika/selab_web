@@ -7,10 +7,6 @@ app_name = 'ppr'
 
 urlpatterns = [
 
-
-    path('ip_write/', views.ip_write, name='ip_write'),
-    path('rp_write/', views.rp_write, name='rp_write'),
-
     path('research/', views.research, name='research'),
     path('research/write/', views.research_write, name='research_write'),
     path('research/modify/<int:pk>/', views.research_modify, name='research_modify'),

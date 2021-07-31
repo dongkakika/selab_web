@@ -263,6 +263,8 @@
                             {% endif %}
                         </div>
                     </div>
+
+                    <!-- rp -->
                     <div class="tab-pane fade" id="tap-3">
                         <table class="table table-hover">
                             <thead>
@@ -276,7 +278,7 @@
                             <tbody>
                                 {% if rp_list %}
                                 {% for rp in rp_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/rp/{{ rp.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/rp/{{ rp.id }}/'" {% endif %}>
                                     <td>{{ rp.id }}</td>
                                     <td>{{ rp.title|truncatechars:30 }}</td>
                                     <td>{{ rp.org }}</td>
@@ -302,7 +304,7 @@
                         </table>
                         <!-- 퍼블리케이션 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/ppr/rp_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/rp_write/" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -364,7 +366,7 @@
                             <tbody>
                                 {% if ip_list %}
                                 {% for ip in ip_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/ip/{{ ip.id }}/'" {% endif %}>
                                     <td>{{ ip.id }}</td>
                                     <td>{{ ip.title|truncatechars:30 }}</td>
                                     <td>{{ ip.type }}</td>
@@ -391,7 +393,7 @@
                         </table>
                         <!-- 퍼블리케이션 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/ppr/ip_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/ip_write/" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -450,7 +452,7 @@
                             <tbody>
                                 {% if activities_list %}
                                 {% for activity in activities_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/activities/{{ activity.id }}/'" {% endif %}>
                                     <td>{{ activity.id }}</td>
                                     <td>{{ activity.title|truncatechars:30 }}</td>
                                     <td>{{ activity.announced_date }}</td>

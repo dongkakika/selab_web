@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% block contents %}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel = "stylesheet" href="{% static 'css/agreement.css' %}?ver=1.1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>agreement</title>
+    <style>
+        .content_box{
+            border: 1px solid black;
+            padding: 30px 30px 30px 30px;
+        }
+        .confirm_box{
+            font-size:18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h4 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <h1 class="text-center" style="margin: 30px 30px">
+                    SELab Sign-up Agreement
+                </h1>
+                <form class="agreement" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="content_box">
+                        <h4>
+                            Article 1 (Purpose)
+                        </h4>
+
+                        <p>
+                            The purpose of these terms and conditions is to prescribe the rights, obligations, and responsibilities of this Site and its users in using Internet-related services operated by "CBNU SELab" (hereinafter referred to as "services").<br><br>
+                            「 These terms and conditions shall apply to acts using PC communication, wireless, etc. unless they are contrary to their nature.」<br>
+                        </p><br>
+
+                        <h4>
+                            Article 2 (Definition)
+                        </h4>
+                        <p>
+                              ① "CBNU SELab" means a virtual web page set up by the software engineering laboratory of Chungbuk National University to send and receive information using communication facilities such as computers and information in order to provide the services of the relevant page to users.
+                            <br><br>
+                              ② "User" means a member and non-member who accesses "CBNU SELab" and receives services provided by "CBNU SELab" under these terms and conditions.
+                            <br><br>
+                              ③ "member" refers to a person who has registered as a member in "CBNU SELab" and can continue to use the service provided by 'CBNU SELab'.
+                            <br><br>
+                              ④ "Non-member" refers to a person who does not sign up for a member and uses the service provided by "CBNU SELab".
+                        </p>
+                    </div>
+
+                    <div class="confirm_box">
+                        <label>
+                            <input type="checkbox" name="agreement1">
+                            <span>I checked the terms and conditions.</span>
+                        </label>
+                    </div>
+                    <div class="content_box">
+                        <h4>
+                            Article 3 (Membership registration)
+                        </h4>
+
+                        <div>
+                              ① Users apply for membership by stating that they agree to these terms and conditions after filling out the membership information according to the registration form prescribed by "CBNU SELab".<br><br>
+
+                              ② "CBNU SELab" shall be registered as a member of a user who has applied for membership as shown in paragraph (1) and shall not fall under any of the following:<br>
+                                <p style="margin-left: 20px;">
+                                1. Where an applicant has previously lost his or her membership under this Agreement, except where he or she has obtained approval for re-enrollment of CBNU SELab three years after losing his or her membership under this agreement.<br>
+                                2. If there are false, missing entries, or errors in the registration contents. <br>
+                                3. If it is deemed that registering as another member significantly hinders the technology of "CBNU SELab".<br>
+                                </p>
+
+                              ③ The timing of the membership contract shall be when the approval of "CBNU SELab" reaches the member.<br><br>
+
+                              ④ If there is a change in the registered matters at the time of membership, the member shall notify the "CBNU SELab" of the change by modifying the member information within a considerable period of time.<br>
+
+                        </div><br>
+
+                        <h4>
+                            Article 4 (Exclusion of membership and loss of qualification, etc.)
+                        </h4>
+
+                        <div>
+                              ① Members can request withdrawal from "CBNU SELab" at any time, and "CBNU SELab" will immediately process withdrawal from the membership.<br>
+
+                              ② If a member falls under any of the following reasons, "CBNU SELab" may restrict and suspend membership:<br>
+
+                                <p style="margin-left: 20px;">
+                                    1. If false information is registered at the time of application for subscription. <br>
+                                    2. Disrupting Cyber Culture within "CBNU SELab" <br>
+                                    3. In case of unauthorized corruption of information in "CBNU SELab" <br>
+                                    4. If personal information of "CBNU SELab" is extorted or abused without permission. <br>
+                                </p>
+
+
+                              ③ After "CBNU SELab" restricts and suspends membership, "CBNU SELab" may lose its membership if the same act is repeated more than twice or the reason is not corrected within 30 days.<br><br>
+
+                              ④ If "CBNU SELab" loses its membership, the membership registration is canceled. In such cases, the member shall be notified and the member shall be given an opportunity to give at least 30 days before the cancellation of the membership registration.<br>
+                        </div>
+                    </div>
+
+                    <div class="confirm_box">
+                        <label>
+                            <input type="checkbox" name="agreement2">
+                            <span>I agree to collect and use personal information.</span>
+                         </label>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" name="sign_up" style="opacity: 90%; font-size: 16px;"
+                                class="btn btn-red" data-toggle="tooltip" data-placement="top"
+                                value="sign_up">Continue</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+    <!-- POST 형식으로 입력 -->
+
+
+    <!-- Data-toggle -->
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags %}
+    <script>
+        alert("{{ message.message }}") <!-- message alert script -->
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% endblock %}
+</body>
+</html>
