@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from django.core.paginator import Paginator
 from main.decorators import admin_required, login_message_required
 from django.shortcuts import get_object_or_404
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -45,7 +47,7 @@ def ip_modify(request, pk):
             }
             return render(request, 'tabs/ip_write.html', context)
         else:
-            messages.error(request, "You don't have access")
+            messages.error(request, "You do not have access")
             return redirect('/people/professor')
 
 @login_message_required
@@ -60,7 +62,7 @@ def rp_write(request):
 
     else:
         form = RPForm()
-        return render(request, 'tabs/activities_write.html', {'form':form})
+        return render(request, 'tabs/rp_write.html', {'form':form})
 
 @login_message_required
 def rp_modify(request, pk):
@@ -84,7 +86,7 @@ def rp_modify(request, pk):
             }
             return render(request, 'tabs/rp_write.html', context)
         else:
-            messages.error(request, "You don't have access")
+            messages.error(request, "You do not have access")
             return redirect('/people/professor')
 
 @login_message_required
@@ -118,10 +120,124 @@ def activities_modify(request, pk):
             form = ActivitiesForm(instance=Activities)
             context = {
                 'form' : form,
-                'Activities': Activities,
+                'activities': Activities,
                 'edit': 'Modify', # 버튼의 텍스트 값
             }
             return render(request, 'tabs/activities_write.html', context)
         else:
-            messages.error(request, "You don't have access")
+            messages.error(request, "You do not have access")
             return redirect('/people/professor')
+
+@login_message_required
+def award_write(request):
+    if request.method == "POST":
+        form = AwardForm(request.POST)
+        if form.is_valid():
+            # commit = False는 바로 저장하는 것을 방지
+            award = form.save(commit=False)
+            award.save()  # 내용 저장
+            return redirect('people:professor')
+
+    else:
+        form = AwardForm()
+        return render(request, 'tabs/award_write.html', {'form':form})
+
+@login_message_required
+def award_modify(request, pk):
+    Award = get_object_or_404(award, pk=pk)
+    if request.method == 'POST':
+        if request.user.level == '0' or request.user.level == '1':
+            form = AwardForm(request.POST, instance=Award)
+            if form.is_valid():
+                award_form = form.save(commit=False)
+                award_form.save()
+                messages.success(request, 'Modified well')
+                return redirect('/people/professor')
+    else:
+        Award = award.objects.get(id=pk)
+        if request.user.level == '0' or request.user.level == '1':
+            form = AwardForm(instance=Award)
+            context = {
+                'form' : form,
+                'award': Award,
+                'edit': 'Modify', # 버튼의 텍스트 값
+            }
+            return render(request, 'tabs/award_write.html', context)
+        else:
+            messages.error(request, "You do not have access")
+            return redirect('/people/professor')
+
+@login_message_required
+def conference_write(request):
+    if request.method == "POST":
+        form = ConferenceForm(request.POST)
+        if form.is_valid():
+            # commit = False는 바로 저장하는 것을 방지
+            conference = form.save(commit=False)
+            conference.save()  # 내용 저장
+            return redirect('people:professor')
+
+    else:
+        form = ConferenceForm()
+        return render(request, 'tabs/conference_write.html', {'form':form})
+
+@login_message_required
+def conference_modify(request, pk):
+    conference = get_object_or_404(Conference, pk=pk)
+    if request.method == 'POST':
+        if request.user.level == '0' or request.user.level == '1':
+            form = ConferenceForm(request.POST, instance=conference)
+            if form.is_valid():
+                conference_form = form.save(commit=False)
+                conference_form.save()
+                messages.success(request, 'Modified well')
+                return redirect('/people/professor')
+    else:
+        conference = Conference.objects.get(id=pk)
+        if request.user.level == '0' or request.user.level == '1':
+            form = ConferenceForm(instance=conference)
+            context = {
+                'form' : form,
+                'conference': conference,
+                'edit': 'Modify', # 버튼의 텍스트 값
+            }
+            return render(request, 'tabs/conference_write.html', context)
+        else:
+            messages.error(request, "You do not have access")
+            return redirect('/people/professor')
+
+
+class award_delete(DeleteView):
+    model = award
+    success_url = str('/people/professor')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+class activities_delete(DeleteView):
+    model = activities
+    success_url = str('/people/professor')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+class ip_delete(DeleteView):
+    model = ip
+    success_url = str('/people/professor')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+class rp_delete(DeleteView):
+    model = rp
+    success_url = str('/people/professor')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+class conference_delete(DeleteView):
+    model = Conference
+    success_url = str('/people/professor')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)

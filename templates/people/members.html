@@ -16,6 +16,8 @@
 <body>
 {% block contents %}
 
+    <!-- Graduate Area -->
+
     <div class="panel container-fluid text-center">
         <a class="panel-name"><b>Graduate Course</b></a><br>
     </div>
@@ -39,7 +41,7 @@
 
                 <!-- 수정, 삭제 버튼 -->
                 <div class="modifyButton" style="text-align: right;">
-                    {% if request.user.level == '0' or request.user.level == '1' %}
+                    {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == people.name or request.user.level == '2' and request.user.userid == people.name %}
                         <a href="modify/{{ people.id }}/" class="btn btn-success">Modify</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
                     {% endif %}
@@ -78,14 +80,16 @@
 
     <!-- Add button -->
     <div class="modifyButton" style="text-align: right;">
-        {% if request.user.level == '0' or request.user.level == '1' %}
+        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
             <a href="/people/add_member" class="btn btn-primary" onclick="">Add</a>
         {% endif %}
     </div>
 
     <div class="panel container-fluid text-center">
-        <a style="font-size: 50px;"><b>Undergraduate Course</b></a><br>
+        <a class="panel-name"><b>Undergraduate Course</b></a><br>
     </div>
+
+    <!-- Ungraduate Area -->
 
     {% if staff_all %}
     {% for staff in staff_all %}
@@ -106,7 +110,7 @@
 
                 <!-- 수정, 삭제 버튼 -->
                 <div class="modifyButton" style="text-align: right;">
-                    {% if request.user.level == '0' or request.user.level == '1' %}
+                    {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' and request.user.userid == staff.name or request.user.level == '3' and request.user.username == staff.name %}
                         <a href="modify/staff/{{ staff.id }}/" class="btn btn-success">Modify</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
                     {% endif %}
@@ -145,7 +149,7 @@
 
     <!-- 글쓰기 버튼 -->
     <div class="modifyButton" style="text-align: right;">
-        {% if request.user.level == '0' or request.user.level == '1' %}
+        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' %}
             <a href="/people/add_other_staff" class="btn btn-primary">Add</a>
         {% endif %}
     </div>

@@ -5,7 +5,7 @@
 
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel = "stylesheet" href="{% static 'css/base.css' %}?ver=2.3">
+    <link rel = "stylesheet" href="{% static 'css/base.css' %}?ver=2.5">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
@@ -13,6 +13,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
     <style>
+
         .menu_focus:hover{
             cursor:pointer;
         }
@@ -20,6 +21,7 @@
         .dropdown-item:active {
             background-color: #EAEAEA; /* 클릭시 드롭다운 메뉴 배경색 변경 */
         }
+
 
     </style>
     <script type="text/javascript">
@@ -62,18 +64,20 @@
                     <li class="nav-item">
                         <a class="nav-link"  href="/">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link menu_focus" data-toggle="dropdown">People</a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item"><a class="nav-link" style="width: 130px !important; padding-right: 0px !important;" href="/people/professor">Professor</a></li>
-                            <li class="dropdown-item"><a class="nav-link" style="width: 130px !important; padding-right: 0px !important;" href="/people/members">Members</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <div class="btn-group">
+                            <a class="nav-link menu_focus dropdown-toggle" data-toggle="dropdown" aria-expanded="false">People</a>
+                            <div class="dropdown-menu ">
+                                <a class="dropdown-item " style="width: 100%" href="/people/professor">Professor</a>
+                                <a class="dropdown-item " style="width: 100%" href="/people/members">Members</a>
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  href="/ppr/publication">Publication</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  href="/ppr/research">Research</a>
+                        <a class="nav-link"  href="/ppr/research">Project & Research</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  href="/notice">Notice</a>
@@ -104,6 +108,14 @@
                     <a href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
                 {% else %}
                     <a href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
+                {% endif %}
+
+                {% if request.user.level == '0' or request.user.level == '1' %}
+                    {% if request.user.activate == False %}
+                    <a href="{% url 'main:activate' %}" style="color:white;"><b> Activate</b></a>
+                    {% else %}
+                    <a href="{% url 'main:activate' %}" style="color:white;"><b> Deactivate</b></a>
+                    {% endif %}
                 {% endif %}
                 <br>
                 <a>Address: (S4-1)-303(3F), Chungdae-ro 1, Seowon-gu, Cheongju, Chungbuk, 28644, Republic of Korea</a><br>

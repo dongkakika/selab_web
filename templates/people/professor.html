@@ -499,7 +499,7 @@
                                 {% endif %}
 
                                 <!-- 페이지 번호-->
-                                {% for page in page_range4 %}
+                                {% for page in page_range5 %}
                                 <li class="page-item {% if page == activities_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
                                     <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
                                 </li>
@@ -535,13 +535,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% if ip_list %}
-                                {% for ip in ip_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
-                                    <td>{{ ip.id }}</td>
-                                    <td>{{ ip.title|truncatechars:30 }}</td>
-                                    <td>{{ ip.type }}</td>
-                                    <td>{{ ip.applicant }}</td>
+                                {% if award_list %}
+                                {% for award in award_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/award/{{ award.id }}/'" {% endif %}>
+                                    <td>{{ award.id }}</td>
+                                    <td>{{ award.title|truncatechars:30 }}</td>
+                                    <td>{{ award.content }}</td>
+                                    <td>{{ award.date }}</td>
                                 </tr>
                                 {% endfor %}
                                 {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
@@ -561,20 +561,20 @@
                                 {% endif %}
                             </tbody>
                         </table>
-                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        <!-- Award 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/ppr/ip_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/award_write/" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
                         <div class="row text-center">
-                            {% if ip_list %}
+                            {% if award_list %}
                             <ul class="pagination" style="float:none; margin: 0 auto;">
 
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
-                                {% if ip_list.has_previous %}
+                                {% if award_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ ip_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ award_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -585,15 +585,15 @@
                                 {% endif %}
 
                                 <!-- 페이지 번호-->
-                                {% for page in page_range4 %}
-                                <li class="page-item {% if page == ip_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                {% for page in page_range6 %}
+                                <li class="page-item {% if page == award_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
                                     <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
-                                {% if ip_list.has_next %}
+                                {% if award_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ ip_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ award_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -621,13 +621,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% if ip_list %}
-                                {% for ip in ip_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/ip/{{ ip.id }}/'" {% endif %}>
-                                    <td>{{ ip.id }}</td>
-                                    <td>{{ ip.title|truncatechars:30 }}</td>
-                                    <td>{{ ip.type }}</td>
-                                    <td>{{ ip.applicant }}</td>
+                                {% if conference_list %}
+                                {% for conference in conference_list %}
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/conference/{{ conference.id }}/'" {% endif %}>
+                                    <td>{{ conference.id }}</td>
+                                    <td>{{ conference.title|truncatechars:30 }}</td>
+                                    <td>{{ conference.academic_conference }}</td>
+                                    <td>{{ conference.period }}</td>
                                 </tr>
                                 {% endfor %}
                                 {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
@@ -647,20 +647,20 @@
                                 {% endif %}
                             </tbody>
                         </table>
-                        <!-- 퍼블리케이션 글쓰기 버튼 -->
+                        <!-- conference writing button -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/ppr/ip_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/conference_write/" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
                         <div class="row text-center">
-                            {% if ip_list %}
+                            {% if conference_list %}
                             <ul class="pagination" style="float:none; margin: 0 auto;">
 
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
-                                {% if ip_list.has_previous %}
+                                {% if conference_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ ip_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ conference_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -671,15 +671,15 @@
                                 {% endif %}
 
                                 <!-- 페이지 번호-->
-                                {% for page in page_range4 %}
-                                <li class="page-item {% if page == ip_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                {% for page in page_range7 %}
+                                <li class="page-item {% if page == conference_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
                                     <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
-                                {% if ip_list.has_next %}
+                                {% if conference_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ ip_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ conference_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>

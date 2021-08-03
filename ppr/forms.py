@@ -46,7 +46,7 @@ class PublicationWriteForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['published_date'].widget.attrs.update({
-            'placeholder': 'ex) 2021-06-21',
+            'placeholder': '"MUST" follow this form 2021-08-01',
             'class': 'form-control',
             'autofocus': True
         })
@@ -69,7 +69,7 @@ class JournalWriteForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['issued_date'].widget.attrs.update({
-            'placeholder': 'ex) 2021-06-21',
+            'placeholder': '"MUST" follow this form 2021-08-01',
             'class': 'form-control',
             'autofocus': True
         })

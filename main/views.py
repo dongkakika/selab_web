@@ -3,19 +3,40 @@ from django.conf import settings
 from django.shortcuts import redirect
 
 # Create your views here.
-from main.decorators import logout_message_required
+from main.decorators import logout_message_required, admin_required
 from django.views.generic import FormView, View, CreateView
 from .forms import LoginForm, RegisterForm
 from .models import User
+from ppr.models import Journal, Publication
+from notice.models import Notice
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy, reverse, resolve
 from django.shortcuts import resolve_url
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
 def home(request):
-    return render(request, 'main/home.html')
+    # 캐러셀 슬라이드 내용 뽑아오기
+    journal = Journal.objects.last()
+    publication = Publication.objects.last()
+    notice = Notice.objects.last()
+
+    if journal == None:
+        journal = Journal(title="Welcome", journals="DEFAULT", issued_date="DEFAULT")
+    if publication == None:
+        publication = Publication(title="Welcome", publisher="DEFAULT_", published_date="DEFAULT_")
+    if notice == None:
+        notice = Notice(title="Welcome", content="DEFAULT__", hits="DEFAULT__")
+
+    context = {
+        'journal': journal,
+        'publication': publication,
+        'notice': notice,
+    }
+
+    return render(request, 'main/home.html', context)
 
 # 로그인 후,
 @method_decorator(logout_message_required, name='dispatch')
@@ -55,10 +76,23 @@ class AgreementView(View):
     # 1. agreement에 대해 False를 주고 시작 (agreement.html을 참조)
     def get(self, request, *args, **kwargs):
         request.session['agreement'] = False
-        return render(request, 'main/agreement.html')
+        user = User.objects.get(id=1)
+        user_activate = user.activate
+
+        if(user_activate == False):
+            messages.success(request, "Ask a manager to register !")
+            return redirect('/')
+
+        else:
+            return render(request, 'main/agreement.html')
 
     # 2. 사용자에 의해 저장된 agreement가 True인지 False인지 검사
     def post(self, request, *args, **kwarg):
+        user = User.objects.get(id=1)
+        user_activate = user.activate
+        if(user_activate == False):
+            return render(request, 'main/login.html')
+
         # 3-1. 동의했는지 검사
         if request.POST.get('agreement1', False) and request.POST.get('agreement2', False):
             request.session['agreement'] = True
@@ -69,7 +103,7 @@ class AgreementView(View):
                 return redirect('main:sign_up')
         # 3-2. 동의하지 않았다면 다시 back
         else:
-            messages.info(request, "약관에 모두 동의해주세요.")
+            messages.info(request, "Please agree to all the terms and conditions.")
             return redirect('/agreement')
 
 # 직원 회원가입
@@ -89,14 +123,24 @@ class sign_up(CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        messages.success(self.request, "회원가입 성공.")
+        messages.success(self.request, "Successfully registered.")
         return redirect(self.get_success_url())
-
-# def sign_up(request):
-#     return render(request, 'main/sign_up.html')
 
 # 로그아웃 후,
 def logout_view(request):
     logout(request)
     next = request.GET['next']
     return redirect(next)
+
+@admin_required
+def activate(request):
+    user = User.objects.get(id=1)
+    if(request.user.level == '0' or request.user.level == '1'):
+        if(user.activate == False):
+            user.activate = True
+            user.save()
+        else:
+            user.activate = False
+            user.save()
+
+    return redirect('/')

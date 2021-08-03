@@ -20,7 +20,7 @@ def research_delete(request, pk):
         messages.success(request, "Deleted successfully.")
         return redirect('/ppr/research')
     else:
-        messages.error(request, "This access doesn't belong to you.")
+        messages.error(request, "This access does not belong to you.")
         return redirect('/ppr/research')
 
 @login_message_required
@@ -35,9 +35,6 @@ def research_modify(request, pk):
                 if request.POST.get('img', True):
                     research.img = request.FILES['img']
                     # People.objects.get(id=pk).img_upload.delete() # 이전 사진 삭제
-                    messages.success(request, "Modified well")
-                    research.save()
-                    return redirect('ppr:research')
                 messages.success(request, "Modified well")
                 research.save()
                 return redirect('ppr:research')
@@ -53,7 +50,7 @@ def research_modify(request, pk):
             }
             return render(request, 'ppr/research_write.html', context)
         else:
-            messages.error(request, "You don't have access")
+            messages.error(request, "You do not have access")
             return redirect('/ppr/research')
 
 def research(request):
@@ -66,15 +63,19 @@ def research(request):
 @login_message_required
 def research_write(request):
     if request.method == "POST":
+        messages.success(request, "오잖")
         form = ResearchForm(request.POST)
         if form.is_valid():
             # commit = False는 바로 저장하는 것을 방지
             research = form.save(commit=False)
             if request.POST.get('img', True):
                 research.img = request.FILES['img']
-                messages.success(request, "Uploaded successfully")
-                research.save()
-                return redirect('ppr:research')
+            messages.success(request, "Uploaded successfully")
+            research.save()
+            return redirect('ppr:research')
+        else:
+            messages.success(request, "error")
+            return redirect('ppr:research')
 
     else:
         form = ResearchForm()
@@ -114,7 +115,7 @@ def write_journal(request):
         form = JournalWriteForm(request.POST)
 
         if form.is_valid():
-            messages.success(request, '저장 완료')
+            messages.success(request, 'Saved')
             journal = form.save(commit = False) # 커밋 --> False
             journal.save() # 내용 저장
             return redirect('ppr:publication')
@@ -128,7 +129,7 @@ def write_publication(request):
     if request.method == "POST":
         form = PublicationWriteForm(request.POST)
         if form.is_valid():
-            messages.success(request, '저장 완료')
+            messages.success(request, 'Saved')
             publication = form.save(commit = False) # 커밋 --> False
             publication.save() # 내용 저장
             return redirect('ppr:publication')
@@ -159,7 +160,7 @@ def journal_detail_view(request, pk):
             }
             return render(request, 'ppr/journal_write.html', context)
         else:
-            messages.error(request, "You don't have access")
+            messages.error(request, "You do not have access")
             return redirect('/ppr/publication')
 
 @login_message_required
@@ -184,7 +185,7 @@ def publication_detail_view(request, pk):
             }
             return render(request, 'ppr/publication_write.html', context)
         else:
-            messages.error(request, "You don't have access")
+            messages.error(request, "You do not have access")
             return redirect('/ppr/publication')
 
 @login_message_required
@@ -195,7 +196,7 @@ def journal_delete(request, pk):
         messages.success(request, "Deleted successfully.")
         return redirect('/ppr/publication')
     else:
-        messages.error(request, "This post doesn't belong to you.")
+        messages.error(request, "This post does not belong to you.")
         return redirect('/ppr/publication')
 
 @login_message_required
@@ -206,7 +207,7 @@ def publication_delete(request, pk):
         messages.success(request, "Deleted successfully.")
         return redirect('/ppr/publication')
     else:
-        messages.error(request, "This post doesn't belong to you.")
+        messages.error(request, "This post does not belong to you.")
         return redirect('/ppr/publication')
 
 

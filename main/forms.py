@@ -44,7 +44,6 @@ def hp_validator(value):
         raise forms.ValidationError('정확한 핸드폰 번호를 입력해주세요!')
 
 
-
 class RegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
@@ -77,19 +76,13 @@ class RegisterForm(UserCreationForm):
             # 'placeholder': '회원가입 후 입력하신 메일로 본인인증 메일이 전송됩니다.'
         })
 
-        self.fields['hp'].validators = [hp_validator]
-        self.fields['hp'].widget.attrs.update({
-            'class': 'form-control',
-            # 'placeholder': "'-'를 제외한 숫자로 입력해주세요.",
-        })
-
     class Meta:
         model = User
-        fields = ['userid', 'password1', 'password2', 'email', 'username', 'hp']
+        fields = ['userid', 'password1', 'password2', 'email', 'username',]
 
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
-        user.level = '2'
+        user.level = '3'
         user.auth = 'member'
         user.is_staff = True
         user.save()

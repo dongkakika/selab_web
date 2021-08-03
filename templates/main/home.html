@@ -42,6 +42,10 @@
 <body>
     {% block contents %}
     <div>
+        {% if user.is_authenticated %}
+        <a style="color: #CFCFCF; float: right">{{ user.userid }}님 반갑습니다.</a>
+        {% endif %}
+
         <!-- <h1 style="font-size:50px;"><FONT face="Blacksword" style="letter-spacing:2px;">We are Software Engineers</FONT></h1><br><br><br> -->
         <div class="container-fluid row main-content">
             <div class="col-sm-6" >
@@ -73,42 +77,32 @@
 
                         <!-- Carousel items -->
                         <div class="carousel-inner">
-
-                            <div class="carousel-item active">
-                                <div class="row">
-                                    <div class="col-sm-4"></div>
-                                    <div class="col-sm-8" style="padding-left:50px; color:white;">
-                                        TITLE: May 17th, Our recent publication<br>
-                                           DATE: 2021-05-17, 17:04<br>
-                                            CONTENT: the notice menu is uploaded
-                                    </div>
-                                </div>
+                            <div class="carousel-item active text-center" style="color:white">
+                                {% if journal %}
+                                    TITLE: {{ journal.title }}<br>
+                                    JOURNALS: {{ journal.journals }}<br>
+                                    DATE: {{ journal.issued_date }}
+                                {% endif %}
                                 <!--.row-->
                             </div>
                             <!--.item-->
 
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-sm-4"></div>
-                                    <div class="col-sm-8" style="padding-left:50px; color:white;">
-                                        TITLE: May 17th, Our recent publication<br>
-                                           DATE: 2021-05-17, 17:04<br>
-                                            CONTENT: the notice menu is uploaded
-                                    </div>
-                                </div>
+                            <div class="carousel-item text-center" style="color:white">
+                                {% if publication %}
+                                    TITLE: {{ publication.title }}<br>
+                                    PUBLISHER: {{ publication.publisher }}<br>
+                                    PUBLISHED DATE: {{ publication.published_date }}
+                                {% endif %}
                                 <!--.row-->
                             </div>
                             <!--.item-->
 
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-sm-4"></div>
-                                    <div class="col-sm-8" style="padding-left:50px; color:white;">
-                                        TITLE: May 17th, Our recent publication<br>
-                                           DATE: 2021-05-17, 17:04<br>
-                                            CONTENT: the notice menu is uploaded
-                                    </div>
-                                </div>
+                            <div class="carousel-item text-center" style="color:white">
+                                {% if notice %}
+                                    TITLE: {{ notice.title }}<br>
+                                    REGISTERED DATE: {{ content.registered_date }}<br>
+                                    HITS: {{ notice.hits}}<br>
+                                {% endif %}
                                 <!--.row-->
                             </div>
                             <!--.item-->

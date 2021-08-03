@@ -29,9 +29,9 @@ def add_member(request):
             people = form.save(commit=False)
             if request.POST.get('img_upload', True):
                 people.img_upload = request.FILES['img_upload']
-                messages.success(request, "등록 완료")
-                people.save()
-                return redirect('people:members')
+            messages.success(request, "Saved")
+            people.save()
+            return redirect('people:members')
 
     else:
         form = PeopleForm()
@@ -46,9 +46,9 @@ def add_other_staff(request):
             staff = form.save(commit=False)
             if request.POST.get('img_upload', True):
                 staff.img_upload = request.FILES['img_upload']
-                messages.success(request, "등록 완료")
-                staff.save()
-                return redirect('people:members')
+            messages.success(request, "Saved")
+            staff.save()
+            return redirect('people:members')
 
     else:
         form = StaffForm()
@@ -58,7 +58,7 @@ def add_other_staff(request):
 def member_modify(request, pk):
     people_current = get_object_or_404(People, pk=pk)
     if request.method == 'POST':
-        if request.user.level == '0' or request.user.level == '1':
+        if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' and request.user.username == people_current.name:
             form = PeopleForm(request.POST, instance=people_current)
             if form.is_valid():
                 people = form.save(commit=False)
@@ -66,18 +66,14 @@ def member_modify(request, pk):
                 if request.POST.get('img_upload', True):
                     people.img_upload = request.FILES['img_upload']
                     # People.objects.get(id=pk).img_upload.delete() # 이전 사진 삭제
-                    messages.success(request, "Modified well" + str())
-                    people.save()
-                    return redirect('people:members')
-                #messages.success(request, str(people.img_upload))
                 # 사진이 없을 때의 진행 !!
-                messages.success(request, "Modified well" + str())
+                messages.success(request, "Modified well")
                 people.save()
                 return redirect('people:members')
 
     else:
         people = People.objects.get(id=pk)
-        if request.user.level == '0' or request.user.level == '1':
+        if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == people.name:
             form = PeopleForm(instance=people)
             context = {
                 'form' : form,
@@ -91,19 +87,22 @@ def member_modify(request, pk):
 
 @login_message_required
 def staff_modify(request, pk):
-    staff = get_object_or_404(Staff, pk=pk)
+    staff_current = get_object_or_404(Staff, pk=pk)
 
     if request.method == 'POST':
-        if request.user.level == '0' or request.user.level == '1':
-            form = StaffForm(request.POST, instance=staff)
+        if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' and request.user.username == staff_current.name:
+            form = StaffForm(request.POST, instance=staff_current)
             if form.is_valid():
-                people = form.save(commit=False)
-                people.save()
+                # when the photo's modification was detected
+                if request.POST.get('img_upload', True):
+                    staff_current.img_upload = request.FILES['img_upload']
+                staff = form.save(commit=False)
+                staff.save()
                 messages.success(request, 'Modified well')
                 return redirect('/people/members')
     else:
         staff = Staff.objects.get(id=pk)
-        if request.user.level == '0' or request.user.level == '1':
+        if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' and request.user.username == staff.name:
             form = StaffForm(instance=staff)
             context = {
                 'form' : form,
@@ -118,7 +117,7 @@ def staff_modify(request, pk):
 @login_message_required
 def member_delete(request, pk):
     people = People.objects.get(id=pk)
-    if request.user.level == '1' or request.user.level == '0':
+    if request.user.level == '1' or request.user.level == '0' or request.user.level == '3' and request.user.username == people.name:
         people.delete()
         messages.success(request, "Deleted successfully.")
         return redirect('/people/members')
@@ -129,7 +128,7 @@ def member_delete(request, pk):
 @login_message_required
 def staff_delete(request, pk):
     staff = Staff.objects.get(id=pk)
-    if request.user.level == '1' or request.user.level == '0':
+    if request.user.level == '1' or request.user.level == '0' or request.user.level == '3' and request.user.username == staff.name:
         staff.delete()
         messages.success(request, "Deleted successfully.")
         return redirect('/people/members')
@@ -145,24 +144,32 @@ def professor(request):
     rp_list = rp.objects.all().order_by('-period')
     ip_list = ip.objects.all().order_by('-date')
     activities_list = activities.objects.all().order_by('-announced_date')
+    award_list = award.objects.all().order_by('-date')
+    conference_list = Conference.objects.all().order_by('-period')
 
     paginator1 = Paginator(journal_list, 10)
     paginator2 = Paginator(publication_list, 10)
     paginator3 = Paginator(rp_list, 10)
     paginator4 = Paginator(ip_list, 10)
     paginator5 = Paginator(activities_list, 10)
+    paginator6 = Paginator(award_list, 10)
+    paginator7 = Paginator(conference_list, 10)
     page_number = request.GET.get('page')
     page_obj1 = paginator1.get_page(page_number)
     page_obj2 = paginator2.get_page(page_number)
     page_obj3 = paginator3.get_page(page_number)
     page_obj4 = paginator4.get_page(page_number)
     page_obj5 = paginator5.get_page(page_number)
+    page_obj6 = paginator6.get_page(page_number)
+    page_obj7 = paginator7.get_page(page_number)
 
     page_range1 = page_obj1.paginator.page_range
     page_range2 = page_obj2.paginator.page_range
     page_range3 = page_obj3.paginator.page_range
     page_range4 = page_obj4.paginator.page_range
     page_range5 = page_obj5.paginator.page_range
+    page_range6 = page_obj6.paginator.page_range
+    page_range7 = page_obj6.paginator.page_range
 
     context = {
         'professor': professor,
@@ -171,12 +178,16 @@ def professor(request):
         'rp_list': page_obj3,
         'ip_list': page_obj4,
         'activities_list': page_obj5,
+        'award_list': page_obj6,
+        'conference_list': page_obj7,
 
         'page_range1': page_range1,
         'page_range2': page_range2,
         'page_range3': page_range3,
         'page_range4': page_range4,
         'page_range5': page_range5,
+        'page_range6': page_range6,
+        'page_range7': page_range7
     }
 
     return render(request, 'people/professor.html', context)

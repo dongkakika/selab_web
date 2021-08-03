@@ -30,7 +30,7 @@ class rp(models.Model):
 
 class activities(models.Model):
     title = models.TextField(verbose_name='title')
-    announced_date = models.TextField(verbose_name='applicant')
+    announced_date = models.TextField(verbose_name='announced_date')
 
     def __str__(self):
         return self.title

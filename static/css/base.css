@@ -46,11 +46,11 @@ a:hover{
 .panel{
     background-color: #EAEAEA;
     margin-bottom: 30px;
-    box-shadow: 6px 6px 6px #BDBDBD;
+    box-shadow: 3px 3px 3px #BDBDBD;
 }
 
 .panel-name{
-    font-size: 47px;
+    font-size: 35px;
     /*text-shadow: 3px 2px 2px #ABABAB;*/
 }
 

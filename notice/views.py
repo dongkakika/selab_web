@@ -56,7 +56,7 @@ def notice_edit_view(request, pk):
             }
             return render(request, "notice/notice_write.html", context)
         else:
-            messages.error(request, "This post doesn't belong to you.")
+            messages.error(request, "This post does not belong to you.")
             return redirect('/notice/' + str(pk))
 
 # 글 삭제
@@ -68,9 +68,8 @@ def notice_delete_view(request, pk):
         messages.success(request, "Deleted successfully.")
         return redirect('/notice/')
     else:
-        messages.error(request, "This post doesn't belong to you.")
+        messages.error(request, "This post does not belong to you.")
         return redirect('/notice/'+str(pk))
-
 
 
 # -------------------- 게시판 글 쓰기 --------------------
@@ -82,7 +81,6 @@ def notice_delete_view(request, pk):
 # 모델의 작성자 필드에 삽입
 
 @login_message_required
-@admin_required
 def notice_write_view(request):
     if request.method == "POST":
         form = NoticeWriteForm(request.POST)
@@ -148,39 +146,6 @@ def notice_detail_view(request, pk):
         notice.save()
 
     return render(request, 'notice/notice_detail.html', context)
-
-
-# 2번 - 로그인해야 볼 수 있음 + 조회수 제어
-# 로그인한 사용자만의 접근을 허용하기 위해 web앱의 decorator인 @login_message_required를 추가
-# 조회수 필드인 hits를 중복 증가시키지 않도록 Cookie 활용
-@login_message_required
-def notice_detail_view2(request, pk):
-    notice = get_object_or_404(Notice, pk=pk) # 게시글의 pk값 --> id
-    session_cookie = request.session['userid']
-    cookie_name = F'notice_hits:{session_cookie}'
-    context = {
-        'notice': notice,
-    }
-    response = render(request, 'notice/notice_detail.html', context)
-
-    if request.COOKIES.get(cookie_name) is not None:
-        cookies = request.COOKIES.get(cookie_name)
-        cookies_list = cookies.split('|')
-        if str(pk) not in cookies_list:
-            response.set_cookie(cookie_name, cookies + f'|{pk}', expires=None)
-            notice.hits += 1
-            notice.save()
-            return response
-    else:
-        response.set_cookie(cookie_name, pk, expires=None)
-        notice.hits += 1
-        notice.save()
-        return response
-
-    return render(request, 'notice/notice_detail.html', context)
-
-
-
 
 
 # -------------------- 이하 게시판 뷰, 검색 기능 --------------------

@@ -22,7 +22,7 @@ class IPForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['date'].widget.attrs.update({
-            'placeholder': 'Please write the applied date',
+            'placeholder': '"MUST" follow this form 2021-08-01',
             'class': 'form-control',
             'autofocus': True
         })
@@ -45,7 +45,7 @@ class RPForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['period'].widget.attrs.update({
-            'placeholder': 'Please make the period',
+            'placeholder': '"MUST" follow this form 2021-08-01 ~ 2021-12-01',
             'class': 'form-control',
             'autofocus': True
         })
@@ -63,7 +63,7 @@ class ActivitiesForm(forms.ModelForm):
             'autofocus': True,
         })
         self.fields['announced_date'].widget.attrs.update({
-            'placeholder': 'Please write the announced date',
+            'placeholder': '"MUST" follow this form 2021-08-01',
             'class': 'form-control',
             'autofocus': True
         })
@@ -86,7 +86,7 @@ class AwardForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['date'].widget.attrs.update({
-            'placeholder': 'Please write the date',
+            'placeholder': '"MUST" follow this form 2021-08-01',
             'class': 'form-control',
             'autofocus': True
         })
@@ -109,7 +109,7 @@ class ConferenceForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['period'].widget.attrs.update({
-            'placeholder': 'Please enter the period',
+            'placeholder': '"MUST" follow this form 2021-08-01 ~ 2021-12-01',
             'class': 'form-control',
             'autofocus': True
         })
