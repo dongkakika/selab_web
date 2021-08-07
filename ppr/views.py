@@ -10,8 +10,6 @@ from django.views.generic import ListView
 import os
 from django.http import HttpResponse
 
-
-
 @login_message_required
 def research_delete(request, pk):
     research = Research.objects.get(id=pk)

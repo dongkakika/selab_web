@@ -35,3 +35,13 @@ def gallery_add(request):
     else:
         form = GalleryForm()
         return render(request, 'gallery/gallery_add.html', {'form': form})
+
+@login_message_required
+def gallery_delete(request, pk):
+    gallery = Gallery.objects.get(id=pk)
+    if request.user.level == '0' or request.user.level == '1':
+        gallery.delete()
+        return redirect('gallery:gallery')
+    else:
+        messages.error(request, 'You have no access.')
+        return redirect('gallery:gallery')
