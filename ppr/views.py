@@ -63,7 +63,6 @@ def research(request):
 @login_message_required
 def research_write(request):
     if request.method == "POST":
-        messages.success(request, "오잖")
         form = ResearchForm(request.POST)
         if form.is_valid():
             # commit = False는 바로 저장하는 것을 방지
@@ -212,5 +211,3 @@ def publication_delete(request, pk):
 
 
 
-def gallery(request):
-    return render(request, 'ppr/gallery.html')

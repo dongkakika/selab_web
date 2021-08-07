@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
+    <title>SELab - Finding ID</title>
+</head>
+<body>
+<p style="font-size: 30px; font-weight:bold; text-align:center; margin-top:50px"><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>&nbsp; Find your ID with your name & e-mail</p>
+<div class="container-fluid">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <label name="label_name">{{ form.name.label }}</label>
+            {{ form.name }}<br>
+
+            <label name="label_email">{{ form.email.label }}</label>
+            {{ form.email }}
+            <small>
+                The name and e-mail registered must match!
+            </small>
+            <br><br>
+
+            <div>
+                <button id="find_id" class="btn btn-info" name="recovery_id"><i class="fas fa-search"></i>&nbsp;Recover your ID</button>
+                <button style="float:right" onclick="location.href='/'" class="btn btn-secondary">Home</button>
+            </div>
+
+            <div id="result_id"></div>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#find_id').click(function () {
+                        var name = $("#form_name").val();
+                        var email = $("#form_email").val();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/main/recovery/id/find/",
+                            dataType: "json",
+                            data: {
+                                'name': name,
+                                'email': email,
+                                'csrfmiddlewaretoken': '{{csrf_token}}',
+                            },
+                            success: function (response) {
+                                $('#result_id').replaceWith(
+                                    '<div id="result_id"><hr><div><span>Your ID is </span><span id="result_id" style="color: blue">'
+                                    + response.result_id + '</span></div><hr></div>')
+                            },
+                            error: function () {
+                                if (name == "" || email == "") {
+                                    alert('Please write your name and e-mail.');
+                                } else {
+                                    alert('The entered information is not correct. ' + email);
+                                }
+                            },
+                        });
+                    })
+                });
+            </script>
+        </div>
+        <div class="col-sm-4"></div>
+
+    </div>
+
+
+
+</div>
+</body>
+</html>

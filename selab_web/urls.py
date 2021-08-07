@@ -17,14 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')),
+    # path('', include('main.urls')), 문제가 생겨서 아래 코드로
+    path('', lambda request: redirect('main/')),
     path('main/', include('main.urls')),
     path('notice/', include('notice.urls')),
     path('ppr/', include('ppr.urls')),
     path('people/', include('people.urls')),
     path('tabs/', include('tabs.urls')),
+    path('gallery/', include('gallery.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

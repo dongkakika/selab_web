@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'ppr.apps.PprConfig', # ppr app
     'people.apps.PeopleConfig', # people app
     'tabs.apps.TabsConfig', # tabs app
+    'gallery.apps.GalleryConfig', # gallery app
 ]
 
 MIDDLEWARE = [
@@ -157,5 +158,16 @@ AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
 
+# Email 인증 영역
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.naver.com'
+EMAIL_HOST_USER = 'thisforjimserver@naver.com'
+EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587 # 이거 변경될 때도 있는 거 같은데?
+DEFAULT_FROM_MAIL = 'thisforjimserver@naver.com'
+
+# -- 접속 상태 유지 --
 # 브라우저 종료시 자동 로그아웃
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+

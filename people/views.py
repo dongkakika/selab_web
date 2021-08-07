@@ -12,11 +12,13 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 # members <=> People
 def members(request):
-    people_all = People.objects.all()
-    staff_all = Staff.objects.all()
+    graduate_all = People.objects.filter(alumni=False)
+    alumni_all = People.objects.filter(alumni=True)
+    undergraduate_all = Staff.objects.all()
     context = {
-        'people_all' : people_all,
-        'staff_all' : staff_all,
+        'graduate_all' : graduate_all,
+        'undergraduate_all' : undergraduate_all,
+        'alumni_all': alumni_all,
     }
     return render(request, 'people/members.html', context)
 
@@ -115,15 +117,29 @@ def staff_modify(request, pk):
             return redirect('/people/members')
 
 @login_message_required
+def alumni_registration(request, pk):
+    if request.user.level == '0' or request.user.level == '1':
+        people = People.objects.get(id=pk)
+        if people.alumni == True:
+            people.alumni = False
+        else:
+            people.alumni = True
+        people.save()
+        return redirect('/people/members/')
+    else:
+        messages.success(request, "you have no access.")
+        return redirect('/people/members/')
+
+@login_message_required
 def member_delete(request, pk):
     people = People.objects.get(id=pk)
     if request.user.level == '1' or request.user.level == '0' or request.user.level == '3' and request.user.username == people.name:
         people.delete()
         messages.success(request, "Deleted successfully.")
-        return redirect('/people/members')
+        return redirect('people/members')
     else:
         messages.error(request, "This access doesn't belong to you.")
-        return redirect('/people/members')
+        return redirect('people/members')
 
 @login_message_required
 def staff_delete(request, pk):

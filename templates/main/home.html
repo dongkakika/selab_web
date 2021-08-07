@@ -47,19 +47,19 @@
         {% endif %}
 
         <!-- <h1 style="font-size:50px;"><FONT face="Blacksword" style="letter-spacing:2px;">We are Software Engineers</FONT></h1><br><br><br> -->
-        <div class="container-fluid row main-content">
-            <div class="col-sm-6" >
-                <h1 class="text-right" style="font-size:80px; color:white;"><FONT face="PlayfairDisplaySC-Bold">Who we are:</FONT></h1>
-
+        <br>
+        <div class="container-fluid main-content">
+            <div class="row">
+                <div class="col-sm-6" >
+                    <h1 class="text-right" style="font-size:80px; color:white;"><FONT face="PlayfairDisplaySC-Bold">Who we are:</FONT></h1>
+                </div>
+                <div class="col-sm-4">
+                    <br>
+                    <h1 class="text-left" style="color: white; font-size:15px; "><FONT face="PlayfairDisplay-Regular">We are a group of top SW engineers<br>to develop quality software
+                            and services as the discipline of developing and applying systematic and quantitative engineering
+                            to software development, operation,<br>and management activities.</FONT></h1>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <br>
-                <h1 class="text-left" style="color: white; font-size:15px; "><FONT face="PlayfairDisplay-Regular">We are a group of top SW engineers<br>to develop quality software
-                        and services as the discipline of developing and applying systematic and quantitative engineering
-                        to software development, operation,<br>and management activities.</FONT></h1>
-            </div>
-
-            <br>
         </div>
 
         <br><br><br><br><br>
@@ -71,13 +71,14 @@
 
         <div class="container-fluid" style="background-color:rgba( 0, 0, 0, 0.5 ); padding: 50px;">
             <div class="row blog">
-                <div class="container">
+                <div class="col-sm-12">
                     <!-- Carousel -->
-                    <div id="blogCarousel" class="carousel slide col-md-12" data-ride="carousel">
+                    <div id="blogCarousel" class="carousel slide" data-ride="carousel">
 
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                             <div class="carousel-item active text-center" style="color:white">
+                                <i>/* Our New Journal */</i><br><br>
                                 {% if journal %}
                                     TITLE: {{ journal.title }}<br>
                                     JOURNALS: {{ journal.journals }}<br>
@@ -88,6 +89,7 @@
                             <!--.item-->
 
                             <div class="carousel-item text-center" style="color:white">
+                                <i>/* Our New Publication */</i><br><br>
                                 {% if publication %}
                                     TITLE: {{ publication.title }}<br>
                                     PUBLISHER: {{ publication.publisher }}<br>
@@ -98,6 +100,7 @@
                             <!--.item-->
 
                             <div class="carousel-item text-center" style="color:white">
+                                <i>/* Our New Notice */</i><br><br>
                                 {% if notice %}
                                     TITLE: {{ notice.title }}<br>
                                     REGISTERED DATE: {{ content.registered_date }}<br>

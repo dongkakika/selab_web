@@ -1,0 +1,11 @@
+{% autoescape off %}
+<html>
+<body>
+    <div>
+        <a href="http://{{ domain }}{% url 'main:activate' uid64=uid token=token %}">Click to authenticate</a>
+        <br>
+        <a>Good luck for your research life!</a>
+    </div>
+</body>
+</html>
+{% endautoescape %}

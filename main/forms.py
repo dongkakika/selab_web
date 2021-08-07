@@ -2,10 +2,8 @@ from django import forms
 from .models import User
 from .choice import *
 from django.contrib.auth.forms import UserCreationForm
-
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, SetPasswordForm, PasswordChangeForm
-
 
 class LoginForm(forms.Form):
     userid = forms.CharField(
@@ -52,7 +50,6 @@ class RegisterForm(UserCreationForm):
         self.fields['userid'].label = 'ID'
         self.fields['userid'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': '아이디를 입력해주세요.'
             'autofocus': False
         })
 
@@ -68,12 +65,12 @@ class RegisterForm(UserCreationForm):
 
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': '회원가입 후 입력하신 메일로 본인인증 메일이 전송됩니다.'
+            'placeholder': 'E-mail for recovering your ID or PW.'
         })
 
         self.fields['username'].widget.attrs.update({
             'class': 'form-control',
-            # 'placeholder': '회원가입 후 입력하신 메일로 본인인증 메일이 전송됩니다.'
+            'placeholder': 'Kil Dong Hong',
         })
 
     class Meta:
@@ -83,8 +80,75 @@ class RegisterForm(UserCreationForm):
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
         user.level = '3'
-        user.auth = 'member'
+        user.is_active = False
         user.is_staff = True
         user.save()
 
         return user
+
+# 아이디 찾기 영역
+class IdRecoveryForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput)
+    email = forms.EmailField(widget=forms.EmailInput)
+
+    class Meta:
+        fields = ['name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(IdRecoveryForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = 'Name'
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'form_name',
+            'placeholder': 'Kil Dong Hong'
+        })
+        self.fields['email'].label = 'E-mail'
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'form_email'
+        })
+
+# 비밀번호 찾기 영역
+class RecoveryPwForm(forms.Form):
+    userid = forms.CharField(
+        widget=forms.TextInput,)
+    name = forms.CharField(
+        widget=forms.TextInput,)
+    email = forms.EmailField(
+        widget=forms.EmailInput,)
+
+    class Meta:
+        fields = ['userid', 'name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(RecoveryPwForm, self).__init__(*args, **kwargs)
+        self.fields['userid'].label = 'ID'
+        self.fields['userid'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'pw_form_id',
+        })
+        self.fields['name'].label = 'Name'
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'pw_form_name',
+            'placeholder': 'Kil Dong Hong'
+        })
+        self.fields['email'].label = 'E-mail'
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'pw_form_email',
+        })
+
+# 인증번호 입력 후 사용자의 비밀번호 변경 창에 사용할 SetPasswordForm을 상속받는 form
+from django.contrib.auth.forms import SetPasswordForm
+class CustomSetPasswordForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomSetPasswordForm, self).__init__(*args, **kwargs)
+        self.fields['new_password1'].label = 'New PW'
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control',
+        })
+        self.fields['new_password2'].label = 'New PW Check'
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control',
+        })

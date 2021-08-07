@@ -15,19 +15,7 @@
 <body>
     {% block contents %}
     <h1 class="text-center" style="margin: 30px 30px">SELab Sign-up Form</h1>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                <form>
-                    <label><b>Auth Code:</b></label>
-                    <input class="form-control" placeholder="Your auth code">
-                </form>
-            </div>
-            <div class="col-sm-4"></div>
-        </div>
 
-    </div>
     <br>
 
     <div class="container-fluid">
@@ -48,7 +36,7 @@
                             }
                         </script>
 
-                        {% if form.user_id.errors %}
+                        {% if form.userid.errors %}
                         <script type="text/javascript">
                             document.getElementsByName('userid')[0].setAttribute('class', 'form-control is-invalid')
                         </script>

@@ -12,6 +12,7 @@ urlpatterns = [
     path('add_member/', views.add_member, name='add_member'),
     path('add_other_staff/', views.add_other_staff, name='add_other_staff'),
     path('members/modify/<int:pk>/', views.member_modify, name='member_modify'),
+    path('members/alumni/<int:pk>/', views.alumni_registration, name='member_modify'),
     path('members/modify/staff/<int:pk>/', views.staff_modify, name='staff_modify'),
     path('members/delete/<int:pk>/', views.member_delete, name='member_delete'),
     path('members/delete/staff/<int:pk>/', views.staff_delete, name='staff_delete'),
