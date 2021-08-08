@@ -136,10 +136,10 @@ def member_delete(request, pk):
     if request.user.level == '1' or request.user.level == '0' or request.user.level == '3' and request.user.username == people.name:
         people.delete()
         messages.success(request, "Deleted successfully.")
-        return redirect('people/members')
+        return redirect('/people/members')
     else:
         messages.error(request, "This access doesn't belong to you.")
-        return redirect('people/members')
+        return redirect('/people/members')
 
 @login_message_required
 def staff_delete(request, pk):
