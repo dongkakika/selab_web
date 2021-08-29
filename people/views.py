@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from .models import People, Professor, Staff
 from .forms import PeopleForm, ProfessorForm, StaffForm
-from ppr.models import Publication, Journal
-from tabs.models import ip, rp, activities, award, Conference
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
@@ -12,13 +10,17 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 # members <=> People
 def members(request):
-    graduate_all = People.objects.filter(alumni=False)
-    alumni_all = People.objects.filter(alumni=True)
+    alumni_all = People.objects.filter(delimiter=0)
+    postDoctor_all = People.objects.filter(delimiter=1)
+    phd_all = People.objects.filter(delimiter=2)
+    master_all = People.objects.filter(delimiter=3)
     undergraduate_all = Staff.objects.all()
     context = {
-        'graduate_all' : graduate_all,
-        'undergraduate_all' : undergraduate_all,
         'alumni_all': alumni_all,
+        'postDoctor_all': postDoctor_all,
+        'phd_all': phd_all,
+        'master_all': master_all,
+        'undergraduate_all': undergraduate_all,
     }
     return render(request, 'people/members.html', context)
 
@@ -120,10 +122,40 @@ def staff_modify(request, pk):
 def alumni_registration(request, pk):
     if request.user.level == '0' or request.user.level == '1':
         people = People.objects.get(id=pk)
-        if people.alumni == True:
-            people.alumni = False
-        else:
-            people.alumni = True
+        people.delimiter = 0
+        people.save()
+        return redirect('/people/members/')
+    else:
+        messages.success(request, "you have no access.")
+        return redirect('/people/members/')
+
+@login_message_required
+def postDoctor_registration(request, pk):
+    if request.user.level == '0' or request.user.level == '1':
+        people = People.objects.get(id=pk)
+        people.delimiter = 1
+        people.save()
+        return redirect('/people/members/')
+    else:
+        messages.success(request, "you have no access.")
+        return redirect('/people/members/')
+
+@login_message_required
+def phd_registration(request, pk):
+    if request.user.level == '0' or request.user.level == '1':
+        people = People.objects.get(id=pk)
+        people.delimiter = 2
+        people.save()
+        return redirect('/people/members/')
+    else:
+        messages.success(request, "you have no access.")
+        return redirect('/people/members/')
+
+@login_message_required
+def master_registration(request, pk):
+    if request.user.level == '0' or request.user.level == '1':
+        people = People.objects.get(id=pk)
+        people.delimiter = 3
         people.save()
         return redirect('/people/members/')
     else:
@@ -155,57 +187,9 @@ def staff_delete(request, pk):
 # People -> Professor (independent db_table)
 def professor(request):
     professor = Professor.objects.all()
-    publication_list = Publication.objects.all().order_by('-published_date')
-    journal_list = Journal.objects.all().order_by('issued_date')
-    rp_list = rp.objects.all().order_by('-period')
-    ip_list = ip.objects.all().order_by('-date')
-    activities_list = activities.objects.all().order_by('-announced_date')
-    award_list = award.objects.all().order_by('-date')
-    conference_list = Conference.objects.all().order_by('-period')
-
-    paginator1 = Paginator(journal_list, 10)
-    paginator2 = Paginator(publication_list, 10)
-    paginator3 = Paginator(rp_list, 10)
-    paginator4 = Paginator(ip_list, 10)
-    paginator5 = Paginator(activities_list, 10)
-    paginator6 = Paginator(award_list, 10)
-    paginator7 = Paginator(conference_list, 10)
-    page_number = request.GET.get('page')
-    page_obj1 = paginator1.get_page(page_number)
-    page_obj2 = paginator2.get_page(page_number)
-    page_obj3 = paginator3.get_page(page_number)
-    page_obj4 = paginator4.get_page(page_number)
-    page_obj5 = paginator5.get_page(page_number)
-    page_obj6 = paginator6.get_page(page_number)
-    page_obj7 = paginator7.get_page(page_number)
-
-    page_range1 = page_obj1.paginator.page_range
-    page_range2 = page_obj2.paginator.page_range
-    page_range3 = page_obj3.paginator.page_range
-    page_range4 = page_obj4.paginator.page_range
-    page_range5 = page_obj5.paginator.page_range
-    page_range6 = page_obj6.paginator.page_range
-    page_range7 = page_obj6.paginator.page_range
-
     context = {
         'professor': professor,
-        'journal_list': page_obj1,
-        'publication_list': page_obj2,
-        'rp_list': page_obj3,
-        'ip_list': page_obj4,
-        'activities_list': page_obj5,
-        'award_list': page_obj6,
-        'conference_list': page_obj7,
-
-        'page_range1': page_range1,
-        'page_range2': page_range2,
-        'page_range3': page_range3,
-        'page_range4': page_range4,
-        'page_range5': page_range5,
-        'page_range6': page_range6,
-        'page_range7': page_range7
     }
-
     return render(request, 'people/professor.html', context)
 
 @login_message_required
@@ -213,11 +197,11 @@ def modifyProfessor(request):
 
     # 데이터 불러오기 or 첫 시작 예외처리
     try:
-        content_first = get_object_or_404(Professor, pk=1)
+        content_first = Professor.objects.first()
     except:
-        p = Professor(content='modify 버튼을 통해 내용을 작성해주세요')
+        p = Professor(content='Please modify using the button.')
         p.save()
-        content_first = get_object_or_404(Professor, pk=1)
+        content_first = Professor.objects.first()
 
     if request.method == "POST":
         # 작성자 검사, 관리자 검사 --> 둘만 수정 가능
@@ -230,7 +214,7 @@ def modifyProfessor(request):
                 messages.success(request, "Modified well.")
                 return redirect('/people/professor')
     else:
-        content_first = Professor.objects.get(id=1)
+        content_first = Professor.objects.first()
         if request.user.level == '0':
             form = ProfessorForm(instance=content_first)
             # 같은 notice_write 페이지를 쓰되, 버튼 변경을 위해 아래를 구현

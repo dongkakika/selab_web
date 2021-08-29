@@ -31,9 +31,9 @@ def wow(request):
 
 def home(request):
     # 캐러셀 슬라이드 내용 뽑아오기
-    journal = Journal.objects.last()
-    publication = Publication.objects.last()
-    notice = Notice.objects.last()
+    journal = Journal.objects.first()
+    publication = Publication.objects.first()
+    notice = Notice.objects.first()
 
     if journal == None:
         journal = Journal(title="Welcome", journals="DEFAULT", issued_date="DEFAULT")

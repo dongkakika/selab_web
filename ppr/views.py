@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Publication, Journal, Research
+from ppr.models import Publication, Journal
+from tabs.models import ip, rp, activities, award, Conference
 from .forms import PublicationWriteForm, JournalWriteForm, ResearchForm
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -81,24 +83,54 @@ def research_write(request):
 
 # Publication -> journal & publications
 def publication(request):
-
-    publication_list = Publication.objects.all()
     journal_list = Journal.objects.all().order_by('-issued_date')
+    publication_list = Publication.objects.all().order_by('-published_date')
+    rp_list = rp.objects.all().order_by('-period')
+    ip_list = ip.objects.all().order_by('-date')
+    activities_list = activities.objects.all().order_by('-announced_date')
+    award_list = award.objects.all().order_by('-date')
+    conference_list = Conference.objects.all().order_by('-period')
 
     paginator1 = Paginator(journal_list, 10)
     paginator2 = Paginator(publication_list, 10)
+    paginator3 = Paginator(rp_list, 10)
+    paginator4 = Paginator(ip_list, 10)
+    paginator5 = Paginator(activities_list, 10)
+    paginator6 = Paginator(award_list, 10)
+    paginator7 = Paginator(conference_list, 10)
     page_number = request.GET.get('page')
     page_obj1 = paginator1.get_page(page_number)
     page_obj2 = paginator2.get_page(page_number)
+    page_obj3 = paginator3.get_page(page_number)
+    page_obj4 = paginator4.get_page(page_number)
+    page_obj5 = paginator5.get_page(page_number)
+    page_obj6 = paginator6.get_page(page_number)
+    page_obj7 = paginator7.get_page(page_number)
 
     page_range1 = page_obj1.paginator.page_range
     page_range2 = page_obj2.paginator.page_range
+    page_range3 = page_obj3.paginator.page_range
+    page_range4 = page_obj4.paginator.page_range
+    page_range5 = page_obj5.paginator.page_range
+    page_range6 = page_obj6.paginator.page_range
+    page_range7 = page_obj7.paginator.page_range
 
     context = {
-        'journal_list' : page_obj1,
+        'journal_list': page_obj1,
         'publication_list': page_obj2,
-        'page_range1' : page_range1,
+        'rp_list': page_obj3,
+        'ip_list': page_obj4,
+        'activities_list': page_obj5,
+        'award_list': page_obj6,
+        'conference_list': page_obj7,
+
+        'page_range1': page_range1,
         'page_range2': page_range2,
+        'page_range3': page_range3,
+        'page_range4': page_range4,
+        'page_range5': page_range5,
+        'page_range6': page_range6,
+        'page_range7': page_range7
     }
 
     return render(request, 'ppr/publication.html', context)

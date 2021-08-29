@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    {% block header %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .thumbnail-wrapper {
+            display: inline-block;
+            width: 30%;
+            border: 1px solid rgba(0, 0, 0, 0);
+            margin-bottom: 8px;
+            margin-right: 15px;
+        }
+
+        .thumbnail {
+            position: relative;
+            padding-top: 120%;
+            overflow: hidden;
+        }
+
+        .thumbnail-centered {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: translate(50%, 50%);
+        }
+
+        .thumbnail-img {
+            /*   max-width: 100%; */
+            /*   height: 박스의 height와 같아야 한다. */
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+{% block contents %}
+    <br>
+    <h1>반갑습니다. 이건 개발창이에요. 어떻게 찾았죠?</h1>
+
+    <div class="img-modal" style="display:none; ">
+        <div style="background:#fff; width:600px;">
+            <h2>모달 창1</h2>
+            <p>모달 창1 입니다.</p>
+            <button type="button" class="modal_close_btn" style="display:inline-block;">
+                모달 창 닫기1
+            </button>
+        </div>
+
+        <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.8); z-index:-1;"></div>
+    </div>
+
+
+
+    <div class="wow">
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+        <p>모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.모달 창 입니다.</p>
+    </div>
+
+    <button class="this-focus1 btn btn-info">hi</button>
+
+    <div class="container-fluid gallery-board">
+        <div class="row">
+            <br>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div>
+                    <h1>This is SELab Gallary</h1>
+                    <p style="font-size:20px"><FONT face="돋움">&nbsp;We sometimes file away our memories:</FONT></p>
+                </div>
+
+
+
+                {% if gallery_all %}
+                    {% for gallery in gallery_all %}
+                    <!-- thumbnail-wrapper는 최초 display:none이어야 load more에서 변경을 줄 수 있음 -->
+                    <div class="thumbnail-wrapper" style="display:none; z-index:-2">
+                        <div class="thumbnail">
+                            <div class="thumbnail-centered">
+                                <div class="thumbnail-img this-focus" style="opacity:0.85; background-image:url({{gallery.img.url}}); background-repeat: no-repeat; ; background-position: center; height:85%">
+
+                                    {% if request.user.level == '0' or request.user.level == '1' %}
+                                    <a style="float:right; color:white; opacity: 0.7" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</a>
+                                    {% endif %}
+
+                                    <div class="msg" style="display:none; height:100%; padding:10% 10% 10% 10%;">
+                                        <div style="text-align: center; height: 100%; background-color:rgba( 234, 234, 234, 0.60 ); padding-top:45%; font-size:20px; text-transform: uppercase;">{{ gallery.title }}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+                    <div id="delete_modal2" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Deletion Warning</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure to delete it?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button onclick="delete_modal2()" type="button" class="btn btn-dark">Delete</button>
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        function delete_modal2() {
+                            location.replace('gallery_delete/{{ gallery.id }}/');
+                        }
+                    </script>
+
+                    {% endfor %}
+                {% endif %}
+
+                <script>
+                    // Modal 구현
+                    $('.this-focus1').click(function(){
+                        $(".img-modal").attr("style", "display: block; position: fixed;");
+                        $(".gallery-board").attr("style", "position: relative; z-index:-2");
+
+                    });
+                    $('.modal_close_btn').click(function(){
+                        $(".img-modal").attr("style", "display: none");
+                        $(".gallery-board").attr("style", "position: static; z-index:-2");
+                    })
+
+                    $(function(){
+                        // title 드러내는 상자 구현
+                        $('.this-focus').mouseover(function(){
+                            $(this).css("opacity", "1");
+
+                            var msg = $(this).children('div');
+                            if( msg.css('display') == 'none'){
+                                msg.show();
+                            }
+                        })
+                        $('.this-focus').mouseout(function(){
+                            $(this).css("opacity", "0.85");
+                            $(this).children('div').css('display', 'none');
+                        })
+
+
+                    })
+
+                    // Load more 구현
+                    $(function(){
+                        var flag = false;
+                        $(".thumbnail-wrapper").slice(0, 9).show(); // 최초 9개 선택
+                        $("#load_more").click(function(e){ // Load More를 위한 클릭 이벤트e
+                            e.preventDefault();
+                            $(".thumbnail-wrapper:hidden").slice(0, 6).show(); // 숨김 설정된 다음 9개를 선택하여 표시
+                            if($(".thumbnail-wrapper:hidden").length == 0){ // 숨겨진 DIV가 있는지 체크
+                                if(flag == true)
+                                    alert("Last line"); // 더 이상 로드할 항목이 없는 경우 경고
+                                else flag = true;
+                            }
+                        });
+                    });
+
+
+                </script>
+            </div>
+            <div class="col-sm-2">
+                {% if request.user.level == '0' or request.user.level == '1' %}
+                <a href="gallery_add/" class="btn btn-info" style="float:right; color:white">Add</a>
+                {% endif %}
+            </div>
+            <br>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8"><a id="load_more" class="btn btn-info" style="color: white; width:100%">Load more</a></div>
+            <div class="col-sm-2"></div>
+
+
+        </div>
+        <br>
+    </div>
+
+
+
+    {% endblock %}
+</body>
+</html>

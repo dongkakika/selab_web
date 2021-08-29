@@ -14,11 +14,6 @@ class PeopleForm(forms.ModelForm):
             'class': 'form-control',
             'autofocus': True
         })
-        self.fields['content'].widget.attrs.update({
-            'placeholder': 'Please write your information\nex) 2020 - Present, M.S. Computer Science, CBNU',
-            'class': 'form-control',
-            'autofocus': True
-        })
         self.fields['img_upload'].widget.attrs.update({
             'placeholder': 'Upload your image',
             'class': 'form-control',

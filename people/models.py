@@ -10,7 +10,7 @@ class People(models.Model):
         null = True, # null ok
         upload_to="image/" # 경로 설정
     )
-    alumni = models.BooleanField(default=False, verbose_name='alumni')
+    delimiter = models.IntegerField(verbose_name='delimiter')
 
     def __str__(self):
         return self.content

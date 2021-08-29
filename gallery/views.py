@@ -4,16 +4,22 @@ from .models import Gallery
 from main.decorators import login_message_required
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
-def gallery(request):
-
-    gallery_all = Gallery.objects.all()
-
+def temp(request):
+    gallery_all = Gallery.objects.all().order_by('-id')
     context = {
         'gallery_all': gallery_all,
     }
+    return render(request, "gallery/temp.html", context)
 
+
+def gallery(request):
+    gallery_all = Gallery.objects.all().order_by('-id')
+    context = {
+        'gallery_all': gallery_all,
+    }
     return render(request, 'gallery/gallery.html', context)
 
 @login_message_required
@@ -45,3 +51,34 @@ def gallery_delete(request, pk):
     else:
         messages.error(request, 'You have no access.')
         return redirect('gallery:gallery')
+
+
+@login_message_required
+def gallery_modify(request, pk):
+    gallery_current = get_object_or_404(Gallery, pk=pk)
+    if request.method == 'POST':
+        if request.user.level == '0' or request.user.level == '1':
+            form = GalleryForm(request.POST, instance=gallery_current)
+            if form.is_valid():
+                gallery = form.save(commit=False)
+                # ** 수정할 때도 사진은 따로 변경해줘야 함
+                if request.POST.get('img', True):
+                    gallery.img = request.FILES['img']
+                    # People.objects.get(id=pk).img_upload.delete() # 이전 사진 삭제
+                messages.success(request, "Modified well")
+                gallery.save()
+                return redirect('gallery:gallery')
+
+    else:
+        gallery = Gallery.objects.get(id=pk)
+        if request.user.level == '0' or request.user.level == '1':
+            form = GalleryForm(instance=gallery)
+            context = {
+                'form': form,
+                'gallery': gallery,
+                'edit': 'Modify',  # 버튼의 텍스트 값
+            }
+            return render(request, 'gallery/gallery_add.html', context)
+        else:
+            messages.error(request, "You do not have access")
+            return redirect('gallery:gallery')

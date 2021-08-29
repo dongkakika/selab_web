@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Member Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script type="text/javascript" src="/static/summernote/lang/summernote-ko-KR.js"></script>
     <style>
         #id_name, #id_email{
             height: 38px;
         }
         #id_content{
-            height: 62px;
+            height: 100px;
         }
     </style>
 </head>
@@ -17,8 +23,8 @@
 <div class="container-fluid" style="margin-top: 100px;">
     <div class="row">
         <div class="col-sm-4"></div>
-        <div style="padding-top:25px; padding-bottom:25px; background: #F3F3F3; border-radius: 15px;" class="col-sm-4 text-center">
-            <h1 style="color:grey"><b>Add A New Member !</b></h1><br><br>
+        <div style="padding-top:25px; padding-bottom:25px; background: #F3F3F3; border-radius: 15px;" class="col-sm-4">
+            <h1 style="text-align: center; color:grey"><b>Add A New Member !</b></h1><br><br>
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -42,6 +48,30 @@
                 {% else %}
                 <input class="btn btn-success float-right" type="submit" value="Save">
                 {% endif %}
+
+                <script>
+                    $(document).ready(function () {
+                        $('#id_content').summernote({
+                            placeholder: 'Please write your information\nex) 2020 - Present, M.S. Computer Science, CBNU',
+                            height: 100,
+                            minHeight: 100,
+                            maxHeight: 100,
+                            lang: 'ko-KR',
+
+                            toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['table', ['table']],
+                            ['insert', ['link', 'picture', 'video']],
+                            ['view', ['fullscreen', 'help']]
+                            ]
+                        });
+                        $('p').css('margin-bottom','0')
+                        $('.note-resizebar').css('display','none');
+                    });
+                </script>
 
             </form>
         </div>

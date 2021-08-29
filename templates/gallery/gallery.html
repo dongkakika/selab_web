@@ -7,16 +7,13 @@
     {% block header %}
     <meta charset="UTF-8">
     <title>CBNU SELab - Gallery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
 
     <style>
         .thumbnail-wrapper {
             display: inline-block;
-            width: 30%;
+            width: 33%;
             border: 1px solid rgba(0, 0, 0, 0);
-            margin-bottom: 8px;
-            margin-right: 15px;
+            margin-bottom: 5px;
         }
 
         .thumbnail {
@@ -37,6 +34,7 @@
         .thumbnail-img {
             /*   max-width: 100%; */
             /*   height: 박스의 height와 같아야 한다. */
+            position: relative; z-index: 1;
             transform: translate(-50%, -50%);
         }
     </style>
@@ -44,40 +42,78 @@
 </head>
 <body>
     {% block contents %}
-    <br>
 
+    <div class="go-dark container-fluid" style="display:none; z-index:3;">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-5">
+                <div style="width:100%; margin:0 auto; padding-bottom:85%; background-color:#eee; position:relative; overflow:auto; background-color: rgba( 255, 255, 255, 0 );">
+                    <div style="position:absolute; top:0; left:0; font-size:15px;width:100%; height:100%; text-align:center;">
+                        <img class="modal-img" src="" style="position: relative; width: 100%;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div style="width: 100%; height:500px; overflow:auto; color:white ">
+                    <b><p class="modal-first" style="font-size: 30px"></p></b>
+                    <p class="modal-second" style="width: 100%; white-space:pre-wrap;"></p>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <a class="cancel-dark btn btn-light" style="z-index:2; opacity:0.75"><b>X</b></a>
+                {% if request.user.level == '0' or request.user.level == '1' %}
+                <a class="modal-id btn btn-info">modify</a>
+                {% endif %}
+            </div>
 
-    <div class="container-fluid">
+        </div>
+
+        <div style="position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.85); z-index:-1;"></div>
+    </div>
+
+    <div class="container-fluid gallery-board">
         <div class="row">
             <br>
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <div>
+                <div style="margin-top:20px;">
                     <h1>This is SELab Gallary</h1>
-                    <p style="font-size:20px"><FONT face="돋움">&nbsp;We sometimes file away our memories:</FONT></p>
+                    <p style="font-size:20px"><FONT face="돋움">&nbsp;Our memories are precious:</FONT></p>
                 </div>
 
                 {% if gallery_all %}
                     {% for gallery in gallery_all %}
                     <!-- thumbnail-wrapper는 최초 display:none이어야 load more에서 변경을 줄 수 있음 -->
-                    <div class="thumbnail-wrapper" style="display:none">
+                    <div class="thumbnail-wrapper" style="display:none;">
                         <div class="thumbnail">
                             <div class="thumbnail-centered">
                                 <div class="thumbnail-img this-focus" style="opacity:0.85; background-image:url({{gallery.img.url}}); background-repeat: no-repeat; background-size: cover; background-position: center; height:85%">
+                                    <a class="empty-but-id" style="display:none">{{gallery.id}}</a>
+                                    <img class="empty-but-img" style="display:none" src="{{gallery.img.url}}">
+                                    <a class="empty-but-title" style="display:none">{{gallery.title}}</a>
+                                    <a class="empty-but-content" style="display:none">{{gallery.content}}</a>
+
                                     {% if request.user.level == '0' or request.user.level == '1' %}
-                                    <a style="float:right; color:white; opacity: 0.7" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</a>
+                                    <a onclick="id_pass({{gallery.id}})" style="float:right; color:white; opacity: 0.7" class="btn btn-sm btn-danger modal-delete" data-toggle="modal" data-target="#delete_modal">delete</a>
+                                    <script>
+                                        var temp_url;
+                                        function id_pass(id_value){
+                                            temp_url = id_value;
+                                        }
+                                    </script>
                                     {% endif %}
 
                                     <div class="msg" style="display:none; height:100%; padding:10% 10% 10% 10%;">
                                         <div style="text-align: center; height: 100%; background-color:rgba( 234, 234, 234, 0.60 ); padding-top:45%; font-size:20px; text-transform: uppercase;">{{ gallery.title }}</div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
 
                     <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
-                    <div id="delete_modal2" class="modal fade" tabindex="-1" role="dialog">
+                    <div id="delete_modal" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -90,37 +126,83 @@
                                     <p>Are you sure to delete it?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button onclick="delete_modal2()" type="button" class="btn btn-dark">Delete</button>
+                                    <button onclick="delete_modal()" type="button" class="btn btn-dark">Delete</button>
                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <script type="text/javascript">
-                        function delete_modal2() {
-                            location.replace('gallery_delete/{{ gallery.id }}/');
+                        function delete_modal() {
+                            location.replace('gallery_delete/' + temp_url);
                         }
                     </script>
+
+                    <script>
+                        // Protecting the synchronous action of Delete Modal & Img Modal
+                        var modal_trigger = false;
+                        $(function(){
+                            $(".modal-delete").click(function(){
+                                modal_trigger = true;
+                            })
+                        })
+                    </script>
+
 
                     {% endfor %}
                 {% endif %}
 
                 <script>
-                    $(function(){
-                        $('.this-focus').mouseover(function(){
-                            $(this).css("opacity", "1");
+                    // title 드러내는 상자 구현
+                    $('.this-focus').mouseover(function(){
+                        $(this).css("opacity", "1");
 
-                            var msg = $(this).children('div');
-                            if( msg.css('display') == 'none'){
-                                msg.show();
-                            }
-                        })
-                        $('.this-focus').mouseout(function(){
-                            $(this).css("opacity", "0.85");
-                            $(this).children('div').css('display', 'none');
-                        })
+                        var msg = $(this).children('.msg');
+                        if( msg.css('display') == 'none'){
+                            msg.show();
+                        }
                     })
 
+                    $('.this-focus').mouseout(function(){
+                        $(this).css("opacity", "0.85");
+                        $(this).children('div').css('display', 'none');
+                    })
+
+                    // 이미지 모달 구현
+                    var go_dark = $(".go-dark");
+                    var gallery_board = $(".gallery-board");
+
+                    $(".this-focus").click(function(){
+                        // 선행되는 modal_trigger로 인해 delete 버튼을 인지하면 동작하지 않음
+                        if(!modal_trigger){
+                            // z-index는 display에 딸려가는 속성인 듯
+                            gallery_board.attr("style", "position:relative; z-index:-2;");
+                            $(".main-footer").attr("style", "position:relative; z-index:-2;");
+
+                            go_dark.attr("style", "display:block; position: fixed; margin-top:3%");
+
+                            var path_id = $(this).children(".empty-but-id").text();
+                            var path_img = $(this).children(".empty-but-img").attr("src");
+                            var path_title = $(this).children(".empty-but-title").text();
+                            var path_content = $(this).children(".empty-but-content").text();
+
+                            $(".modal-id").attr("href", "gallery_modify/"+path_id);
+                            $(".modal-img").attr("src", path_img);
+                            $(".modal-first").text(path_title);
+                            $(".modal-second").text(path_content);
+                        }
+                        modal_trigger = false;
+                    })
+                    $(".cancel-dark").click(function(){
+                        gallery_board.attr("style", "position:static;");
+                        $(".main-footer").attr("style", "position:static;");
+
+                        go_dark.attr("style", "display:none;");
+                        //$(".modal-img").attr("src", "");
+                    })
+
+
+                    // Load more 구현
                     $(function(){
                         var flag = false;
                         $(".thumbnail-wrapper").slice(0, 9).show(); // 최초 9개 선택
@@ -134,7 +216,10 @@
                             }
                         });
                     });
+
+
                 </script>
+
             </div>
             <div class="col-sm-2">
                 {% if request.user.level == '0' or request.user.level == '1' %}
@@ -142,15 +227,11 @@
                 {% endif %}
             </div>
             <br>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8"><a id="load_more" class="btn btn-info" style="color: white; width:100%">Load more</a></div>
-            <div class="col-sm-2"></div>
-
 
         </div>
-        <br>
     </div>
 
+    <div style="text-align:right;"><a id="load_more" class="btn btn-info" style="color: white; width:100%; "><b>More</b></a></div>
 
 
     {% endblock %}

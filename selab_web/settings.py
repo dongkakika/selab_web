@@ -148,7 +148,7 @@ MEDIA_URL = '/media/'
 # main의 사용자(users) 관련 경로
 from django.urls import reverse_lazy
 
-LOGIN_URL = '/login/'          # 로그인 URL
+LOGIN_URL = '/main/login/'          # 로그인 URL
 LOGIN_REDIRECT_URL = reverse_lazy('main:home')   # 로그인 후 URL
 LOGOUT_REDIRECT_URL = reverse_lazy('main:login') # 로그아웃 후 URL
 AUTH_USER_MODEL = "main.User"       # 커스텀 인증 모델

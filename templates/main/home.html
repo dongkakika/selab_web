@@ -77,24 +77,28 @@
 
                         <!-- Carousel items -->
                         <div class="carousel-inner">
-                            <div class="carousel-item active text-center" style="color:white">
-                                <i>/* Our Newest Journal */</i><br><br>
-                                {% if journal %}
+                            {% if journal %}
+                            <div class="carousel-item active text-center" style="">
+                                <a style="color:white" href="/ppr/publication/">
+                                    <i>/* Our Newest Journal */</i><br><br>
                                     TITLE: {{ journal.title }}<br>
                                     JOURNALS: {{ journal.journals }}<br>
                                     DATE: {{ journal.issued_date }}
-                                {% endif %}
                                 <!--.row-->
+                                </a>
                             </div>
+                            {% endif %}
                             <!--.item-->
 
                             <div class="carousel-item text-center" style="color:white">
-                                <i>/* Our Newest Publication */</i><br><br>
-                                {% if publication %}
-                                    TITLE: {{ publication.title }}<br>
-                                    PUBLISHER: {{ publication.publisher }}<br>
-                                    PUBLISHED DATE: {{ publication.published_date }}
-                                {% endif %}
+                                <a style="color:white" href="/ppr/publication/">
+                                    <i>/* Our Newest Publication */</i><br><br>
+                                    {% if publication %}
+                                        TITLE: {{ publication.title }}<br>
+                                        PUBLISHER: {{ publication.publisher }}<br>
+                                        PUBLISHED DATE: {{ publication.published_date }}
+                                    {% endif %}
+                                </a>
                                 <!--.row-->
                             </div>
                             <!--.item-->

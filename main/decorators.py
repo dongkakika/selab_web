@@ -13,7 +13,7 @@ def login_message_required(function):
     def wrap(request, *args, **kwargs):
         if not request.user.is_authenticated:  # request.user로 데이터에 접근해서 접속 '상태' 확인 --> 로그인인지 판별
             messages.info(request, "Only for users who logged in")
-            return redirect(settings.LOGIN_URL)
+            return redirect(settings.LOGIN_URL) # 이런 방식이 있다는 것만 알자, 복잡해서 가독성이 떨어지므로 왠만하면 피하고!
         return function(request, *args, **kwargs)
 
     return wrap

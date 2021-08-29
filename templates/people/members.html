@@ -15,37 +15,116 @@
 
 <body>
 {% block contents %}
-
-    <!-- Graduate Area -->
+    <!-- Phd Area -->
 
     <div class="panel container-fluid text-center">
-        <a class="panel-name"><b>Graduate Course</b></a><br>
+        <a class="panel-name"><b>PHD Course</b></a><br>
     </div>
 
-    {% if graduate_all %}
-    {% for graduate in graduate_all %}
+    <!-- Add button -->
+    <div class="modifyButton" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
+            <a href="/people/add_member" class="btn btn-primary" onclick="">Add</a>
+        {% endif %}
+    </div>
+
+    {% if phd_all %}
+    {% for phd in master_all %}
     <div style="background-color: white; padding-top:20px;" class="member container-fluid">
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-2">
-                {% if graduate.img_upload %}
-                <img src="{{ graduate.img_upload.url }}" width="170px;" style="border-radius: 7px;">
+                {% if phd.img_upload %}
+                <img src="{{ phd.img_upload.url }}" width="170px;" style="border-radius: 7px;">
                 {% endif %}
             </div>
             <div class="col-lg-8">
-                <a style=" font-size: 25px;"><b>{{ graduate.name }}</b></a><br>
+                <a style=" font-size: 25px;"><b>{{ phd.name }}</b></a><br>
                 <a style="font-size: 15px;">
-                    E-mail: {{ graduate.email }}<br><br>
-                    {{ graduate.content }}<br><br>
+                    E-mail: {{ phd.email }}<br><br>
+                    {{ phd.content | safe }}<br><br>
                 </a>
 
                 <!-- 수정, 삭제 버튼 -->
                 <div class="modifyButton" style="text-align: right;">
                     {% if request.user.level == '0' or request.user.level == '1' %}
-                        <a href="alumni/{{ graduate.id }}/" class="btn btn-info">alumni</a>
+                        <a href="alumni/{{ phd.id }}/" class="btn btn-info">alumni</a>
                     {% endif %}
-                    {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == graduate.name or request.user.level == '2' and request.user.userid == graduate.name %}
-                        <a href="modify/{{ graduate.id }}/" class="btn btn-success">Modify</a>
+                    {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == phd.name or request.user.level == '2' and request.user.userid == phd.name %}
+                        <a href="modify/{{ phd.id }}/" class="btn btn-success">Modify</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete_modal">delete</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+    <div id="" class="delete_modal modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deletion Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure to delete it?</p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="delete_modal()" type="button" class="btn btn-dark">Delete</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function delete_modal() {
+            location.replace('delete/{{ phd.id }}/');
+        }
+    </script>
+    {% endfor %}
+    {% endif %}
+
+
+    <!-- Master Area -->
+
+    <div class="panel container-fluid text-center">
+        <a class="panel-name"><b>Master Course</b></a><br>
+    </div>
+
+    <!-- Add button -->
+    <div class="modifyButton" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
+            <a href="/people/add_member" class="btn btn-primary" onclick="">Add</a>
+        {% endif %}
+    </div>
+
+    {% if master_all %}
+    {% for master in master_all %}
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                {% if master.img_upload %}
+                <img src="{{ master.img_upload.url }}" width="170px;" style="border-radius: 7px;">
+                {% endif %}
+            </div>
+            <div class="col-lg-8">
+                <a style=" font-size: 25px;"><b>{{ master.name }}</b></a><br>
+                <a style="font-size: 15px;">
+                    E-mail: {{ master.email }}<br><br>
+                    {{ master.content | safe }}<br><br>
+                </a>
+
+                <!-- 수정, 삭제 버튼 -->
+                <div class="modifyButton" style="text-align: right;">
+                    {% if request.user.level == '0' or request.user.level == '1' %}
+                        <a href="alumni/{{ master.id }}/" class="btn btn-info">alumni</a>
+                    {% endif %}
+                    {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == master.name or request.user.level == '2' and request.user.userid == master.name %}
+                        <a href="modify/{{ master.id }}/" class="btn btn-success">Modify</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
                     {% endif %}
                 </div>
@@ -75,24 +154,25 @@
 
     <script type="text/javascript">
         function delete_modal() {
-            location.replace('delete/{{ graduate.id }}/');
+            location.replace('delete/{{ master.id }}/');
         }
     </script>
     {% endfor %}
     {% endif %}
 
-    <!-- Add button -->
-    <div class="modifyButton" style="text-align: right;">
-        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
-            <a href="/people/add_member" class="btn btn-primary" onclick="">Add</a>
-        {% endif %}
-    </div>
+
 
     <div class="panel container-fluid text-center">
         <a class="panel-name"><b>Undergraduate Course</b></a><br>
     </div>
 
     <!-- Ungraduate Area -->
+    <!-- 글쓰기 버튼 -->
+    <div class="modifyButton" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' %}
+            <a href="/people/add_other_staff" class="btn btn-primary">Add</a>
+        {% endif %}
+    </div>
 
     {% if undergraduate_all %}
     {% for undergraduate in undergraduate_all %}
@@ -108,7 +188,7 @@
                 <a style=" font-size: 25px;"><b>{{ undergraduate.name }}</b></a><br>
                 <a style="font-size: 15px;">
                     E-mail: {{ undergraduate.email }}<br><br>
-                    {{ undergraduate.content }}<br><br>
+                    {{ undergraduate.content | safe }}<br><br>
                 </a>
 
                 <!-- 수정, 삭제 버튼 -->
@@ -150,15 +230,15 @@
     {% endfor %}
     {% endif %}
 
-    <!-- 글쓰기 버튼 -->
-    <div class="modifyButton" style="text-align: right;">
-        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' %}
-            <a href="/people/add_other_staff" class="btn btn-primary">Add</a>
-        {% endif %}
-    </div>
-
     <div class="panel container-fluid text-center">
         <a class="panel-name"><b>Alumni</b></a><br>
+    </div>
+
+    <!-- Add button -->
+    <div class="modifyButton" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
+            <a href="/people/add_member" class="btn btn-primary" onclick="">Add</a>
+        {% endif %}
     </div>
 
     {% if alumni_all %}
@@ -175,7 +255,7 @@
                 <a style=" font-size: 25px;"><b>{{ alumni.name }}</b></a><br>
                 <a style="font-size: 15px;">
                     E-mail: {{ alumni.email }}<br><br>
-                    {{ alumni.content }}<br><br>
+                    {{ alumni.content | safe }}<br><br>
                 </a>
 
                 <!-- 수정, 삭제 버튼 -->
@@ -219,13 +299,6 @@
     </script>
     {% endfor %}
     {% endif %}
-
-    <!-- Add button -->
-    <div class="modifyButton" style="text-align: right;">
-        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
-            <a href="/people/add_member" class="btn btn-primary" onclick="">Add</a>
-        {% endif %}
-    </div>
 
 {% endblock %}
 </body>

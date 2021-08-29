@@ -18,7 +18,7 @@
 </head>
 <body>
     {% block contents %}
-    <div class="panel container-fluid text-center"><a class="panel-name"><b>Research</b></a></div>
+    <div class="panel container-fluid text-center"><a class="panel-name"><b>Research Area</b></a></div>
     <div class="container-fluid" style="margin-bottom: 20px;">
         {% if research_list %}
         {% for research in research_list %}
@@ -80,7 +80,13 @@
             <div class="modifyButton" style="text-align: right;">
                 {% if request.user.level == '0' or request.user.level == '1' %}
                     <a href="modify/{{ research.id }}/" class="btn btn-success">Modify</a>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
+                    <button onclick="id_pass({{research.id}})" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
+                    <script>
+                        var temp_url;
+                        function id_pass(id_value){
+                            temp_url = id_value;
+                        }
+                    </script>
                 {% endif %}
             </div>
             <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
@@ -106,7 +112,7 @@
 
             <script type="text/javascript">
                 function delete_modal2() {
-                    location.replace('delete/{{ research.id }}/');
+                    location.replace('delete/' + temp_url);
                 }
             </script>
 
