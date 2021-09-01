@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        #id_issued_date{
+        #id_date{
             height: 34px;
             width: 300px;
         }
@@ -17,7 +17,7 @@
     <br><br>
     <form class="container" method="post">
         {% csrf_token %}
-        <h1>Journal Upload</h1><br>
+        <h1>Etc Upload</h1><br>
 
         <div class="card">
             <label>Title: </label>
@@ -25,14 +25,14 @@
                 {{ form.title }}
             </div><br>
 
-            <label>Journals: </label><br>
+            <label>Content: </label><br>
             <div class="card-body">
-                {{ form.journals }}
+                {{ form.content }}
             </div><br>
 
-            <label>Issued date: </label><br>
+            <label>Date: </label><br>
             <div class="">
-                {{ form.issued_date }}
+                {{ form.date }}
             </div><br>
         </div>
         <br>
@@ -45,9 +45,6 @@
 
         {% if edit1 %}
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal1">delete</button>
-        {% endif %}
-        {% if edit2 %}
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
         {% endif %}
 
         <button type="button" class="btn btn-own" onclick="location.href='/ppr/publication'">To the list</button>
@@ -74,33 +71,9 @@
         </div>
     </div>
 
-    <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
-    <div id="delete_modal2" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Deletion Warning</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure to delete it?</p>
-                </div>
-                <div class="modal-footer">
-                    <button onclick="delete_modal2()" type="button" class="btn btn-dark">Delete</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script type="text/javascript">
         function delete_modal1() {
-            location.replace('/ppr/international/{{ journal.id }}/delete/');
-        }
-        function delete_modal2() {
-            location.replace('/ppr/domestic/{{ journal.id }}/delete/');
+            location.replace('/tabs/etc/{{ etc.id }}/delete/');
         }
     </script>
 

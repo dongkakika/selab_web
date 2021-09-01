@@ -7,7 +7,7 @@ from main.decorators import logout_message_required, admin_required
 from django.views.generic import FormView, View, CreateView
 from .forms import LoginForm, RegisterForm, IdRecoveryForm, RecoveryPwForm
 from .models import User
-from ppr.models import Journal, Publication
+from ppr.models import International_Journal, Domestic_Journal
 from notice.models import Notice
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
@@ -31,20 +31,20 @@ def wow(request):
 
 def home(request):
     # 캐러셀 슬라이드 내용 뽑아오기
-    journal = Journal.objects.first()
-    publication = Publication.objects.first()
+    international_journal = International_Journal.objects.first()
+    domestic_journal = Domestic_Journal.objects.first()
     notice = Notice.objects.first()
 
-    if journal == None:
-        journal = Journal(title="Welcome", journals="DEFAULT", issued_date="DEFAULT")
-    if publication == None:
-        publication = Publication(title="Welcome", publisher="DEFAULT_", published_date="DEFAULT_")
+    if international_journal == None:
+        journal = International_Journal(title="Welcome", journals="DEFAULT", issued_date="DEFAULT")
+    if domestic_journal == None:
+        publication = Domestic_Journal(title="Welcome", journals="DEFAULT_", issued_date="DEFAULT_")
     if notice == None:
         notice = Notice(title="Welcome", content="DEFAULT__", hits="DEFAULT__")
 
     context = {
-        'journal': journal,
-        'publication': publication,
+        'journal': international_journal,
+        'publication': domestic_journal,
         'notice': notice,
     }
 

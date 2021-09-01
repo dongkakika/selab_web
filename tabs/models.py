@@ -66,3 +66,16 @@ class Conference(models.Model):
         db_table = 'conference'
         verbose_name = 'Conference'
         verbose_name_plural = 'Conference'
+
+class Etc(models.Model):
+    title = models.TextField(verbose_name='title')
+    content = models.TextField(verbose_name='content')
+    date = models.TextField(verbose_name='date')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'etc'
+        verbose_name = 'Etc'
+        verbose_name_plural = 'Etc'

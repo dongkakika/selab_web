@@ -14,7 +14,7 @@ def members(request):
     postDoctor_all = People.objects.filter(delimiter=1)
     phd_all = People.objects.filter(delimiter=2)
     master_all = People.objects.filter(delimiter=3)
-    undergraduate_all = Staff.objects.all()
+    undergraduate_all = People.objects.filter(delimiter=4)
     context = {
         'alumni_all': alumni_all,
         'postDoctor_all': postDoctor_all,
@@ -25,7 +25,7 @@ def members(request):
     return render(request, 'people/members.html', context)
 
 @login_message_required
-def add_member(request):
+def add_member(request, pk):
     if request.method == "POST":
         form = PeopleForm(request.POST)
         if form.is_valid():
@@ -33,6 +33,7 @@ def add_member(request):
             people = form.save(commit=False)
             if request.POST.get('img_upload', True):
                 people.img_upload = request.FILES['img_upload']
+            people.delimiter = pk
             messages.success(request, "Saved")
             people.save()
             return redirect('people:members')
@@ -118,6 +119,7 @@ def staff_modify(request, pk):
             messages.error(request, "You don't have access")
             return redirect('/people/members')
 
+# 해당 로직으로 alumni 등록
 @login_message_required
 def alumni_registration(request, pk):
     if request.user.level == '0' or request.user.level == '1':
@@ -129,38 +131,6 @@ def alumni_registration(request, pk):
         messages.success(request, "you have no access.")
         return redirect('/people/members/')
 
-@login_message_required
-def postDoctor_registration(request, pk):
-    if request.user.level == '0' or request.user.level == '1':
-        people = People.objects.get(id=pk)
-        people.delimiter = 1
-        people.save()
-        return redirect('/people/members/')
-    else:
-        messages.success(request, "you have no access.")
-        return redirect('/people/members/')
-
-@login_message_required
-def phd_registration(request, pk):
-    if request.user.level == '0' or request.user.level == '1':
-        people = People.objects.get(id=pk)
-        people.delimiter = 2
-        people.save()
-        return redirect('/people/members/')
-    else:
-        messages.success(request, "you have no access.")
-        return redirect('/people/members/')
-
-@login_message_required
-def master_registration(request, pk):
-    if request.user.level == '0' or request.user.level == '1':
-        people = People.objects.get(id=pk)
-        people.delimiter = 3
-        people.save()
-        return redirect('/people/members/')
-    else:
-        messages.success(request, "you have no access.")
-        return redirect('/people/members/')
 
 @login_message_required
 def member_delete(request, pk):

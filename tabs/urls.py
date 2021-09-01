@@ -26,5 +26,9 @@ urlpatterns = [
     path('conference/<int:pk>/', views.conference_modify, name='conference_modify'),
     path('conference/<int:pk>/delete/', views.conference_delete.as_view(), name='conference_delete'),
 
+    path('etc_write/', views.etc_write, name='etc_write'),
+    path('etc/<int:pk>/', views.etc_modify, name='etc_modify'),
+    path('etc/<int:pk>/delete/', views.etc_delete.as_view(), name='etc_delete'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

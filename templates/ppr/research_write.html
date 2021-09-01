@@ -32,9 +32,11 @@
         {% csrf_token %}
         <div class="card">
             <label>Image: </label><br>
-            <div style="display: inline-block">
+            <div id="img-upload1" style="display: inline-block;">
                 {{ form.img }}
             </div>
+            <label for="img-upload1"></label>
+
             <label style="margin-left: 30px;">
                 {{ form.left_right_check }}
                 <span>Image to the right <b style="font-weight:none; color:grey;">(Default is left)</b></span>

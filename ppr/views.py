@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from .models import Publication, Journal, Research
-from ppr.models import Publication, Journal
-from tabs.models import ip, rp, activities, award, Conference
-from .forms import PublicationWriteForm, JournalWriteForm, ResearchForm
+from .models import International_Journal, Domestic_Journal, Research
+from tabs.models import ip, rp, activities, award, Conference, Etc
+from .forms import InternationalJournalWriteForm, DomesticJournalWriteForm, ResearchForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.core.paginator import Paginator
@@ -83,21 +82,24 @@ def research_write(request):
 
 # Publication -> journal & publications
 def publication(request):
-    journal_list = Journal.objects.all().order_by('-issued_date')
-    publication_list = Publication.objects.all().order_by('-published_date')
+    international_list = International_Journal.objects.all().order_by('-issued_date')
+    domestic_list = Domestic_Journal.objects.all().order_by('-issued_date')
     rp_list = rp.objects.all().order_by('-period')
     ip_list = ip.objects.all().order_by('-date')
     activities_list = activities.objects.all().order_by('-announced_date')
     award_list = award.objects.all().order_by('-date')
     conference_list = Conference.objects.all().order_by('-period')
+    etc_list = Etc.objects.all().order_by('-date')
 
-    paginator1 = Paginator(journal_list, 10)
-    paginator2 = Paginator(publication_list, 10)
+    paginator1 = Paginator(international_list, 10)
+    paginator2 = Paginator(domestic_list, 10)
     paginator3 = Paginator(rp_list, 10)
     paginator4 = Paginator(ip_list, 10)
     paginator5 = Paginator(activities_list, 10)
     paginator6 = Paginator(award_list, 10)
     paginator7 = Paginator(conference_list, 10)
+    paginator8 = Paginator(etc_list, 10)
+
     page_number = request.GET.get('page')
     page_obj1 = paginator1.get_page(page_number)
     page_obj2 = paginator2.get_page(page_number)
@@ -106,6 +108,7 @@ def publication(request):
     page_obj5 = paginator5.get_page(page_number)
     page_obj6 = paginator6.get_page(page_number)
     page_obj7 = paginator7.get_page(page_number)
+    page_obj8 = paginator8.get_page(page_number)
 
     page_range1 = page_obj1.paginator.page_range
     page_range2 = page_obj2.paginator.page_range
@@ -114,15 +117,17 @@ def publication(request):
     page_range5 = page_obj5.paginator.page_range
     page_range6 = page_obj6.paginator.page_range
     page_range7 = page_obj7.paginator.page_range
+    page_range8 = page_obj8.paginator.page_range
 
     context = {
-        'journal_list': page_obj1,
-        'publication_list': page_obj2,
+        'international_list': page_obj1,
+        'domestic_list': page_obj2,
         'rp_list': page_obj3,
         'ip_list': page_obj4,
         'activities_list': page_obj5,
         'award_list': page_obj6,
         'conference_list': page_obj7,
+        'etc_list': page_obj8,
 
         'page_range1': page_range1,
         'page_range2': page_range2,
@@ -130,7 +135,8 @@ def publication(request):
         'page_range4': page_range4,
         'page_range5': page_range5,
         'page_range6': page_range6,
-        'page_range7': page_range7
+        'page_range7': page_range7,
+        'page_range8': page_range8,
     }
 
     return render(request, 'ppr/publication.html', context)
@@ -138,10 +144,10 @@ def publication(request):
 
 
 @login_message_required
-def write_journal(request):
+def write_international_journal(request):
     if request.method == "POST":
         #messages.success(request, '돼?')
-        form = JournalWriteForm(request.POST)
+        form = InternationalJournalWriteForm(request.POST)
 
         if form.is_valid():
             messages.success(request, 'Saved')
@@ -149,43 +155,44 @@ def write_journal(request):
             journal.save() # 내용 저장
             return redirect('ppr:publication')
     else:
-        form = JournalWriteForm()
+        form = InternationalJournalWriteForm()
 
     return render(request, "ppr/journal_write.html", {'form': form})
 
 @login_message_required
-def write_publication(request):
+def write_domestic_journal(request):
     if request.method == "POST":
-        form = PublicationWriteForm(request.POST)
+        form = DomesticJournalWriteForm(request.POST)
         if form.is_valid():
             messages.success(request, 'Saved')
             publication = form.save(commit = False) # 커밋 --> False
             publication.save() # 내용 저장
             return redirect('ppr:publication')
     else:
-        form = PublicationWriteForm()
+        form = DomesticJournalWriteForm()
 
-    return render(request, "ppr/publication_write.html", {'form': form})
+    return render(request, "ppr/journal_write.html", {'form': form})
 
 @login_message_required
-def journal_detail_view(request, pk):
-    journal = get_object_or_404(Journal, pk=pk)
+def international_journal_detail_view(request, pk):
+    journal = get_object_or_404(International_Journal, pk=pk)
     if request.method == 'POST':
         if request.user.level == '0' or request.user.level == '1':
-            form = JournalWriteForm(request.POST, instance=journal)
+            form = InternationalJournalWriteForm(request.POST, instance=journal)
             if form.is_valid():
                 journal = form.save(commit=False)
                 journal.save()
                 messages.success(request, 'Modified well')
                 return redirect('/ppr/publication')
     else:
-        journal = Journal.objects.get(id=pk)
+        journal = International_Journal.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
-            form = JournalWriteForm(instance=journal)
+            form = InternationalJournalWriteForm(instance=journal)
             context = {
                 'form' : form,
                 'journal': journal,
-                'edit': 'Modify', # 버튼의 텍스트 값
+                'edit' : 'just for check',
+                'edit1': 'Modify', # 버튼의 텍스트 값
             }
             return render(request, 'ppr/journal_write.html', context)
         else:
@@ -193,33 +200,34 @@ def journal_detail_view(request, pk):
             return redirect('/ppr/publication')
 
 @login_message_required
-def publication_detail_view(request, pk):
-    publication = get_object_or_404(Publication, pk=pk)
+def domestic_journal_detail_view(request, pk):
+    journal = get_object_or_404(Domestic_Journal, pk=pk)
     if request.method == 'POST':
         if request.user.level == '0' or request.user.level == '1':
-            form = PublicationWriteForm(request.POST, instance=publication)
+            form = DomesticJournalWriteForm(request.POST, instance=journal)
             if form.is_valid():
-                publication = form.save(commit=False)
-                publication.save()
+                journal = form.save(commit=False)
+                journal.save()
                 messages.success(request, 'Modified well')
                 return redirect('/ppr/publication')
     else:
-        publication = Publication.objects.get(id=pk)
+        journal = Domestic_Journal.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
-            form = PublicationWriteForm(instance=publication)
+            form = DomesticJournalWriteForm(instance=journal)
             context = {
                 'form' : form,
-                'publication': publication,
-                'edit': 'Modify', # 버튼의 텍스트 값
+                'journal': journal,
+                'edit': 'just for check',
+                'edit2': 'Modify', # 버튼의 텍스트 값
             }
-            return render(request, 'ppr/publication_write.html', context)
+            return render(request, 'ppr/journal_write.html', context)
         else:
             messages.error(request, "You do not have access")
             return redirect('/ppr/publication')
 
 @login_message_required
-def journal_delete(request, pk):
-    journal = Journal.objects.get(id=pk)
+def international_journal_delete(request, pk):
+    journal = International_Journal.objects.get(id=pk)
     if request.user.level == '1' or request.user.level == '0':
         journal.delete()
         messages.success(request, "Deleted successfully.")
@@ -229,10 +237,10 @@ def journal_delete(request, pk):
         return redirect('/ppr/publication')
 
 @login_message_required
-def publication_delete(request, pk):
-    publication = Publication.objects.get(id=pk)
+def domestic_journal_delete(request, pk):
+    domestic_journal = Domestic_Journal.objects.get(id=pk)
     if request.user.level == '1' or request.user.level == '0':
-        publication.delete()
+        domestic_journal.delete()
         messages.success(request, "Deleted successfully.")
         return redirect('/ppr/publication')
     else:

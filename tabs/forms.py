@@ -1,5 +1,5 @@
 from django import forms
-from .models import activities, award, Conference, ip, rp
+from .models import activities, award, Conference, ip, rp, Etc
 
 # forms의 ModelForm을 사용,
 # form에 사용할 모델과 필드를 결정하는 Meta 클래스 쪽에 content 필드를 추가
@@ -118,3 +118,25 @@ class ConferenceForm(forms.ModelForm):
         model = Conference
         fields = ['title', 'academic_conference', 'period']
 
+class EtcWriteForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EtcWriteForm, self).__init__(*args, **kwargs)
+        self.fields['title'].label = 'Title'
+        self.fields['title'].widget.attrs.update({
+            'placeholder': 'Please write a title',
+            'class': 'form-control',
+            'autofocus': True,
+        })
+        self.fields['content'].widget.attrs.update({
+            'placeholder': 'Please enter the content',
+            'class': 'form-control',
+            'autofocus': True
+        })
+        self.fields['date'].widget.attrs.update({
+            'placeholder': '"MUST" follow this form 2021-08-01',
+            'class': 'form-control',
+            'autofocus': True
+        })
+    class Meta:
+        model = Etc
+        fields = ['title', 'content', 'date', ] # 입력 받는 field

@@ -2,34 +2,31 @@ from django.db import models
 from django.conf import settings
 
 # Create your models here.
-
-
-class Journal(models.Model):
+class Domestic_Journal(models.Model):
     title = models.CharField(max_length=128, verbose_name='title')
     journals = models.TextField(verbose_name='journals')
     issued_date = models.TextField(verbose_name='issued_date')
 
-
     def __str__(self):
         return self.title
 
     class Meta:
-        db_table = 'journal'
-        verbose_name = 'Journal'
-        verbose_name_plural = 'Journal'
+        db_table = 'domestic_journal'
+        verbose_name = 'Domestic Journal'
+        verbose_name_plural = 'Domestic Journal'
 
-class Publication(models.Model):
+class International_Journal(models.Model):
     title = models.CharField(max_length=128, verbose_name='title')
-    publisher = models.TextField(verbose_name='publisher')
-    published_date = models.TextField(verbose_name='published_date')
+    journals = models.TextField(verbose_name='journals')
+    issued_date = models.TextField(verbose_name='issued_date')
 
     def __str__(self):
         return self.title
 
     class Meta:
-        db_table = 'publication'
-        verbose_name = 'Publication'
-        verbose_name_plural = 'Publication'
+        db_table = 'international_journal'
+        verbose_name = 'International Journal'
+        verbose_name_plural = 'International Journal'
 
 
 class Research(models.Model):
