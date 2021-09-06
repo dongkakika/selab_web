@@ -53,6 +53,7 @@
         <div class="row">
             <div class="col-sm-2"></div>
 
+
             <div class="col-lg-8">
                 <ul class="nav nav-tabs ">
                     <li class="nav-item"><a class="tap-font nav-link active" data-toggle="tab" href="#tap-1">International Journal</a></li>
@@ -81,7 +82,7 @@
                                 {% for international in international_list %}
                                 <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/international/{{ international.id }}/'" {% endif %}>
                                     <td>{{ international.issued_date }}</td>
-                                    <td>{{ international.title|truncatechars:80 }}</td>
+                                    <td>{{ international.title|truncatechars:200 }}</td>
                                     <td style="text-align:center">{{ international.journals }}</td>
                                 </tr>
                                 {% endfor %}
@@ -102,19 +103,19 @@
                                 {% endif %}
                             </tbody>
                         </table>
-                        <!-- 논문 글쓰기 버튼 -->
+                        <!-- 해외 논문 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
                             <a style="float:right" href="/ppr/international_journal_write/" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <div class="row text-center">
-                            {% if journal_list %}
+                            {% if international_list %}
                             <ul class="pagination" style="float:none; margin: 0 auto;">
 
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
-                                {% if journal_list.has_previous %}
+                                {% if international_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ journal_list.previous_page_number }}" tabindex="-1">Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ international_list.previous_page_number }}" tabindex="-1">Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -126,14 +127,14 @@
 
                                 <!-- 페이지 번호-->
                                 {% for page in page_range1 %}
-                                <li class="page-item {% if page == journal_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
+                                <li class="page-item {% if page == international_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
                                     <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
-                                {% if journal_list.has_next %}
+                                {% if international_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ journal_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ international_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -165,7 +166,7 @@
                                 {% for domestic in domestic_list %}
                                 <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/domestic/{{ domestic.id }}/'" {% endif %}>
                                     <td>{{ domestic.issued_date }}</td>
-                                    <td>{{ domestic.title|truncatechars:30 }}</td>
+                                    <td>{{ domestic.title|truncatechars:80 }}</td>
                                     <td>{{ domestic.journals }}</td>
                                 </tr>
                                 {% endfor %}
@@ -218,15 +219,11 @@
 
                                 {% if domestic_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ domestic_list.next_page_number }}">
-                                        Next
-                                    </a>
+                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ domestic_list.next_page_number }}">Next</a>
                                 </li>
                                 {% else %}
                                 <li class="page-item disabled">
-                                    <a class="page-link" href="#">
-                                        Next
-                                    </a>
+                                    <a class="page-link" href="#">Next</a>
                                 </li>
                                 {% endif %}
                             </ul>
@@ -814,6 +811,17 @@
         </div>
     </div>
     <br><br>
+
+
+    <script>
+        $(function(){
+            $('.page-item234').click(function(){
+                $(this).parent().parent().parent().addClass('show active');
+                var new_id = $(this).parent().parent().parent().attr('id');
+                alert(new_id);
+            })
+        })
+    </script>
 
 {% endblock %}
 </body>
