@@ -37,7 +37,7 @@ for li in total:
     count = 0
     for i in after:
         count += 1
-        if i.find('"') is -1:
+        if i.find('"') == -1:
             people.append(i)
         else:
             content.append(i)
