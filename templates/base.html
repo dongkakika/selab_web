@@ -44,64 +44,75 @@
 </head>
 
 <body>
+
     <div id="bg_img">
         <!-- rgba는 배경색만 opacity 효과를 주기 위한 것으로 아래는 0.7의 강도 -->
-        <div class="navbar" style="background-color:rgba( 234, 234, 234, 0.60 ); color:grey;">
-            <a class="mr-auto font-weight-bold cbnu_logo" style="color:grey;" href="https://chungbuk.ac.kr"><img src="../../static/images/CBNU_logo2.png" width="60px" /></a>
-            <a id="mail_logo" class="ml-auto cbnu_logo" href=""><span class="fas fa-envelope"></span> jehong@chungbuk.ac.kr</a>
+        <div class="container-fluid" style="padding-right: 0; padding-left:0">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="navbar" style="background-color:rgba( 234, 234, 234, 0.60 ); color:grey;">
+                        <a class="mr-auto font-weight-bold cbnu_logo" style="color:grey;" href="https://chungbuk.ac.kr"><img src="../../static/images/CBNU_logo2.png" width="60px" /></a>
+                        <a id="mail_logo" class="ml-auto cbnu_logo" href=""><span class="fas fa-envelope"></span> jehong@chungbuk.ac.kr</a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <nav class="bg-light navbar-light navbar navbar-expand-lg navbar-white sticky-top" style="background-color:rgba( 234, 234, 234, 0.50 ) !important;">
+                        <a style="margin-left:5px;" class="mr-auto" href="/"><img src="{% static 'images/icon/selab_logo.png' %}" alt="Logo" width="50" /></a>
+                        <a class="logoName" href="/"><font>Software Engineering Lab</font></a>
+                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+
+                        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="btn-group">
+                                        <a class="nav-link menu_focus dropdown-toggle" data-toggle="dropdown" aria-expanded="false">People</a>
+                                        <div class="dropdown-menu ">
+                                            <a class="dropdown-item " style="width: 100%" href="/people/professor">Professor</a>
+                                            <a class="dropdown-item " style="width: 100%" href="/people/members">Members</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/ppr/publication">Academic Activity</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/ppr/research">Research Area</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="/notice">Notices</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/gallery">Gallery</a>
+                                </li>
+
+                                <!-- li class="nav-item">
+                                    {% if user.is_authenticated %}
+                                    <a class="nav-link" href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
+                                    {% else %}
+                                    <a class="nav-link" href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
+                                    {% endif %}
+                                </li -->
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
         </div>
 
-        <nav class="bg-light navbar-light navbar navbar-expand-lg navbar-white sticky-top" style="background-color:rgba( 234, 234, 234, 0.50 ) !important;">
-            <a style="margin-left:5px;" class="mr-auto" href="/"><img src="{% static 'images/icon/selab_logo.png' %}" alt="Logo" width="50" /></a>
-            <a class="logoName" href="/"><font>Software Engineering Lab</font></a>
-            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link"  href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="btn-group">
-                            <a class="nav-link menu_focus dropdown-toggle" data-toggle="dropdown" aria-expanded="false">People</a>
-                            <div class="dropdown-menu ">
-                                <a class="dropdown-item " style="width: 100%" href="/people/professor">Professor</a>
-                                <a class="dropdown-item " style="width: 100%" href="/people/members">Members</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  href="/ppr/publication">Academic Activity</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  href="/ppr/research">Research Area</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  href="/notice">Notices</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/gallery">Gallery</a>
-                    </li>
-
-                    <!-- li class="nav-item">
-                        {% if user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
-                        {% else %}
-                        <a class="nav-link" href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
-                        {% endif %}
-                    </li -->
-                </ul>
-            </div>
-        </nav>
 
 
         {% block contents %}
 
         <!-- body contents -->
         {% endblock %}
+
     </div> <!-- 와, 이게 되네 -->
 
 
