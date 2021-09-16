@@ -9,13 +9,10 @@
     <meta charset="UTF-8">
     <title>CBNU SELab - Home</title>
 
-    <link rel = "stylesheet" href="{% static 'css/home.css' %}?ver=1.2">
+    <link rel = "stylesheet" href="{% static 'css/home.css' %}?ver=1.4">
     <style>
         .bg-1{
             color: black;
-        }
-        .container-fluid {
-            padding: 0;
         }
 
         .carousel-control-prev{
@@ -40,7 +37,7 @@
 
 
 <body>
-    {% block contents %}
+{% block contents %}
     <div>
         {% if user.is_authenticated %}
         <a style="color: #CFCFCF; float: right">{{ user.userid }}님 반갑습니다.</a>

@@ -8,16 +8,6 @@
     background-position: center;
 }
 
-.main-left-side{
-    background-image: url(../images/beige_bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.logo{
-    font-size: 200px;
-}
-
 .main-content{
-    opacity: 0.7;
+    opacity: 0.8;
 }
