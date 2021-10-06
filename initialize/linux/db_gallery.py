@@ -27,7 +27,6 @@ for i in file_names:
     li = [i[0:-4], "image/default/"+i, contents[idx]]
     idx += 1
 
-    cur.execute('insert into gallery (title, img, content) values(?, ?, ?)', li)
-    con.commit()
+    print(li)
 
 con.close()
