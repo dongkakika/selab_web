@@ -1,1 +1,1 @@
-python3 db_professor_content.py
+python db_professor_content.py
