@@ -13,7 +13,7 @@ idx = 0
 for i in titles:
     li = [i, file_names[idx], contents[idx]]
     idx += 1
-    cur.execute('insert into gallery (title, img, content) values(?,?,?)', li)
+    cur.execute('insert into research (title, img, content) values(?,?,?)', li)
     con.commit()
     
 con.close()
