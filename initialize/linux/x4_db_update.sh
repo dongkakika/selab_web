@@ -1,3 +1,4 @@
 python3 db_international_journal.py
 python3 db_domestic_journal.py
 python3 db_gallery.py
+python3 db_research.py
