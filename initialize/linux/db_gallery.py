@@ -34,6 +34,7 @@ contents = [
 for i in file_names:
     li = [i[2:-4], "image/default/"+i, contents[int(i[0:2])]]
 
-    print(li)
+    cur.execute('insert into gallery (title, img, content) values(?,?,?)', li)
+    con.commit()
 
 con.close()
