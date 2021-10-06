@@ -12,8 +12,9 @@ contents = ['Embedded SW Design and Validation Technology for MPSoC\nA Study on 
 left_right_check = [True, False]
 idx = 0
 for i in titles:
-    li = [i, file_names[idx], contents[idx], left_right_check[idx]]
+    li = [i, 'image/research/' + file_names[idx], contents[idx], left_right_check[idx]]
     idx += 1
+    
     cur.execute('insert into research (title, img, content, left_right_check) values(?,?,?,?)', li)
     con.commit()
     
