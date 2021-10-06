@@ -21,6 +21,7 @@ def members(request):
         'phd_all': phd_all,
         'master_all': master_all,
         'undergraduate_all': undergraduate_all,
+        'selected': 'People',
     }
     return render(request, 'people/members.html', context)
 
@@ -159,6 +160,7 @@ def professor(request):
     professor = Professor.objects.all()
     context = {
         'professor': professor,
+        'selected': 'People',
     }
     return render(request, 'people/professor.html', context)
 

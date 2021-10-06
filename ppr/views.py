@@ -55,7 +55,8 @@ def research_modify(request, pk):
 def research(request):
     research_list = Research.objects.all()
     context = {
-        'research_list' : research_list
+        'research_list' : research_list,
+        'selected': "Research_Area",
     }
     return render(request, 'ppr/research.html', context)
 
@@ -137,11 +138,15 @@ def publication(request):
         'page_range6': page_range6,
         'page_range7': page_range7,
         'page_range8': page_range8,
+        'selected': "Academic_Activity",
     }
 
+    if request.method == 'GET':
+        q = request.GET['q']
+        context['q'] = q
+        return render(request, 'ppr/publication.html', context)
+
     return render(request, 'ppr/publication.html', context)
-
-
 
 @login_message_required
 def write_international_journal(request):

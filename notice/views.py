@@ -232,4 +232,7 @@ class NoticeListView(ListView):
         # 3. + 상단 고정
         context['notice_fixed'] = notice_fixed
 
+        # 메뉴 클릭
+        context['selected'] = "Notices"
+
         return context

@@ -1,26 +1,24 @@
 .ml-auto{
-    padding-right: 80px;
+    padding-right: 20px;
 }
 .mr-auto{
-    padding-left: 80px;
+    padding-left: 20px;
 }
+
 .logoName{
     padding-left: 10px;
     text-decoration: none !important;
-    color: black;
-    font-size: 18px;
-}
-
-.nav-item{
-    font-size: 18px;
-}
-
-.navbar-nav .nav-item a{
-    color: black !important;
+    color: #364F6B;
+    font-size: 17px;
 }
 
 .main-footer{
     background-color: grey;
+
+}
+li button a{
+    font-size: 17px;
+
 }
 
 a:hover{
@@ -28,29 +26,28 @@ a:hover{
 }
 
 .logoName:hover{
-    color: #364F6B !important;
+    color: #4A637F !important;
 }
 
 #collapsibleNavbar a:hover{
     text-decoration: none !important;
-    color: #364F6B !important;
+
 }
 #mail_logo{
-    color: #353535;
-}
-.cbnu_logo:hover{
     color: #912B52 !important;
+}
+#mail_logo:hover{
+    color: white !important;
 }
 
 /* 세부 메뉴들의 상단 패널 배경색 */
 .panel{
-    background-color: #EAEAEA;
     margin-bottom: 30px;
     box-shadow: 3px 3px 3px #BDBDBD;
 }
 
 .panel-name{
-    font-size: 35px;
+    font-size: 30px;
     /*text-shadow: 3px 2px 2px #ABABAB;*/
 }
 

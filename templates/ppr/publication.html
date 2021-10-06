@@ -18,10 +18,12 @@
         .tap-font{
             color: black;
             font-size: 15px;
+            background-color:#F6F6F6;
         }
         .nav-tabs .nav-link.active{
-            background-color: #EAEAEA !important;
+            background-color: white !important; /*#EAEAEA*/
             color: black;
+            font-weight: bold;
         }
         .nav-tabs .nav-link:hover{
             background-color: #F6F6F6;
@@ -53,21 +55,39 @@
         <div class="row">
             <div class="col-sm-2"></div>
 
+            <script>
+                // 탭 페이지 고정 - 새로고침 방지
+                $(function(){
+                    nav_item = "#nav-item" + {{q}};
+                    tap = "#tap-" + {{q}};
+                    $(nav_item).children().addClass('active');
+                    $(tap).addClass('show active');
+                })
+
+                // 클릭 이벤트 -> 다른 탭으로 이동하면 페이지 정보 초기화
+                $(function(){
+                    $('.nav-item').click(function(){
+                        var next_q = $(this).attr('id');
+                        url = '/ppr/publication/?q=' + next_q[8] + '&?page=1';
+                        $(location).attr("href", url);
+                    })
+                })
+            </script>
 
             <div class="col-lg-8">
                 <ul class="nav nav-tabs ">
-                    <li class="nav-item"><a class="tap-font nav-link active" data-toggle="tab" href="#tap-1">International Journal</a></li>
-                    <li class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-2">Domestic Journal</a></li>
-                    <li class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-3">Conference</a></li>
-                    <li class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-4">Award</a></li>
-                    <li class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-5">Research Project</a></li>
-                    <li class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-6">Intellectual Property</a></li>
-                    <li class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-7">Activities</a></li>
-                    <li class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-8">Etc</a></li>
+                    <li id="nav-item1" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-1">International Journal</a></li>
+                    <li id="nav-item2" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-2">Domestic Journal</a></li>
+                    <li id="nav-item3" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-3">Conference</a></li>
+                    <li id="nav-item4" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-4">Award</a></li>
+                    <li id="nav-item5" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-5">Research Project</a></li>
+                    <li id="nav-item6" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-6">Intellectual Property</a></li>
+                    <li id="nav-item7" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-7">Activities</a></li>
+                    <li id="nav-item8" class="nav-item"><a class="tap-font nav-link" data-toggle="tab" href="#tap-8">Etc</a></li>
                 </ul>
                 <div class="tab-content">
                     <!-- international journal list -->
-                    <div class="tab-pane fade show active" id="tap-1">
+                    <div class="tab-pane fade" id="tap-1">
                         <table class="table table-hover">
                             <thead>
                                 <tr class="table-head" style="font-size:14px;">
@@ -115,7 +135,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if international_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ international_list.previous_page_number }}" tabindex="-1">Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=1&page={{ international_list.previous_page_number }}" tabindex="-1">Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -126,15 +146,16 @@
                                 {% endif %}
 
                                 <!-- 페이지 번호-->
-                                {% for page in page_range1 %}
+                                {% for page in page_range1 %} <!-- 원래 q={{q}}였음, GET 데이터 넘기기 위해 개별 지정 -->
                                 <li class="page-item {% if page == international_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=1&page={{ page }}">{{ page }}</a>
                                 </li>
+
                                 {% endfor %}
 
                                 {% if international_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ international_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q=1&page={{ international_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -200,7 +221,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if domestic_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ domestic_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=2&page={{ domestic_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -213,13 +234,13 @@
                                 <!-- 페이지 번호-->
                                 {% for page in page_range2 %}
                                 <li class="page-item {% if page == domestic_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=2&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
                                 {% if domestic_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ domestic_list.next_page_number }}">Next</a>
+                                    <a class="page-link" href="?type={{ type }}&q=2&page={{ domestic_list.next_page_number }}">Next</a>
                                 </li>
                                 {% else %}
                                 <li class="page-item disabled">
@@ -282,7 +303,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if conference_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ conference_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=3&page={{ conference_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -295,13 +316,13 @@
                                 <!-- 페이지 번호-->
                                 {% for page in page_range7 %}
                                 <li class="page-item {% if page == conference_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=3&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
                                 {% if conference_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ conference_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q=3&page={{ conference_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -369,7 +390,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if award_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ award_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=4&page={{ award_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -382,13 +403,13 @@
                                 <!-- 페이지 번호-->
                                 {% for page in page_range6 %}
                                 <li class="page-item {% if page == award_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=4&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
                                 {% if award_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ award_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q=4&page={{ award_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -455,7 +476,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if rp_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ rp_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=5&page={{ rp_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -468,13 +489,13 @@
                                 <!-- 페이지 번호-->
                                 {% for page in page_range3 %}
                                 <li class="page-item {% if page == rp_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=5&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
                                 {% if rp_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ rp_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q=5&page={{ rp_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -544,7 +565,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if ip_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ ip_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=6&page={{ ip_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -557,13 +578,13 @@
                                 <!-- 페이지 번호-->
                                 {% for page in page_range4 %}
                                 <li class="page-item {% if page == ip_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=6&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
                                 {% if ip_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ ip_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q=6&page={{ ip_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -628,7 +649,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if activities_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ activities_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=7&page={{ activities_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -641,13 +662,13 @@
                                 <!-- 페이지 번호-->
                                 {% for page in page_range5 %}
                                 <li class="page-item {% if page == activities_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=7&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
                                 {% if activities_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ activities_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q=7&page={{ activities_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -712,7 +733,7 @@
                                 <!-- 이전 버튼: 이전 항목이 있을 때 파란 글씨 -->
                                 {% if etc_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type{{ type }}&q={{ q }}&page={{ etc_list.previous_page_number }}" tabindex="-1"> Previous</a>
+                                    <a class="page-link" href="?type{{ type }}&q=8&page={{ etc_list.previous_page_number }}" tabindex="-1"> Previous</a>
                                     <!-- <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1"> 이전</a> ~기존 코드~ -->
                                 </li>
                                 {% else %}
@@ -725,13 +746,13 @@
                                 <!-- 페이지 번호-->
                                 {% for page in page_range8 %}
                                 <li class="page-item {% if page == etc_list.number %} active {% endif %}"> <!-- Bootstrap의 activate는 3.x 버전, active는 4.x 버전 -->
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link" href="?type={{ type }}&q=8&page={{ page }}">{{ page }}</a>
                                 </li>
                                 {% endfor %}
 
                                 {% if etc_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?type={{ type }}&q={{ q }}&page={{ etc_list.next_page_number }}">
+                                    <a class="page-link" href="?type={{ type }}&q=8&page={{ etc_list.next_page_number }}">
                                         Next
                                     </a>
                                 </li>
@@ -813,15 +834,7 @@
     <br><br>
 
 
-    <script>
-        $(function(){
-            $('.page-item234').click(function(){
-                $(this).parent().parent().parent().addClass('show active');
-                var new_id = $(this).parent().parent().parent().attr('id');
-                alert(new_id);
-            })
-        })
-    </script>
+
 
 {% endblock %}
 </body>

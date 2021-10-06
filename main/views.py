@@ -46,6 +46,7 @@ def home(request):
         'journal': international_journal,
         'publication': domestic_journal,
         'notice': notice,
+        'selected': 'Home',
     }
 
     return render(request, 'main/home.html', context)

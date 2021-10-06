@@ -19,6 +19,7 @@ def gallery(request):
     gallery_all = Gallery.objects.all().order_by('-id')
     context = {
         'gallery_all': gallery_all,
+        'selected': "gallery",
     }
     return render(request, 'gallery/gallery.html', context)
 

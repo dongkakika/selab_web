@@ -17,16 +17,23 @@
 {% block contents %}
     <!-- Post Doctor Area -->
 
-    <div class="panel container-fluid text-center">
-        <a class="panel-name"><b>Post Doctor</b></a><br>
+    <div class="container-fluid panel">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <a class="panel-name"><b>Post Doctor</b></a><br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
     </div>
-
     <!-- Add button -->
     <div class="modifyButton" style="text-align: right;">
         {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
             <a href="/people/add_member/1" class="btn btn-primary" onclick="">Add</a>
         {% endif %}
     </div>
+
+
 
     {% if postDoctor_all %}
     {% for postDoctor in postDoctor_all %}
@@ -89,10 +96,15 @@
 
     <!-- Phd Area -->
 
-    <div class="panel container-fluid text-center">
-        <a class="panel-name"><b>PhD Course</b></a><br>
+    <div class="container-fluid panel">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <a class="panel-name"><b>PhD Course</b></a><br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
     </div>
-
     <!-- Add button -->
     <div class="modifyButton" style="text-align: right;">
         {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
@@ -161,11 +173,15 @@
 
 
     <!-- Master Area -->
-
-    <div class="panel container-fluid text-center">
-        <a class="panel-name"><b>Master Course</b></a><br>
+    <div class="container-fluid panel">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <a class="panel-name"><b>Master Course</b></a><br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
     </div>
-
     <!-- Add button -->
     <div class="modifyButton" style="text-align: right;">
         {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
@@ -233,11 +249,15 @@
     {% endif %}
 
     <!-- Ungraduate Area -->
-
-    <div class="panel container-fluid text-center">
-        <a class="panel-name"><b>Undergraduate Course</b></a><br>
+    <div class="container-fluid panel">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <a class="panel-name"><b>Undergraduate Course</b></a><br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
     </div>
-
     <!-- Add button -->
     <div class="modifyButton" style="text-align: right;">
         {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
@@ -305,11 +325,15 @@
     {% endif %}
 
     <!-- Alumni Area -->
-
-    <div class="panel container-fluid text-center">
-        <a class="panel-name"><b>Alumni</b></a><br>
+    <div class="container-fluid panel">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <a class="panel-name"><b>Alumni</b></a><br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
     </div>
-
     <!-- Add button -->
     <div class="modifyButton" style="text-align: right;">
         {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
