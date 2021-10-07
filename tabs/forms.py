@@ -16,20 +16,20 @@ class IPForm(forms.ModelForm):
             'class': 'form-control',
             'autofocus': True
         })
-        self.fields['applicant'].widget.attrs.update({
-            'placeholder': 'Please write the applicant',
+        self.fields['number'].widget.attrs.update({
+            'placeholder': 'Please write the serial number',
             'class': 'form-control',
             'autofocus': True
         })
         self.fields['date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })
 
     class Meta:
         model = ip
-        fields = ['title', 'type', 'applicant', 'date']
+        fields = ['title', 'type', 'number', 'date']
 
 class RPForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -45,7 +45,7 @@ class RPForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['period'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01 ~ 2021-12-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })
@@ -63,7 +63,7 @@ class ActivitiesForm(forms.ModelForm):
             'autofocus': True,
         })
         self.fields['announced_date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })
@@ -86,7 +86,7 @@ class AwardForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })
@@ -99,17 +99,17 @@ class ConferenceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ConferenceForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs.update({
-            'placeholder': 'Please write a title',
+            'placeholder': 'Please write a title, ex) D.H. Kim, Investigation for Software',
             'class': 'form-control',
             'autofocus': True,
         })
         self.fields['academic_conference'].widget.attrs.update({
-            'placeholder': 'Please fill in the conference name',
+            'placeholder': 'Please fill the conference name in.',
             'class': 'form-control',
             'autofocus': True
         })
         self.fields['period'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01 ~ 2021-12-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })
@@ -133,7 +133,7 @@ class EtcWriteForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })

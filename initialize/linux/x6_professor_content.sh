@@ -1,1 +1,0 @@
-python3 db_professor_content.py

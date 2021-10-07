@@ -72,7 +72,7 @@
                         <div class="carousel-inner">
                             {% if journal %}
                             <div class="carousel-item active text-center" style="">
-                                <a style="color:white" href="/ppr/publication/">
+                                <a style="color:white" href="/ppr/publication/?q=1&?page=1">
                                     <i>/* Our Newest Journal */</i><br><br>
                                     TITLE: {{ journal.title }}<br>
                                     JOURNALS: {{ journal.journals }}<br>
@@ -84,7 +84,7 @@
                             <!--.item-->
 
                             <div class="carousel-item text-center" style="color:white">
-                                <a style="color:white" href="/ppr/publication/">
+                                <a style="color:white" href="/ppr/publication/?q=2&?page=1">
                                     <i>/* Our Newest Publication */</i><br><br>
                                     {% if publication %}
                                         TITLE: {{ publication.title }}<br>

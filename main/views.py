@@ -74,16 +74,29 @@ class LoginView(FormView):
 
         return super().form_valid(form)
 
-    def get_success_url(self, **kwargs):
-        global hello
-        if hello == None:
-            hello = '/'
-        return str(hello)
-
     def get_context_data(self, **kwargs):
-        global hello
-        hello = self.request.GET.get('next')
+        # global hello
+        #hello = self.request.GET.get('next')
+        #if hello == '/ppr/publication/':
+        #    hello += '?q=1&?page=1'
+        # 하.. 방법을 못찾고 있었는데, 이 몇 줄에 너무 뿌듯하다.
+        hello_next_url = self.request.GET.get('next')
+        if hello_next_url == '/ppr/publication/':
+            hello_next_url += '?q=1&?page=1'
+        LoginView.success_url = hello_next_url
         return super().get_context_data(**kwargs)
+
+    def get_success_url(self, **kwargs):
+        # global hello
+        # if hello == None:
+        # hello = '/'
+        return LoginView.success_url # str(hello)
+
+def get_next(request):
+    gn = request.GET['next']
+    if gn == '/ppr/publication/':
+        gn += '?q=1&?page=1'
+    return gn
 
 # 약관 동의 cbv 구현
 # decorators.py의 'logout...'를 decorator로 사용 --> 로그인 중인 사용자 접근 금지
@@ -189,6 +202,8 @@ def activate(request, uid64, token):
 def logout_view(request):
     logout(request)
     next = request.GET['next']
+    if next == '/ppr/publication/':
+        next += '?q=1&?page=1'
     return redirect(next)
 
 @admin_required

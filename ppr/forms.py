@@ -48,7 +48,7 @@ class InternationalJournalWriteForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['issued_date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })
@@ -71,7 +71,7 @@ class DomesticJournalWriteForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['issued_date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021-08-01',
+            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
             'class': 'form-control',
             'autofocus': True
         })

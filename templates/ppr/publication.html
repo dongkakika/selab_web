@@ -257,20 +257,21 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr style="font-size:14px;">
-                                    <th style="width:5%">No.</th>
-                                    <th style="width:45%; text-align: center">Title</th>
-                                    <th style="width:20%">Academic Conference</th>
                                     <th style="width:15%">Period</th>
+                                    <th style="width:50%; text-align: center">Title</th>
+                                    <th style="width:20%; text-align: center">Academic Conference</th>
+
+
                                 </tr>
                             </thead>
                             <tbody>
                                 {% if conference_list %}
                                 {% for conference in conference_list %}
                                 <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/conference/{{ conference.id }}/'" {% endif %}>
-                                    <td>{{ conference.id }}</td>
-                                    <td>{{ conference.title|truncatechars:30 }}</td>
-                                    <td>{{ conference.academic_conference }}</td>
                                     <td>{{ conference.period }}</td>
+                                    <td>{{ conference.title|truncatechars:80 }}</td>
+                                    <td style="text-align: center">{{ conference.academic_conference }}</td>
+
                                 </tr>
                                 {% endfor %}
                                 {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
@@ -344,20 +345,18 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr style="font-size:14px;">
-                                    <th style="width:5%">No.</th>
-                                    <th style="width:35%; text-align: center">Title</th>
-                                    <th style="width:45%">Content</th>
                                     <th style="width:15%">Date</th>
+                                    <th style="width:35%; text-align: center">Title</th>
+                                    <th style="width:50%; text-align: center">Content</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% if award_list %}
                                 {% for award in award_list %}
                                 <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/award/{{ award.id }}/'" {% endif %}>
-                                    <td>{{ award.id }}</td>
-                                    <td>{{ award.title|truncatechars:30 }}</td>
-                                    <td>{{ award.content }}</td>
                                     <td>{{ award.date }}</td>
+                                    <td>{{ award.title|truncatechars:80 }}</td>
+                                    <td>{{ award.content }}</td>
                                 </tr>
                                 {% endfor %}
                                 {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->
@@ -441,7 +440,7 @@
                                 {% for rp in rp_list %}
                                 <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/rp/{{ rp.id }}/'" {% endif %}>
                                     <td>{{ rp.id }}</td>
-                                    <td>{{ rp.title|truncatechars:30 }}</td>
+                                    <td>{{ rp.title|truncatechars:80 }}</td>
                                     <td>{{ rp.org }}</td>
                                     <td>{{ rp.period }}</td>
                                 </tr>
@@ -517,10 +516,9 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr style="font-size:14px;">
-                                    <th style="width:5%">No.</th>
+                                    <th style="width:15%">Type</th>
                                     <th style="width:55%; text-align: center">Title</th>
-                                    <th style="width:10%">Type</th>
-                                    <th style="width:15%">Applicant</th>
+                                    <th style="width:15%">Number</th>
                                     <th style="width:15%">Applied Date</th>
                                 </tr>
                             </thead>
@@ -528,10 +526,9 @@
                                 {% if ip_list %}
                                 {% for ip in ip_list %}
                                 <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/ip/{{ ip.id }}/'" {% endif %}>
-                                    <td>{{ ip.id }}</td>
-                                    <td>{{ ip.title|truncatechars:30 }}</td>
                                     <td>{{ ip.type }}</td>
-                                    <td>{{ ip.applicant }}</td>
+                                    <td>{{ ip.title|truncatechars:50 }}</td>
+                                    <td>{{ ip.number }}</td>
                                     <td>{{ ip.date }}</td>
                                 </tr>
                                 {% endfor %}
@@ -607,7 +604,7 @@
                                 <tr style="font-size:14px;">
                                     <th style="width:10%">No.</th>
                                     <th style="width:75%; text-align: center">Title</th>
-                                    <th style="width:15%">Announced Date</th>
+                                    <th style="width:15%; text-align: center">Announced Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -615,8 +612,8 @@
                                 {% for activity in activities_list %}
                                 <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/activities/{{ activity.id }}/'" {% endif %}>
                                     <td>{{ activity.id }}</td>
-                                    <td>{{ activity.title|truncatechars:30 }}</td>
-                                    <td>{{ activity.announced_date }}</td>
+                                    <td>{{ activity.title|truncatechars:80 }}</td>
+                                    <td style="text-align: center">{{ activity.announced_date }}</td>
                                 </tr>
                                 {% endfor %}
                                 {% else %} <!-- 에러처리 영역: 게시글 쿼리셋이 존재하지 않음 -->

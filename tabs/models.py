@@ -4,8 +4,8 @@ from django.db import models
 class ip(models.Model):
     title = models.TextField(verbose_name='title')
     type = models.TextField(verbose_name='type', null=True, blank=True)
-    applicant = models.TextField(verbose_name='applicant')
-    date = models.TextField(verbose_name='applicant')
+    number = models.TextField(verbose_name='number')
+    date = models.TextField(verbose_name='date')
 
     def __str__(self):
         return self.title
@@ -55,7 +55,6 @@ class award(models.Model):
 
 class Conference(models.Model):
     title = models.TextField(verbose_name='title')
-    content = models.TextField(verbose_name='content')
     academic_conference = models.TextField(verbose_name='academic_conference')
     period = models.TextField(verbose_name='period')
 

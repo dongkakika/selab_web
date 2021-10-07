@@ -16,7 +16,7 @@
 <body>
 {% block contents %}
     <!-- Post Doctor Area -->
-
+    {% if request.user.level == '0' or request.user.level == '1' or postDoctor_all %}
     <div class="container-fluid panel">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -32,7 +32,7 @@
             <a href="/people/add_member/1" class="btn btn-primary" onclick="">Add</a>
         {% endif %}
     </div>
-
+    {% endif %}
 
 
     {% if postDoctor_all %}
@@ -95,7 +95,7 @@
     {% endif %}
 
     <!-- Phd Area -->
-
+    {% if request.user.level == '0' or request.user.level == '1' or phd_all %}
     <div class="container-fluid panel">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -111,6 +111,7 @@
             <a href="/people/add_member/2" class="btn btn-primary" onclick="">Add</a>
         {% endif %}
     </div>
+    {% endif %}
 
     {% if phd_all %}
     {% for phd in phd_all %}
@@ -173,6 +174,7 @@
 
 
     <!-- Master Area -->
+    {% if request.user.level == '0' or request.user.level == '1' or master_all %}
     <div class="container-fluid panel">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -188,6 +190,7 @@
             <a href="/people/add_member/3" class="btn btn-primary" onclick="">Add</a>
         {% endif %}
     </div>
+    {% endif %}
 
     {% if master_all %}
     {% for master in master_all %}
@@ -249,6 +252,7 @@
     {% endif %}
 
     <!-- Ungraduate Area -->
+    {% if request.user.level == '0' or request.user.level == '1' or undergraduate_all %}
     <div class="container-fluid panel">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -264,6 +268,7 @@
             <a href="/people/add_member/4" class="btn btn-primary" onclick="">Add</a>
         {% endif %}
     </div>
+    {% endif %}
 
     {% if undergraduate_all %}
     {% for undergraduate in undergraduate_all %}
@@ -325,6 +330,7 @@
     {% endif %}
 
     <!-- Alumni Area -->
+    {% if request.user.level == '0' or request.user.level == '1' or alumni_all %}
     <div class="container-fluid panel">
         <div class="row">
             <div class="col-sm-2"></div>
@@ -340,6 +346,7 @@
             <a href="/people/add_member/0" class="btn btn-primary" onclick="">Add</a>
         {% endif %}
     </div>
+    {% endif %}
 
     {% if alumni_all %}
     {% for alumni in alumni_all %}
