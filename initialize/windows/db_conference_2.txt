@@ -1,0 +1,21 @@
+J.J. Park, S.H. Lee, and J.E. Hong, Investigation for Software Power Consumption of Code Refactoring Techniques, SEKE 2014, 2014. 07.
+J.J. Kwon, D.H. Kim, and J.E. Hong, Collision Analysis of Safety Devices to Prevent Hazards in Safety Critical Systems, SERE 2014, 2014. 06.
+J.J. Park, D.H. Kim and J. E. Hong, Coding Guideline to Reduce Energy Consumption of Android Applications, ICSMB 2014, 2014. 04.
+J.W. Lee and J. E. Hong, Estimating Power Consumption using SysML Parametric Diagram for Energy-Efficient Software Constraints, ICSMB 2014, 2014. 04.
+D.H. Kim, J.J. Park and J. E. Hong, Analysis of the Relationships between Software Coupling Types and Energy Consumptions, ICSMB 2014, 2014. 04.
+D.H. Kim and J. E. Hong, Enhancing Sustainability of Legacy Software based on Architecture Transformation, ICSMB 2014, 2014. 04.
+J.P. Kim, J.S. Park, and J. E. Hong, Aspect-based On-The-Fly Testing Technique for Embedded Software, ICSOFT 2012, 2012. 07.
+D.H. Kim, and J. E. Hong, A Power Consumption Analysis Technique using UML-based Design Models in Embedded Software Development, SOFSEM 2011, 2011. 12
+D.H.Kim, and J.E Hong, Energy efficient Component Selection in Component Based Software Development, CIT, 2011 ICCE 2010, USA, 2010. 01.
+J.P. Kim, D.H.Kim, and J.E Hong, Estimating Power Consumption of Mobule Embedded Software based on Behavioral Model, ICCE 2010, USA, 2010. 01.
+A.R. Ham, S.U. Jeon, J.E Hong, D.H. Bae, Behavioral Dependency Measurement for Change-Proneness Prediction in UML 2.0 Models, COMPSAC 2009 Finland, 2009
+S. U. Jeon, J.E Hong, D.H. Bae, ESUML-SIM: A Simulation Framework For the UML-Based Embedded Software Architecture, JWESD 2007, Seoul, 2007. 10
+K.M Lee, W.S. Yang, K.M.Lee, J.E. Hong, A Ubiquitous Healthcare Service System Architecture and its Application to BPH Care, ICUT 2007, Dubai, 2007. 02
+I.G Song, S.U. Jeon, J.E. Hong, D.H. Bae, Implied Scenario Analysis in UML 2.0 Scenario Specification, SIRI 2006, Hanoi, Vietnam, 2006. 12.
+S.U. Jeon, J.E. Hong, D.H. Bae, Using Operational Architecture to Model Embedded Software, APSEC 2006, Bangalore, India, 2006. 12.
+H.J. Lee, S.U. Jeon, J.E. Hong, D.H. Bae, Modeling Unexpected Behaviours Using UML Sequence diagram, ICSOFT 2006, Setubal, Portugal, 2006. 09.
+S.U. Jeon, J.E. Hong, D.H. Bae, Interaction-Based Behaviour Modeling of Embedded Software Using UML 2.0, ISORC 2006, Kyungjo, Korea, 2006. 04.
+J.S. Lee, J.E. Hong, D.H. Bae, Developing Distributed Software Systems by Incorporating Meta-Object Protocol with UML, ADS Symposium '99, 1999. 04.
+J.E. Hong, and D.H, Bae, Hierarchical Object-Oriented Petri Net for Modeling Functional behaviors of Distributed Systems, 2nd Joint Workshop on System Development, 1999. 02.
+J.E. Hong, N.H. Lee and D.H. Bae, Towards Reusable Colored Petri Nets, PDSE'98 Workshop, 1998. 04.
+J. E. Hong, N.B. Lee, Strategy for CALS Implementation, 1st Int'l Conf. on CALS, Seoul, 1995. 09.
