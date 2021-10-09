@@ -4,15 +4,17 @@
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel = "stylesheet" href="{% static 'css/base.css' %}?ver=3.4">
+    <link rel = "stylesheet" href="{% static 'css/base.css' %}?ver=3.5">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+
     <style>
 
+        /* 아래는 기존 코드 */
         .menu_focus:hover{
             cursor:pointer;
         }
@@ -66,15 +68,17 @@
 
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="nav navbar-nav ml-auto">
+
                     <li class="nav-item">
                         <button id="btn1" class="menu-btn">
-                            <a class="nav-link" href="/" style="color:white;">Home</a>
+                            <a class="nav-link hello" href="/main/test" style="color:white;">Home</a>
                         </button>
                     </li>
+
                     <li class="nav-item">
                         <div class="btn-group">
                             <button id="btn2" class="menu-btn">
-                                <a class="nav-link menu_focus dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="color:white">People</a>
+                                <a class="hi nav-link menu_focus dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="color:white">People</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item " style="width: 100%" href="/people/professor">Professor</a>
                                     <a class="dropdown-item " style="width: 100%" href="/people/members">Members</a>

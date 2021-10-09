@@ -26,8 +26,11 @@ from django.core.exceptions import ValidationError
 
 
 # Create your views here.
-def wow(request):
-    return render(request, 'main/register_success.html')
+def test(request):
+    context = {
+        'selected': 'Home',
+    }
+    return render(request, 'main/test.html', context)
 
 def home(request):
     # 캐러셀 슬라이드 내용 뽑아오기
@@ -90,6 +93,9 @@ class LoginView(FormView):
         # global hello
         # if hello == None:
         # hello = '/'
+        # 회원 가입 후 리디렉션, next가 없음.
+        if LoginView.success_url == None:
+            LoginView.success_url = '/'
         return LoginView.success_url # str(hello)
 
 def get_next(request):

@@ -4,8 +4,10 @@ from . import views
 app_name = 'main'
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.test, name='home'),
     path('main/', views.home, name='home'),
+    path('test/', views.test, name='test'),
+
     path('login/', views.LoginView.as_view(template_name='main/login.html'), name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('agreement/', views.AgreementView.as_view(), name='agreement'),
@@ -17,11 +19,11 @@ urlpatterns = [
     path('login/choose_one/', views.choose_one, name='choose_one'),
     path('recovery/id/', views.IdRecoveryView.as_view(), name='recovery_id'),
     path('recovery/id/find/', views.ajax_find_id_view, name='ajax_id'),
-    path('wow/', views.wow, name='wow'),
 
     path('recovery/pw/', views.RecoveryPwView.as_view(), name='recovery_pw'),
     path('recovery/pw/find/', views.ajax_find_pw_view, name='ajax_pw'),
     path('recovery/pw/auth/', views.auth_confirm_view, name='recovery_auth'),
     path('recovery/pw/reset/', views.auth_pw_reset_view, name='recovery_pw_reset'),
+
 
 ]

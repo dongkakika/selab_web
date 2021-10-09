@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>particles.js</title>
+    <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+    <meta name="author" content="Vincent Garreau" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?ver=3.5">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/particles_style.css' %}?ver=1.2">
+
+    <style>
+        /* 아래는 기존 코드 */
+        .menu_focus:hover{
+            cursor:pointer;
+        }
+
+        .dropdown-item:active {
+            background-color: #EAEAEA; /* 클릭시 드롭다운 메뉴 배경색 변경 */
+        }
+
+        .menu-btn{
+            border:none;
+            background: none;
+            padding-top:0;
+            padding-bottom:0;
+        }
+
+        .main-content{
+            opacity: 0.6;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function(){
+            $("#mail_logo").click(function(){
+                var tempElem = document.createElement('textarea');
+                tempElem.value = 'jehong@chungbuk.ac.kr';
+                document.body.appendChild(tempElem);
+                tempElem.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempElem);
+                alert("copied: jehong@chungbuk.ac.kr");
+            });
+        });
+    </script>
+</head>
+<body>
+
+<!-- particles.js container -->
+<div id="particles-js">
+    <div class="navbar" style="background:linear-gradient(to bottom, rgba(50,50,50,0.9), rgba(60,60,60,0.65));">
+        <a class="mr-auto font-weight-bold cbnu_logo" style="color:grey;" href="https://chungbuk.ac.kr"><img src="../../static/images/CBNU_logo2.png" width="60px" /></a>
+        <a id="mail_logo" class="ml-auto cbnu_logo" style="cursor: pointer;color:white;"><span class="fas fa-envelope"></span> jehong@chungbuk.ac.kr</a>
+    </div>
+
+    <nav class="bg-light navbar-light navbar navbar-expand-lg navbar-white sticky-top" style="background:linear-gradient(to bottom, rgba(60,60,60,0.65), rgba(90,90,90,0)) !important;">
+        <a style="margin-left:5px;" class="mr-auto" href="/"><img src="{% static 'images/icon/selab_logo.png' %}" alt="Logo" width="50" /></a>
+        <a class="logoName" href="/"><font>Software Engineering Lab</font></a>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="nav navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <button id="btn1" class="menu-btn">
+                        <a class="nav-link" href="/main/test" style="color:white">Home</a>
+                    </button>
+                </li>
+
+                <!--
+                <li class="nav-item">
+                    <button id="btn1" class="menu-btn">
+                        <a class="nav-link hello" href="/" style="color:white;"></a>
+                    </button>
+                </li>
+                -->
+
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <button id="btn2" class="menu-btn">
+                            <a class="hi nav-link menu_focus dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="color:white">People</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item " style="width: 100%" href="/people/professor">Professor</a>
+                                <a class="dropdown-item " style="width: 100%" href="/people/members">Members</a>
+                            </div>
+                        </button>
+                    </div>
+                </li>
+                <li class="nav-item" >
+                    <button id="btn3" class="menu-btn">
+                        <a class="nav-link" href="/ppr/publication/?q=1&?page=1" style="color:white">Academic Activity</a>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button id="btn4" class="menu-btn">
+                        <a class="nav-link"  href="/ppr/research" style="color:white">Research Area</a>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button id="btn5" class="menu-btn">
+                        <a class="nav-link"  href="/notice" style="color:white">Notices</a>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button id="btn6" class="menu-btn">
+                        <a class="nav-link" href="/gallery" style="color:white">Gallery</a>
+                    </button>
+                </li>
+
+
+
+                <!-- li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
+                    {% endif %}
+                </li -->
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        var color = "#000000";
+        {% if selected %}
+            if("{{selected}}" == "Home"){
+                var btn = $("#btn1");
+            }
+            else if("{{selected}}" == "People"){
+                var btn = $("#btn2");
+            }
+            else if("{{selected}}" == "Academic_Activity"){
+                var btn = $("#btn3");
+            }
+            else if("{{selected}}" == "Research_Area"){
+                var btn = $("#btn4");
+            }
+            else if("{{selected}}" == "Notices"){
+                var btn = $("#btn5");
+            }
+            else{
+                var btn = $("#btn6");
+            }
+
+            btn.css("border-bottom", "2px solid" + color);
+            btn.children().css("color", color);
+
+        {% endif %}
+
+    </script>
+
+    <div class="container-fluid main-content" style="position: absolute; margin-top: 30px; pointer-events: none;">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 class="text-right" style="font-size:30px; color:white;"><FONT face="PlayfairDisplaySC-Bold">Software<br>Engineering<br>Lab</FONT></h1>
+            </div>
+            <div class="col-sm-4">
+                <h1 class="text-left" style="color: white; font-size:12px; padding-top:17px"><FONT face="PlayfairDisplay-Regular">We are a group of top SW engineers<br>to develop quality software
+                        and services as the discipline of developing and applying systematic and quantitative engineering
+                        to software development, operation,<br>and management activities.</FONT></h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="position: absolute; pointer-events: none; margin-top: 50px; bottom:-80px;">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" style="background-color:rgba( 0, 0, 0, 0.5 ); padding: 80px;">
+                <p style="color:white; font-size: 20px; text-align:center">* It's under being modified now *</p>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+    <!-- scripts -->
+
+    <script src="{% static 'js/particles.js' %}?ver=1.1"></script>
+    <script src="{% static 'js/particles_app.js' %}?ver=1.1"></script>
+
+    <div class="container-fluid main-footer">
+        <div class="row">
+            <br>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" style="padding-top:30px; padding-bottom:30px; color:white; line-height: 25px">
+                <a>Copyright © CBNU SELab. All Rights Reserved.</a>
+
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
+                {% else %}
+                    <a href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
+                {% endif %}
+
+                {% if request.user.level == '0' or request.user.level == '1' %}
+                    {% if request.user.activate == False %}
+                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"><b> Activate</b></a>
+                    {% else %}
+                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"><b> Deactivate</b></a>
+                    {% endif %}
+                {% endif %}
+                <br>
+                <a>Address: (S4-1)-308(3F), Chungdae-ro 1, Seowon-gu, Cheongju, Chungbuk, 28644, Republic of Korea</a><br>
+                <a>주소: (28644) 충북 청주시 서원구 충대로 1, 충북대학교 전자정보대학 소프트웨어학과 S4-1동(전자정보 3관) 308호</a><br>
+                <a>Developer e-mail: takurway@gmail.com</a>
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <br>
+        </div>
+    </div>
+</body>
+</html>
