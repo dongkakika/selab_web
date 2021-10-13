@@ -28,7 +28,7 @@ from django.core.exceptions import ValidationError
 # Create your views here.
 def test(request):
     context = {
-        'selected': 'Home',
+        'selected': 'Test',
     }
     return render(request, 'main/test.html', context)
 

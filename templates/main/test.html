@@ -8,7 +8,7 @@
     <meta name="author" content="Vincent Garreau" />
     <meta name="viewport" content="width=1280">
 
-    <link rel="stylesheet" href="{% static 'css/base.css' %}?ver=3.5">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?ver=3.6">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
@@ -16,7 +16,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="{% static 'css/particles_style.css' %}?ver=1.2">
+    <link rel="stylesheet" href="{% static 'css/particles_style.css' %}?ver=1.4">
 
     <style>
         /* 아래는 기존 코드 */
@@ -75,7 +75,7 @@
 
                 <li class="nav-item">
                     <button id="btn1" class="menu-btn">
-                        <a class="nav-link" href="/main/test" style="color:white">Home</a>
+                        <a class="nav-link" href="/" style="color:white">Home</a>
                     </button>
                 </li>
 
@@ -118,6 +118,11 @@
                         <a class="nav-link" href="/gallery" style="color:white">Gallery</a>
                     </button>
                 </li>
+                <li class="nav-item">
+                    <button id="btn7" class="menu-btn">
+                        <a class="nav-link hello" href="/main/test" style="color:white;">Test</a>
+                    </button>
+                </li>
 
 
 
@@ -150,8 +155,11 @@
             else if("{{selected}}" == "Notices"){
                 var btn = $("#btn5");
             }
-            else{
+            else if("{{selected}}" == "Gallery"){
                 var btn = $("#btn6");
+            }
+            else{
+                var btn = $("#btn7");
             }
 
             btn.css("border-bottom", "2px solid" + color);
@@ -169,7 +177,7 @@
             <div class="col-sm-4">
                 <h1 class="text-left" style="color: white; font-size:12px; padding-top:17px"><FONT face="PlayfairDisplay-Regular">We are a group of top SW engineers<br>to develop quality software
                         and services as the discipline of developing and applying systematic and quantitative engineering
-                        to software development, operation,<br>and management activities.</FONT></h1>
+                        to software development, operation,<br>and management activities.<br>테스트</FONT></h1>
             </div>
         </div>
     </div>

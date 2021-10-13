@@ -15,12 +15,15 @@ def members(request):
     phd_all = People.objects.filter(delimiter=2)
     master_all = People.objects.filter(delimiter=3)
     undergraduate_all = People.objects.filter(delimiter=4)
+    combined_all = People.objects.filter(delimiter=5)
+
     context = {
         'alumni_all': alumni_all,
         'postDoctor_all': postDoctor_all,
         'phd_all': phd_all,
         'master_all': master_all,
         'undergraduate_all': undergraduate_all,
+        'combined_all': combined_all,
         'selected': 'People',
     }
     return render(request, 'people/members.html', context)

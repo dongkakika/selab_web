@@ -1,4 +1,5 @@
 python3 db_professor_content.py
+python3 db_member.py
 python3 db_research.py
 python3 db_gallery.py
 

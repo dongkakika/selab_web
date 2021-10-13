@@ -173,6 +173,86 @@
     {% endif %}
 
 
+    <!-- Combined MS/PhD Area -->
+    {% if request.user.level == '0' or request.user.level == '1' or combined_all %}
+    <div class="container-fluid panel">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <a class="panel-name"><b>Combined MS/PhD Course</b></a><br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+    <!-- Add button -->
+    <div class="modifyButton" style="text-align: right;">
+        {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' %}
+            <a href="/people/add_member/5" class="btn btn-primary" onclick="">Add</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if combined_all %}
+    {% for combined in combined_all %}
+    <div style="background-color: white; padding-top:20px;" class="member container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                {% if combined.img_upload %}
+                <img src="{{ combined.img_upload.url }}" width="170px;" style="border-radius: 7px;">
+                {% endif %}
+            </div>
+            <div class="col-lg-8">
+                <a style=" font-size: 25px;"><b>{{ combined.name }}</b></a><br>
+                <a style="font-size: 15px;">
+                    E-mail: {{ combined.email }}<br><br>
+                    {{ combined.content | safe }}<br><br>
+                </a>
+
+                <!-- 수정, 삭제 버튼 -->
+                <div class="modifyButton" style="text-align: right;">
+                    {% if request.user.level == '0' or request.user.level == '1' %}
+                        <a href="alumni/{{ combined.id }}/" class="btn btn-info">alumni</a>
+                    {% endif %}
+                    {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == combined.name or request.user.level == '2' and request.user.userid == combined.name %}
+                        <a href="modify/{{ combined.id }}/" class="btn btn-success">Modify</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal5">delete</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
+    <div id="delete_modal5" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deletion Warning</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure to delete it?</p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="delete_modal5()" type="button" class="btn btn-dark">Delete</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function delete_modal5() {
+            location.replace('delete/{{ combined.id }}/');
+        }
+    </script>
+    {% endfor %}
+    {% endif %}
+
+
     <!-- Master Area -->
     {% if request.user.level == '0' or request.user.level == '1' or master_all %}
     <div class="container-fluid panel">
