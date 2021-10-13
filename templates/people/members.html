@@ -9,6 +9,11 @@
     <meta charset="UTF-8">
     <title>CBNU SELab - People</title>
     <link rel = "stylesheet" href="{% static 'css/people.css' %}?ver=1.7">
+    <style>
+        .modifyButton{
+
+        }
+    </style>
     {% endblock %}
 </head>
 <!-- body contents -->
@@ -59,14 +64,14 @@
                     {% endif %}
                     {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == postDoctor.name or request.user.level == '2' and request.user.userid == postDoctor.name %}
                         <a href="modify/{{ postDoctor.id }}/" class="btn btn-success">Modify</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete_modal">delete</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal0">delete</button>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
-    <div id="delete_modal1" class="delete_modal modal fade" tabindex="-1" role="dialog">
+    <div id="delete_modal0" class="delete_modal modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -79,7 +84,7 @@
                     <p>Are you sure to delete it?</p>
                 </div>
                 <div class="modal-footer">
-                    <button onclick="delete_modal1()" type="button" class="btn btn-dark">Delete</button>
+                    <button onclick="delete_modal0()" type="button" class="btn btn-dark">Delete</button>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -87,7 +92,7 @@
     </div>
 
     <script type="text/javascript">
-        function delete_modal1() {
+        function delete_modal0() {
             location.replace('delete/{{ postDoctor.id }}/');
         }
     </script>
@@ -137,14 +142,14 @@
                     {% endif %}
                     {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == phd.name or request.user.level == '2' and request.user.userid == phd.name %}
                         <a href="modify/{{ phd.id }}/" class="btn btn-success">Modify</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete_modal">delete</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal1">delete</button>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
-    <div id="delete_modal2" class="delete_modal modal fade" tabindex="-1" role="dialog">
+    <div id="delete_modal1" class="delete_modal modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -157,7 +162,7 @@
                     <p>Are you sure to delete it?</p>
                 </div>
                 <div class="modal-footer">
-                    <button onclick="delete_modal2()" type="button" class="btn btn-dark">Delete</button>
+                    <button onclick="delete_modal1()" type="button" class="btn btn-dark">Delete</button>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -165,7 +170,7 @@
     </div>
 
     <script type="text/javascript">
-        function delete_modal2() {
+        function delete_modal1() {
             location.replace('delete/{{ phd.id }}/');
         }
     </script>
@@ -296,14 +301,14 @@
                     {% endif %}
                     {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == master.name or request.user.level == '2' and request.user.userid == master.name %}
                         <a href="modify/{{ master.id }}/" class="btn btn-success">Modify</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
-    <div id="delete_modal" class="modal fade" tabindex="-1" role="dialog">
+    <div id="delete_modal2" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -316,7 +321,7 @@
                     <p>Are you sure to delete it?</p>
                 </div>
                 <div class="modal-footer">
-                    <button onclick="delete_modal()" type="button" class="btn btn-dark">Delete</button>
+                    <button onclick="delete_modal2()" type="button" class="btn btn-dark">Delete</button>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -324,7 +329,7 @@
     </div>
 
     <script type="text/javascript">
-        function delete_modal() {
+        function delete_modal2() {
             location.replace('delete/{{ master.id }}/');
         }
     </script>
@@ -374,14 +379,14 @@
                     {% endif %}
                     {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '3' and request.user.username == undergraduate.name or request.user.level == '3' and request.user.userid == undergraduate.name %}
                         <a href="modify/{{ undergraduate.id }}/" class="btn btn-success">Modify</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal">delete</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal3">delete</button>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
-    <div id="delete_modal4" class="modal fade" tabindex="-1" role="dialog">
+    <div id="delete_modal3" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -394,7 +399,7 @@
                     <p>Are you sure to delete it?</p>
                 </div>
                 <div class="modal-footer">
-                    <button onclick="delete_modal4()" type="button" class="btn btn-dark">Delete</button>
+                    <button onclick="delete_modal3()" type="button" class="btn btn-dark">Delete</button>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -402,7 +407,7 @@
     </div>
 
     <script type="text/javascript">
-        function delete_modal4() {
+        function delete_modal3() {
             location.replace('delete/{{ undergraduate.id }}/');
         }
     </script>
@@ -449,14 +454,14 @@
                 <div class="modifyButton" style="text-align: right;">
                     {% if request.user.level == '0' or request.user.level == '1' or request.user.level == '2' and request.user.username == alumni.name or request.user.level == '2' and request.user.userid == alumni.name %}
                         <a href="modify/{{ alumni.id }}/" class="btn btn-success">Modify</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal3">delete</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal4">delete</button>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
-    <div id="delete_modal3" class="modal fade" tabindex="-1" role="dialog">
+    <div id="delete_modal4" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -469,7 +474,7 @@
                     <p>Are you sure to delete it?</p>
                 </div>
                 <div class="modal-footer">
-                    <button onclick="delete_modal3()" type="button" class="btn btn-dark">Delete</button>
+                    <button onclick="delete_modal4()" type="button" class="btn btn-dark">Delete</button>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -477,7 +482,7 @@
     </div>
 
     <script type="text/javascript">
-        function delete_modal3() {
+        function delete_modal4() {
             location.replace('delete/{{ alumni.id }}/');
         }
     </script>

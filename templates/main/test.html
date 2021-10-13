@@ -57,6 +57,7 @@
 
 <!-- particles.js container -->
 <div id="particles-js">
+
     <div class="navbar" style="background:linear-gradient(to bottom, rgba(50,50,50,0.9), rgba(60,60,60,0.65));">
         <a class="mr-auto font-weight-bold cbnu_logo" style="color:grey;" href="https://chungbuk.ac.kr"><img src="../../static/images/CBNU_logo2.png" width="60px" /></a>
         <a id="mail_logo" class="ml-auto cbnu_logo" style="cursor: pointer;color:white;"><span class="fas fa-envelope"></span> jehong@chungbuk.ac.kr</a>
@@ -182,13 +183,15 @@
         </div>
     </div>
 
-    <div class="container-fluid" style="position: absolute; pointer-events: none; margin-top: 50px; bottom:-80px;">
+
+    <div class="container-fluid" style="position: absolute; pointer-events: none; bottom:-30px;">
         <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8" style="background-color:rgba( 0, 0, 0, 0.5 ); padding: 80px;">
+            <!-- not col-sm, but col-lg for minimizing the window -->
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8" style="background-color:rgba( 0, 0, 0, 0.5 ); padding: 80px;">
                 <p style="color:white; font-size: 20px; text-align:center">* It's under being modified now *</p>
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-lg-2"></div>
         </div>
     </div>
 
@@ -201,6 +204,7 @@
 
     <script src="{% static 'js/particles.js' %}?ver=1.1"></script>
     <script src="{% static 'js/particles_app.js' %}?ver=1.1"></script>
+
 
     <div class="container-fluid main-footer">
         <div class="row">
@@ -234,5 +238,7 @@
             <br>
         </div>
     </div>
+
+
 </body>
 </html>

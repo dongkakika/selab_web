@@ -39,9 +39,9 @@ def home(request):
     notice = Notice.objects.first()
 
     if international_journal == None:
-        journal = International_Journal(title="Welcome", journals="DEFAULT", issued_date="DEFAULT")
+        international_journal = International_Journal(title="Welcome", journals="DEFAULT", issued_date="DEFAULT")
     if domestic_journal == None:
-        publication = Domestic_Journal(title="Welcome", journals="DEFAULT_", issued_date="DEFAULT_")
+        domestic_journal = Domestic_Journal(title="Welcome", journals="DEFAULT_", issued_date="DEFAULT_")
     if notice == None:
         notice = Notice(title="Welcome", content="DEFAULT__", hits="DEFAULT__")
 
