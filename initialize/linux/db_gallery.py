@@ -7,7 +7,8 @@ con = sqlite3.connect('../../db.sqlite3')
 cur = con.cursor()
 
 file_names = os.listdir('../../media/image/default/')
-contents = [
+
+texts = [
     '2010',
     '2015',
     '2015',
@@ -43,10 +44,14 @@ contents = [
     '2021, Thanks for our professor Hong a lot !',
     ]
 
-idx = 0
+contents = {}
+j = 0
 for i in file_names:
-    li = [i[3:-4], "image/default/"+i, contents[idx]]
-    idx += 1
+    contents[i[0:2]] = texts[j] 
+    j += 1
+
+for i in file_names:
+    li = [i[3:-4], "image/default/"+i, contents[i[0:2]]]
 
     cur.execute('insert into gallery (title, img, content) values(?, ?, ?)', li)
     con.commit()
