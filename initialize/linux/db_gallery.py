@@ -44,6 +44,8 @@ texts = [
     '2021, Thanks for our professor Hong a lot !',
     ]
 
+file_names.sort()
+
 contents = {}
 j = 0
 for i in file_names:
