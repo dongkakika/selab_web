@@ -17,6 +17,10 @@ while True:
     total.append(line)
 f.close()
 
+# db connection
+con = sqlite3.connect('../../db.sqlite3')
+cur = con.cursor()
+
 ### Main ###
 for li in total:
     
@@ -29,7 +33,7 @@ for li in total:
     people = []
     content = []
     journals = []
-    date = []
+    date = ""
     for i in after:
         lth = len(i)
         check = num_check(i)
@@ -38,21 +42,12 @@ for li in total:
         elif lth > 22:                 # content is always more than 22
             content.append(i)
         elif after[-1] == i:          # last element is always 'date'
-            date.append(i)
+            date = i
         else:
             journals.append(i)        # and something rest is 'journals'
+
+    date = date[1:len(date)]
     
-    # db connection
-    con = sqlite3.connect('../../db.sqlite3')
-    cur = con.cursor()
-
-    # data check
-    #idx=0
-    #for temp in cur.execute('select id from domestic_journal order by rowid desc limit 1;'):
-    #    idx = temp[0]
-    #    break
-
-    # combine data
     temp = ""
     for k in journals:
         temp += k
@@ -63,8 +58,9 @@ for li in total:
         temp = temp + k + ", "
     name = temp + content[0]
 
-    result = [name, journals, date[0]]
+    result = [name, journals, date]
 
     cur.execute('insert into domestic_journal(title, journals, issued_date) values(?,?,?)', result)
     con.commit()
-    con.close()
+
+con.close()    
