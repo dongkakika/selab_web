@@ -75,12 +75,12 @@
 
             </div>
 
+            {% if request.user.level == '0' or request.user.level == '1' %}
             <div style="text-align: right; margin-bottom:8px">
                 <a href="modify/{{ research.id }}/">order number: {{research.number}}</a>
             </div>
             <!-- 수정, 삭제 버튼 -->
             <div class="modifyButton" style="text-align: right;">
-                {% if request.user.level == '0' or request.user.level == '1' %}
                     <a href="modify/{{ research.id }}/" class="btn btn-success">Modify</a>
                     <button onclick="id_pass({{research.id}})" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal2">delete</button>
                     <script>
@@ -89,8 +89,8 @@
                             temp_url = id_value;
                         }
                     </script>
-                {% endif %}
             </div>
+            {% endif %}
             <!-- 삭제 버튼 클릭시, 팝업되는 modal창 -->
             <div id="delete_modal2" class="modal fade" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
