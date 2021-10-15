@@ -20,7 +20,11 @@ left_right_check = [False, True, False]
 number = [3, 2, 1]
 idx = 0
 for i in titles:
-    li = [i, 'image/research/' + file_names[idx], contents[idx], left_right_check[idx], number[idx]]
+    now_file = ""
+    for fn in file_names:
+        if int(fn[0]) == idx:
+            now_file = fn
+    li = [i, 'image/research/' + now_file, contents[idx], left_right_check[idx], number[idx]]
     idx += 1
 
     cur.execute('insert into research (title, img, content, left_right_check, number) values(?,?,?,?,?)', li)
