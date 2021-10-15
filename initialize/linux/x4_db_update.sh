@@ -3,8 +3,8 @@ python3 db_member.py
 python3 db_research.py
 python3 db_gallery.py
 
-python3 db_international_journal.py
-python3 db_domestic_journal.py
+python3 db_international.py
+python3 db_domestic.py
 python3 db_conference_1.py
 python3 db_conference_2.py
 python3 db_rp.py
