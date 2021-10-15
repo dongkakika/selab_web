@@ -1,5 +1,7 @@
-cd initialize\linux
+cd initialize/linux
 sh x1_delete_all_migrations_and_db.sh
+
+cd ../..
 
 git add -u
 git commit -a -m 'version update'
