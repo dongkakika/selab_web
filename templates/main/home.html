@@ -178,7 +178,7 @@
 
     </div>
 
-    <div class="container-fluid" style="position: absolute; pointer-events: none; bottom:-30px;">
+    <div id="caro" class="container-fluid" style="position: absolute; pointer-events: none; bottom:-30px;">
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8" style="background-color:rgba( 0, 0, 0, 0.5 ); padding-top: 45px; padding-bottom: 40px;">
@@ -267,7 +267,7 @@
     <script src="{% static 'js/particles.js' %}?ver=1.1"></script>
     <script src="{% static 'js/particles_app.js' %}?ver=1.1"></script>
 
-    <div class="container-fluid main-footer">
+    <div id="foo" class="container-fluid main-footer">
         <div class="row">
             <br>
             <div class="col-sm-2"></div>
@@ -276,16 +276,16 @@
 
 
                 {% if user.is_authenticated %}
-                    <a href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
+                    <a href="{% url 'main:logout' %}?next={{ request.path }}" style="color:red;"> Logout&nbsp;</a>
                 {% else %}
-                    <a href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
+                    <a href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login&nbsp;</a>
                 {% endif %}
 
                 {% if request.user.level == '0' or request.user.level == '1' %}
                     {% if request.user.activate == False %}
-                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"><b> Activate</b></a>
+                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"> Activate(can sign-up)</a>
                     {% else %}
-                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"><b> Deactivate</b></a>
+                    <a href="{% url 'main:activate_sign_up' %}" style="color:green;"> Deactivate(can't sign-up)</a>
                     {% endif %}
                 {% endif %}
                 <br>
@@ -299,5 +299,19 @@
             <br>
         </div>
     </div>
+
+    <script>
+
+
+        $(window).resize(function(){
+            if(window.innerWidth > 700){
+                $("#caro").css("top", $("#foo").position().top - 250.0);
+            } else {
+                $("#caro").css("top", $("#foo").position().top + 250.0);
+            }
+        });
+
+        //alert($("#caro").position().top + "\n" + $("#foo").position().top);
+    </script>
 </body>
 </html>

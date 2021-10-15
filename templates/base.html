@@ -167,16 +167,16 @@
                 <a>Copyright © CBNU SELab. All Rights Reserved.</a>
 
                 {% if user.is_authenticated %}
-                    <a href="{% url 'main:logout' %}?next={{ request.path }}" style="color:white;"> Logout</a>
+                    <a href="{% url 'main:logout' %}?next={{ request.path }}" style="color:red;"> Logout&nbsp;</a>
                 {% else %}
-                    <a href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login</a>
+                    <a href="{% url 'main:login' %}?next={{ request.path }}" style="color:white;"> Login&nbsp;</a>
                 {% endif %}
 
                 {% if request.user.level == '0' or request.user.level == '1' %}
                     {% if request.user.activate == False %}
-                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"><b> Activate</b></a>
+                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"> Activate(can sign-up)</a>
                     {% else %}
-                    <a href="{% url 'main:activate_sign_up' %}" style="color:white;"><b> Deactivate</b></a>
+                    <a href="{% url 'main:activate_sign_up' %}" style="color:green;"> Deactivate(can't sign-up)</a>
                     {% endif %}
                 {% endif %}
                 <br>
