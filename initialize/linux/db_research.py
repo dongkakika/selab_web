@@ -17,13 +17,13 @@ contents = ['<p style="margin-bottom: 0px;">Embedded SW Design and Validation Te
             '<p style="text-align: left; margin-bottom: 0px;"><b>&nbsp; &nbsp;Energy</b></p><p style="text-align: left; margin-bottom: 0px;">&nbsp; &nbsp; &nbsp; Architecture-Driven Energy Efficient</p><p style="text-align: left; margin-bottom: 0px;">&nbsp; &nbsp; &nbsp; SW Development in Robot Application</p><p style="text-align: left; margin-bottom: 0px;"><br></p><p style="text-align: left; margin-bottom: 0px;">&nbsp;&nbsp;&nbsp;<b>Safety</b></p><p style="text-align: left; margin-bottom: 0px;">&nbsp; &nbsp;&nbsp;&nbsp; Learning-Based Safety Prediction in Cyber-Physical System</p><p style="text-align: left; margin-bottom: 0px;"><br></p><p style="text-align: left; margin-bottom: 0px;">&nbsp;&nbsp;&nbsp;<b>Reuse</b></p><p style="text-align: left; margin-bottom: 0px;">&nbsp; &nbsp;&nbsp;&nbsp; Data Quality-Based Reuse Patterns for&nbsp;</p><p style="text-align: left; margin-bottom: 0px;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Big Data Analysis in Medical Domains</p>',
         ]
 left_right_check = [False, True, False]
-order = [3,2,1]
+orders = [3, 2, 1]
 idx = 0
 for i in titles:
-    li = [i, 'image/research/' + file_names[idx], contents[int(file_names[idx][0:1])], left_right_check[idx], order[idx]]
+    li = [i, 'image/research/' + file_names[idx], contents[int(file_names[idx][0:1])], left_right_check[idx], orders[idx]]
     idx += 1
 
-    cur.execute('insert into research (title, img, content, left_right_check, order) values(?,?,?,?,?)', li)
+    cur.execute('insert into research (title, img, content, left_right_check, number) values(?,?,?,?,?)', li)
     con.commit()
     
 con.close()
