@@ -158,7 +158,8 @@ def write_international_journal(request):
             messages.success(request, 'Saved')
             journal = form.save(commit = False) # 커밋 --> False
             journal.save() # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         form = InternationalJournalWriteForm()
 
@@ -172,7 +173,8 @@ def write_domestic_journal(request):
             messages.success(request, 'Saved')
             publication = form.save(commit = False) # 커밋 --> False
             publication.save() # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         form = DomesticJournalWriteForm()
 
@@ -188,7 +190,8 @@ def international_journal_detail_view(request, pk):
                 journal = form.save(commit=False)
                 journal.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         journal = International_Journal.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -214,7 +217,8 @@ def domestic_journal_detail_view(request, pk):
                 journal = form.save(commit=False)
                 journal.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         journal = Domestic_Journal.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -236,7 +240,8 @@ def international_journal_delete(request, pk):
     if request.user.level == '1' or request.user.level == '0':
         journal.delete()
         messages.success(request, "Deleted successfully.")
-        return redirect('/ppr/publication')
+        q = request.GET['q']
+        return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         messages.error(request, "This post does not belong to you.")
         return redirect('/ppr/publication')
@@ -247,7 +252,8 @@ def domestic_journal_delete(request, pk):
     if request.user.level == '1' or request.user.level == '0':
         domestic_journal.delete()
         messages.success(request, "Deleted successfully.")
-        return redirect('/ppr/publication')
+        q = request.GET['q']
+        return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         messages.error(request, "This post does not belong to you.")
         return redirect('/ppr/publication')

@@ -19,7 +19,8 @@ def ip_write(request):
             # commit = False는 바로 저장하는 것을 방지
             ip = form.save(commit=False)
             ip.save()  # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
 
     else:
         form = IPForm()
@@ -35,7 +36,8 @@ def ip_modify(request, pk):
                 IP_form = form.save(commit=False)
                 IP_form.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         IP = ip.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -58,7 +60,8 @@ def rp_write(request):
             # commit = False는 바로 저장하는 것을 방지
             rp = form.save(commit=False)
             rp.save()  # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
 
     else:
         form = RPForm()
@@ -74,7 +77,8 @@ def rp_modify(request, pk):
                 RP_form = form.save(commit=False)
                 RP_form.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         RP = rp.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -97,7 +101,8 @@ def activities_write(request):
             # commit = False는 바로 저장하는 것을 방지
             activities = form.save(commit=False)
             activities.save()  # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
 
     else:
         form = ActivitiesForm()
@@ -113,7 +118,8 @@ def activities_modify(request, pk):
                 activities_form = form.save(commit=False)
                 activities_form.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         Activities = activities.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -136,7 +142,8 @@ def award_write(request):
             # commit = False는 바로 저장하는 것을 방지
             award = form.save(commit=False)
             award.save()  # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
 
     else:
         form = AwardForm()
@@ -152,7 +159,8 @@ def award_modify(request, pk):
                 award_form = form.save(commit=False)
                 award_form.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         Award = award.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -175,7 +183,8 @@ def conference_write(request):
             # commit = False는 바로 저장하는 것을 방지
             conference = form.save(commit=False)
             conference.save()  # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
 
     else:
         form = ConferenceForm()
@@ -191,7 +200,8 @@ def conference_modify(request, pk):
                 conference_form = form.save(commit=False)
                 conference_form.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         conference = Conference.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -214,7 +224,8 @@ def etc_write(request):
             messages.success(request, 'Saved')
             etc = form.save(commit = False) # 커밋 --> False
             etc.save() # 내용 저장
-            return redirect('ppr:publication')
+            q = request.GET['q']
+            return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         form = EtcWriteForm()
 
@@ -230,7 +241,8 @@ def etc_modify(request, pk):
                 etc = form.save(commit=False)
                 etc.save()
                 messages.success(request, 'Modified well')
-                return redirect('/ppr/publication')
+                q = request.GET['q']
+                return redirect('/ppr/publication/?q=' + q + "&page=1")
     else:
         etc = Etc.objects.get(id=pk)
         if request.user.level == '0' or request.user.level == '1':
@@ -246,44 +258,47 @@ def etc_modify(request, pk):
             messages.error(request, "You do not have access")
             return redirect('/ppr/publication')
 
+
+
 class award_delete(DeleteView):
     model = award
-    success_url = str('/ppr/publication')
+    success_url = str('/ppr/publication') + '?q=4&?page=1'
 
     def get(self, request, *args, **kwargs):
+
         return self.post(request, *args, **kwargs)
 
 class activities_delete(DeleteView):
     model = activities
-    success_url = str('/ppr/publication')
+    success_url = str('/ppr/publication') + '?q=7&?page=1'
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
 class ip_delete(DeleteView):
     model = ip
-    success_url = str('/ppr/publication')
+    success_url = str('/ppr/publication') + '?q=6&?page=1'
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
 class rp_delete(DeleteView):
     model = rp
-    success_url = str('/ppr/publication')
+    success_url = str('/ppr/publication') + '?q=5&?page=1'
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
 class conference_delete(DeleteView):
     model = Conference
-    success_url = str('/ppr/publication')
+    success_url = str('/ppr/publication') + '?q=3&?page=1'
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
 class etc_delete(DeleteView):
     model = Etc
-    success_url = str('/ppr/publication')
+    success_url = str('/ppr/publication') + '?q=8&?page=1'
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)

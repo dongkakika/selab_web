@@ -100,7 +100,7 @@
                             <tbody>
                                 {% if international_list %}
                                 {% for international in international_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/international/{{ international.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/international/{{ international.id }}/?q=1&page=1'" {% endif %}>
                                     <td>{{ international.issued_date }}</td>
                                     <td>{{ international.title|truncatechars:200 }}</td>
                                     <td style="text-align:center">{{ international.journals }}</td>
@@ -125,7 +125,7 @@
                         </table>
                         <!-- 해외 논문 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/ppr/international_journal_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/ppr/international_journal_write/?q=1&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <div class="row text-center">
@@ -185,7 +185,7 @@
                             <tbody>
                                 {% if domestic_list %}
                                 {% for domestic in domestic_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/domestic/{{ domestic.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/ppr/domestic/{{ domestic.id }}/?q=2&page=1'" {% endif %}>
                                     <td>{{ domestic.issued_date }}</td>
                                     <td>{{ domestic.title|truncatechars:80 }}</td>
                                     <td>{{ domestic.journals }}</td>
@@ -210,7 +210,7 @@
                         </table>
                         <!-- 국외 논문 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/ppr/domestic_journal_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/ppr/domestic_journal_write/?q=2&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -267,7 +267,7 @@
                             <tbody>
                                 {% if conference_list %}
                                 {% for conference in conference_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/conference/{{ conference.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/conference/{{ conference.id }}/?q=3&page=1'" {% endif %}>
                                     <td>{{ conference.period }}</td>
                                     <td>{{ conference.title|truncatechars:80 }}</td>
                                     <td style="text-align: center">{{ conference.academic_conference }}</td>
@@ -293,7 +293,7 @@
                         </table>
                         <!-- conference writing button -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/tabs/conference_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/conference_write/?q=3&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -353,7 +353,7 @@
                             <tbody>
                                 {% if award_list %}
                                 {% for award in award_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/award/{{ award.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/award/{{ award.id }}/?q=4&page=1'" {% endif %}>
                                     <td>{{ award.date }}</td>
                                     <td>{{ award.title|truncatechars:80 }}</td>
                                     <td>{{ award.content }}</td>
@@ -378,7 +378,7 @@
                         </table>
                         <!-- Award 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/tabs/award_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/award_write/?q=4&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -438,7 +438,7 @@
                             <tbody>
                                 {% if rp_list %}
                                 {% for rp in rp_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/rp/{{ rp.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/rp/{{ rp.id }}/?q=5&page=1'" {% endif %}>
                                     <td>{{ rp.id }}</td>
                                     <td>{{ rp.title|truncatechars:80 }}</td>
                                     <td>{{ rp.org }}</td>
@@ -464,7 +464,7 @@
                         </table>
                         <!-- 퍼블리케이션 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/tabs/rp_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/rp_write/?q=5&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -525,7 +525,7 @@
                             <tbody>
                                 {% if ip_list %}
                                 {% for ip in ip_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/ip/{{ ip.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/ip/{{ ip.id }}/?q=6&page=1'" {% endif %}>
                                     <td>{{ ip.type }}</td>
                                     <td>{{ ip.title|truncatechars:50 }}</td>
                                     <td>{{ ip.number }}</td>
@@ -551,7 +551,7 @@
                         </table>
                         <!-- 퍼블리케이션 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/tabs/ip_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/ip_write/?q=6&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -610,7 +610,7 @@
                             <tbody>
                                 {% if activities_list %}
                                 {% for activity in activities_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/activities/{{ activity.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/activities/{{ activity.id }}/?q=7&page=1'" {% endif %}>
                                     <td>{{ activity.id }}</td>
                                     <td>{{ activity.title|truncatechars:80 }}</td>
                                     <td style="text-align: center">{{ activity.announced_date }}</td>
@@ -635,7 +635,7 @@
                         </table>
                         <!-- 퍼블리케이션 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/tabs/activities_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/activities_write/?q=7&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
@@ -694,7 +694,7 @@
                             <tbody>
                                 {% if etc_list %}
                                 {% for etc in etc_list %}
-                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/etc/{{ etc.id }}/'" {% endif %}>
+                                <tr {% if user.is_authenticated %} style="cursor:pointer;" onclick="location.href='/tabs/etc/{{ etc.id }}/?q=8&page=1'" {% endif %}>
                                     <td>{{ etc.date }}</td>
                                     <td style="text-align:center;">{{ etc.title|truncatechars:30 }}</td>
                                     <td style="text-align:center;">{{ etc.content }}</td>
@@ -719,7 +719,7 @@
                         </table>
                         <!-- 퍼블리케이션 글쓰기 버튼 -->
                         {% if request.user.level == '0' or request.user.level == '1' %}
-                            <a style="float:right" href="/tabs/etc_write/" class="btn btn-secondary">Write</a>
+                            <a style="float:right" href="/tabs/etc_write/?q=8&page=1" class="btn btn-secondary">Write</a>
                         {% endif %}
 
                         <!-- 페이지가 생성되면, -->
