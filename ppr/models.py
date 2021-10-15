@@ -3,7 +3,7 @@ from django.conf import settings
 
 # Create your models here.
 class Domestic_Journal(models.Model):
-    title = models.CharField(max_length=128, verbose_name='title')
+    title = models.TextField(verbose_name='title')
     journals = models.TextField(verbose_name='journals')
     issued_date = models.TextField(verbose_name='issued_date')
 
@@ -16,7 +16,7 @@ class Domestic_Journal(models.Model):
         verbose_name_plural = 'Domestic Journal'
 
 class International_Journal(models.Model):
-    title = models.CharField(max_length=128, verbose_name='title')
+    title = models.TextField(verbose_name='title')
     journals = models.TextField(verbose_name='journals')
     issued_date = models.TextField(verbose_name='issued_date')
 

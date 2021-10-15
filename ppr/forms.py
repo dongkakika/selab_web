@@ -38,7 +38,7 @@ class InternationalJournalWriteForm(forms.ModelForm):
         super(InternationalJournalWriteForm, self).__init__(*args, **kwargs)
         self.fields['title'].label = 'Title'
         self.fields['title'].widget.attrs.update({
-            'placeholder': 'Please write a title',
+            'placeholder': 'Please write a title\nex)J.W. Lee, D.H. Kim and J.E. Hong, "Estimation of Energy Consumption for Mobile Software using UML State Machine Diagram"',
             'class': 'form-control',
             'autofocus': True,
         })
@@ -48,7 +48,7 @@ class InternationalJournalWriteForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['issued_date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
+            'placeholder': '"MUST" follow this form 2021. 08. 01 or 2021. 08',
             'class': 'form-control',
             'autofocus': True
         })
@@ -71,7 +71,7 @@ class DomesticJournalWriteForm(forms.ModelForm):
             'autofocus': True
         })
         self.fields['issued_date'].widget.attrs.update({
-            'placeholder': '"MUST" follow this form 2021 .08 .01 or 2021 .08',
+            'placeholder': '"MUST" follow this form 2021. 08. 01 or 2021. 08',
             'class': 'form-control',
             'autofocus': True
         })

@@ -7,9 +7,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
+        #id_title{
+
+        }
+        #id_journals{
+            height: 75px;
+        }
         #id_issued_date{
             height: 34px;
-            width: 300px;
+            width: 500px;
         }
     </style>
 </head>
@@ -19,19 +25,19 @@
         {% csrf_token %}
         <h1>Journal Upload</h1><br>
 
-        <div class="card">
+        <div>
             <label>Title: </label>
-            <div class="card-header">
+            <div>
                 {{ form.title }}
             </div><br>
 
             <label>Journals: </label><br>
-            <div class="card-body">
+            <div>
                 {{ form.journals }}
             </div><br>
 
             <label>Issued date: </label><br>
-            <div class="">
+            <div>
                 {{ form.issued_date }}
             </div><br>
         </div>

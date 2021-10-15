@@ -63,7 +63,7 @@ for li in total:
 
     temp = ""
     for k in people:
-        temp += k
+        temp = temp + k + ", "
     name = temp + content[0]
 
     result = [name, journals, date[0]]
