@@ -1,1 +1,1 @@
-python3 _create_superuser.py
+sudo python3 ../../manage.py createsuperuser
