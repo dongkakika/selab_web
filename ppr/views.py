@@ -53,7 +53,7 @@ def research_modify(request, pk):
             return redirect('/ppr/research')
 
 def research(request):
-    research_list = Research.objects.all()
+    research_list = Research.objects.all().order_by('-order')
     context = {
         'research_list' : research_list,
         'selected': "Research_Area",
