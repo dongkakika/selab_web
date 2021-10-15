@@ -22,7 +22,7 @@ idx = 0
 for i in titles:
     li = [i, 'image/research/' + file_names[idx], contents[int(file_names[idx][0:1])], left_right_check[idx], order[idx]]
     idx += 1
-    
+
     cur.execute('insert into research (title, img, content, left_right_check, order) values(?,?,?,?,?)', li)
     con.commit()
     

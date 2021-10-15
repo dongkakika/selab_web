@@ -8,6 +8,12 @@ from .models import International_Journal, Domestic_Journal, Research
 class ResearchForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ResearchForm, self).__init__(*args, **kwargs)
+        self.fields['number'].widget.attrs.update({
+            'placeholder': 'Enter order number.',
+            'class': 'form-control',
+            'autofocus': True,
+            'default': 2147483647,
+        })
         self.fields['img'].label = 'Upload'
         self.fields['img'].widget.attrs.update({
             'placeholder': 'Please upload an image',
@@ -29,7 +35,7 @@ class ResearchForm(forms.ModelForm):
 
     class Meta:
         model = Research
-        fields = ['title', 'img', 'content', 'left_right_check']
+        fields = ['number', 'title', 'img', 'content', 'left_right_check']
 
 
 

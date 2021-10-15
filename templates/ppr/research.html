@@ -75,7 +75,9 @@
 
             </div>
 
-
+            <div style="text-align: right; margin-bottom:8px">
+                <a href="modify/{{ research.id }}/">order number: {{research.number}}</a>
+            </div>
             <!-- 수정, 삭제 버튼 -->
             <div class="modifyButton" style="text-align: right;">
                 {% if request.user.level == '0' or request.user.level == '1' %}

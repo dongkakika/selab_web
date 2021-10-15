@@ -22,6 +22,9 @@
             height: 40px;
             width: 220px;
         }
+        #id_number{
+            width: 300px;
+        }
     </style>
 </head>
 <body>
@@ -46,6 +49,11 @@
                 alert(radio1_stat);
             </script>
             <br><br>
+
+            <label>Order number: </label>
+            <div style="">
+                {{form.number}}
+            </div><br>
 
             <label>Title: </label>
             <div class="card-header">

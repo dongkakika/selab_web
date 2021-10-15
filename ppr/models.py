@@ -38,7 +38,7 @@ class Research(models.Model):
     )
     content = models.TextField(verbose_name='content')
     left_right_check = models.BooleanField(verbose_name='left_right_check')
-    order = models.IntegerField(verbose_name='order', default=2147483647)
+    number = models.IntegerField(verbose_name='number', default=2147483647)
 
     def __str__(self):
         return self.title
