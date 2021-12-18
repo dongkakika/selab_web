@@ -19,6 +19,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import redirect
 
+# DEBUG = true to DEBUG = false
+from django.conf.urls import url
+from django.views.static import serve
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('main.urls')), 문제가 생겨서 아래 코드로
@@ -29,5 +33,8 @@ urlpatterns = [
     path('people/', include('people.urls')),
     path('tabs/', include('tabs.urls')),
     path('gallery/', include('gallery.urls')),
+
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

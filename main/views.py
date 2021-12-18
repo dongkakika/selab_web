@@ -34,9 +34,9 @@ def test(request):
 
 def home(request):
     # 캐러셀 슬라이드 내용 뽑아오기
-    international_journal = International_Journal.objects.first()
-    domestic_journal = Domestic_Journal.objects.first()
-    notice = Notice.objects.first()
+    international_journal = International_Journal.objects.last()
+    domestic_journal = Domestic_Journal.objects.last()
+    notice = Notice.objects.last()
 
     if international_journal == None:
         international_journal = International_Journal(title="Welcome", journals="DEFAULT", issued_date="DEFAULT")
